@@ -1,6 +1,5 @@
 
 import XCTest
-
 @testable import MaterialSnake
 
 class DirectionTest: XCTestCase {
