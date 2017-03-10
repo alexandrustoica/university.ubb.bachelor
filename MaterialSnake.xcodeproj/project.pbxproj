@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3174FE541E730D1D00312AD1 /* SpaceEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3174FE531E730D1D00312AD1 /* SpaceEntity.swift */; };
+		3174FE561E730DA700312AD1 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3174FE551E730DA700312AD1 /* Map.swift */; };
 		31B371391E6FB6C3002AF87E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B371381E6FB6C3002AF87E /* AppDelegate.swift */; };
 		31B3713B1E6FB6C3002AF87E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3713A1E6FB6C3002AF87E /* ViewController.swift */; };
 		31B3713E1E6FB6C3002AF87E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31B3713C1E6FB6C3002AF87E /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3174FE531E730D1D00312AD1 /* SpaceEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceEntity.swift; sourceTree = "<group>"; };
+		3174FE551E730DA700312AD1 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		31B371351E6FB6C3002AF87E /* MaterialSnake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaterialSnake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31B371381E6FB6C3002AF87E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31B3713A1E6FB6C3002AF87E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 				31B3716F1E6FBCDA002AF87E /* Direction.swift */,
 				31B371731E6FC7A7002AF87E /* Size.swift */,
 				31B371771E6FCB8A002AF87E /* Position.swift */,
+				3174FE531E730D1D00312AD1 /* SpaceEntity.swift */,
+				3174FE551E730DA700312AD1 /* Map.swift */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -322,7 +328,9 @@
 			files = (
 				31B3713B1E6FB6C3002AF87E /* ViewController.swift in Sources */,
 				31B371741E6FC7A7002AF87E /* Size.swift in Sources */,
+				3174FE561E730DA700312AD1 /* Map.swift in Sources */,
 				31B371781E6FCB8A002AF87E /* Position.swift in Sources */,
+				3174FE541E730D1D00312AD1 /* SpaceEntity.swift in Sources */,
 				31B371411E6FB6C3002AF87E /* MaterialSnake.xcdatamodeld in Sources */,
 				31B371391E6FB6C3002AF87E /* AppDelegate.swift in Sources */,
 				31B371701E6FBCDA002AF87E /* Direction.swift in Sources */,
@@ -578,6 +586,7 @@
 				31B371621E6FB6C3002AF87E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		31B371631E6FB6C3002AF87E /* Build configuration list for PBXNativeTarget "MaterialSnakeTests" */ = {
 			isa = XCConfigurationList;
@@ -586,6 +595,7 @@
 				31B371651E6FB6C3002AF87E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		31B371661E6FB6C3002AF87E /* Build configuration list for PBXNativeTarget "MaterialSnakeUITests" */ = {
 			isa = XCConfigurationList;
@@ -594,6 +604,7 @@
 				31B371681E6FB6C3002AF87E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
