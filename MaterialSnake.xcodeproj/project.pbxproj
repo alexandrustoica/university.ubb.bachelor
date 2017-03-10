@@ -22,6 +22,8 @@
 		31B371761E6FC9B5002AF87E /* SizeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B371751E6FC9B5002AF87E /* SizeTest.swift */; };
 		31B371781E6FCB8A002AF87E /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B371771E6FCB8A002AF87E /* Position.swift */; };
 		31B3717A1E6FCC2D002AF87E /* PositionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B371791E6FCC2D002AF87E /* PositionTest.swift */; };
+		91F02139546A3E67034C2B4A /* Snake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F025AF70E64B004BAF3FF5 /* Snake.swift */; };
+		91F02F4B62A12B8ECF3D0B3C /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F0264EC205711098007FC6 /* Food.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		31B371751E6FC9B5002AF87E /* SizeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeTest.swift; sourceTree = "<group>"; };
 		31B371771E6FCB8A002AF87E /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		31B371791E6FCC2D002AF87E /* PositionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTest.swift; sourceTree = "<group>"; };
+		91F025AF70E64B004BAF3FF5 /* Snake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snake.swift; sourceTree = "<group>"; };
+		91F0264EC205711098007FC6 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +189,8 @@
 				31B371771E6FCB8A002AF87E /* Position.swift */,
 				3174FE531E730D1D00312AD1 /* SpaceEntity.swift */,
 				3174FE551E730DA700312AD1 /* Map.swift */,
+				91F025AF70E64B004BAF3FF5 /* Snake.swift */,
+				91F0264EC205711098007FC6 /* Food.swift */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -334,6 +340,8 @@
 				31B371411E6FB6C3002AF87E /* MaterialSnake.xcdatamodeld in Sources */,
 				31B371391E6FB6C3002AF87E /* AppDelegate.swift in Sources */,
 				31B371701E6FBCDA002AF87E /* Direction.swift in Sources */,
+				91F02139546A3E67034C2B4A /* Snake.swift in Sources */,
+				91F02F4B62A12B8ECF3D0B3C /* Food.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

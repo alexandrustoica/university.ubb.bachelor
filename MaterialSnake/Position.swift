@@ -30,11 +30,12 @@ struct Position {
     
     /**
      Tests if two objects have approximately the same position.
+
      - note: tolerance = 1.0
      - parameter other: the object's position
      - returns Bool
      */
-    func isAproxEqual(_ other: Position) -> Bool {
+    func isApproxEqual(_ other: Position) -> Bool {
         return (ceil(x) == ceil(other.x)) &&
             (ceil(y) == ceil(other.y))
     }

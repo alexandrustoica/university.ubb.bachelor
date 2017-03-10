@@ -24,11 +24,12 @@ struct Size {
     
     /**
      Tests if two objects have approximately the same size.
+
      - note: tolerance = 1.0
      - parameter other: the object's size
      - returns Bool
      */
-    public func isAproxEqual(_ other: Size) -> Bool {
+    public func isApproxEqual(_ other: Size) -> Bool {
         return ceil(width) == ceil(other.width) &&
             ceil(height) == ceil(other.height)
     }

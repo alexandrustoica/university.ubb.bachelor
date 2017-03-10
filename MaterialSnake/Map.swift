@@ -35,6 +35,7 @@ class Map: SpaceEntity {
 
     /**
      The map needs a cell in order to divide by itself into rows and columns.
+
      - parameter position: the origin position of the map
      - parameter size: the size of the map
      - parameter cell: the approximate size of the cell

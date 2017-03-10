@@ -2,7 +2,7 @@
 import Foundation
 
 
-///  2D Directions - For moving objects in our system.
+///  2D Directions - For moving objects in our system
 enum DirectionType {
     case Left
     case Right
@@ -17,7 +17,7 @@ enum DirectionType {
 
 extension DirectionType {
     
-    /// The opposite direction type of our current direction type.
+    /// The opposite direction type of the current direction type.
     var opposite: DirectionType {
         switch self {
         case .Left: return .Right
@@ -72,12 +72,12 @@ struct Direction: Equatable {
     
     /**
      The X value of our direction point.
-     
+
      ## Possible Values & Meanings ##
      ````
-     * value -1 : The object will move to the left side of the screen
-     * value  0 : The Object will move the the top/bottom of the screen
-     * value  1 : The Object will move the the right side of the screen
+     * value -1 : The object will move to the left side of the screen.
+     * value  0 : The Object will move the the top/bottom of the screen.
+     * value  1 : The Object will move the the right side of the screen.
      * value nil : The type of the direction is undefined.
      ````
      */
@@ -87,13 +87,13 @@ struct Direction: Equatable {
     
     /**
      The Y value of our direction point.
-     
+
      ## Possible Values & Meanings ##
      ````
-     * value -1 : The object will move to the top of the screen
-     * value  0 : The Object will move the the left/right side of the screen
-     * value  1 : The Object will move the the bottom of the screen
-     * value nil : The type of the direction is undefined.
+     * value -1 : The object will move to the top of the screen.
+     * value  0 : The Object will move the the left/right side of the screen.
+     * value  1 : The Object will move the the bottom of the screen.
+     * value nil : The type of the direction is undefined;.
      ````
      */
     var y: Int? {
@@ -128,16 +128,16 @@ struct Direction: Equatable {
     
     /**
      Returns a random direction based on category (Simple, Complex or All).
-     
+
      ## Possible Values & Meanings ##
      ````
      * value DirectionCategory.Simple : Includes Left, Right, Up, Down
      * value DirectionCategory.Complex: Includes UpRight, UpLeft, DownRight, DownLeft
      * value DirectionCategory.All    : Includes All Direction Types
      ````
-     
-     - parameter category: The direction's category.
-     - returns: New random direction based on category.
+
+     - parameter category: The direction's category
+     - returns: New random direction based on category
      */
     static func random(category: DirectionCategory = DirectionCategory.All) -> Direction {
         var type = DirectionType.Right
