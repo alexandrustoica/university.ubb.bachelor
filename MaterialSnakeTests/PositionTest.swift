@@ -13,7 +13,7 @@ class PositionTest: XCTestCase {
         super.tearDown()
     }
     
-    func testIsAproxEqual() {
+    func testIsApproxEqual() {
         for _ in 1...100 {
             let position = Position(x: drand48(), y: drand48())
             let test = Position(x: drand48(), y: drand48())

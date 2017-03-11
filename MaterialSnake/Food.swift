@@ -20,6 +20,21 @@ struct Food: SpaceEntity {
     /// The size of the food ** Recommended ** Use map's exact cell size
     var size: Size
 
+    var body: [Position] {
+        get {
+            switch type {
+            case .Normal:
+                return [position]
+            case .Bonus:
+                var result = [position]
+                    result.append(Position(x: position.x, y: position.y + size.width))
+                    result.append(Position(x: position.x + size.height, y: position.y))
+                    result.append(Position(x: position.x + size.height, y: position.y + size.width))
+                return result
+            }
+        }
+    }
+
     /// The food's type [Normal/Bonus]
     private (set) var type: FoodType
 
@@ -53,6 +68,19 @@ struct Food: SpaceEntity {
         self.position = position
         self.size = size
         self.type = type
+    }
+
+    /**
+     Tests if the food is eaten by an other object.
+     - parameter by: The position of the other object.
+    */
+    func isEaten(by position: Position) -> Bool {
+        for element in body {
+            if element.isApproxEqual(position) {
+                return true
+            }
+        }
+        return false
     }
 
 }

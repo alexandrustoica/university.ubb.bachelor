@@ -24,6 +24,9 @@
 		31B3717A1E6FCC2D002AF87E /* PositionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B371791E6FCC2D002AF87E /* PositionTest.swift */; };
 		91F02139546A3E67034C2B4A /* Snake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F025AF70E64B004BAF3FF5 /* Snake.swift */; };
 		91F024F5B739B79C840203B5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F026C4508F7DC3848F6B6F /* Game.swift */; };
+		91F02AD9ADD32A6871DF91FB /* MapTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F0267E5B1C6AD14A8674C4 /* MapTest.swift */; };
+		91F02B33D47736C576A71290 /* FoodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F02DD79B235B5DB5DD1BA9 /* FoodTest.swift */; };
+		91F02E07ACA3A9E321738807 /* SnakeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F024D2D24CA71B06FFEE3A /* SnakeTest.swift */; };
 		91F02F4B62A12B8ECF3D0B3C /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F0264EC205711098007FC6 /* Food.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,9 +69,12 @@
 		31B371751E6FC9B5002AF87E /* SizeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeTest.swift; sourceTree = "<group>"; };
 		31B371771E6FCB8A002AF87E /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		31B371791E6FCC2D002AF87E /* PositionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTest.swift; sourceTree = "<group>"; };
+		91F024D2D24CA71B06FFEE3A /* SnakeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeTest.swift; sourceTree = "<group>"; };
 		91F025AF70E64B004BAF3FF5 /* Snake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snake.swift; sourceTree = "<group>"; };
 		91F0264EC205711098007FC6 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		91F0267E5B1C6AD14A8674C4 /* MapTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTest.swift; sourceTree = "<group>"; };
 		91F026C4508F7DC3848F6B6F /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		91F02DD79B235B5DB5DD1BA9 /* FoodTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,9 @@
 				31B371711E6FBDD1002AF87E /* DirectionTest.swift */,
 				31B371751E6FC9B5002AF87E /* SizeTest.swift */,
 				31B371791E6FCC2D002AF87E /* PositionTest.swift */,
+				91F0267E5B1C6AD14A8674C4 /* MapTest.swift */,
+				91F024D2D24CA71B06FFEE3A /* SnakeTest.swift */,
+				91F02DD79B235B5DB5DD1BA9 /* FoodTest.swift */,
 			);
 			path = MaterialSnakeTests;
 			sourceTree = "<group>";
@@ -356,6 +365,9 @@
 				31B371761E6FC9B5002AF87E /* SizeTest.swift in Sources */,
 				31B371721E6FBDD1002AF87E /* DirectionTest.swift in Sources */,
 				31B3717A1E6FCC2D002AF87E /* PositionTest.swift in Sources */,
+				91F02AD9ADD32A6871DF91FB /* MapTest.swift in Sources */,
+				91F02E07ACA3A9E321738807 /* SnakeTest.swift in Sources */,
+				91F02B33D47736C576A71290 /* FoodTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

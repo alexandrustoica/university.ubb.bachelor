@@ -45,29 +45,37 @@ class Map: SpaceEntity {
         self.size = size
         self.cell = Size()
         self.cell = { [unowned me = self] () -> Size in
-            let cols = Int(ceil(me.size.width)) / cell.approximateWidth
-            let rows = Int(ceil(me.size.height)) / cell.approximateHeight
-            return Size(width: me.size.width / Double(cols),
-                        height: me.size.height / Double(rows))
+            let cols = Int(ceil(me.size.width - me.position.x)) / cell.approximateWidth
+            let rows = Int(ceil(me.size.height - me.position.y)) / cell.approximateHeight
+            return Size(width: (me.size.width - me.position.x) / Double(cols),
+                        height: (me.size.height - me.position.y) / Double(rows))
         }()
     }
 
     /// - returns: new random position on the map [no restrictions]
     func getRandomPosition() -> Position {
-        let xPosition = Double(arc4random_uniform(UInt32(cols))) * cell.width
-        let yPosition = Double(arc4random_uniform(UInt32(rows))) * cell.height
+        let xPosition = position.x + Double(arc4random_uniform(UInt32(cols))) * cell.width
+        let yPosition = position.y + Double(arc4random_uniform(UInt32(rows))) * cell.height
         return Position(x: xPosition, y: yPosition)
     }
-    
+
     /**
      Checks if a position is on the map.
      - parameter position: the position we need to test
      */
+    func isInside(position: Position) -> Bool {
+        return !isOutside(position: position)
+    }
+
+    /**
+     Checks if a position is not on the map.
+     - parameter position: the position we need to test
+     */
     func isOutside(position: Position) -> Bool {
-        return (self.position.x > position.x) ||
-            (self.position.y > position.y) ||
-            (self.position.x + self.size.width <= position.x) ||
-            (self.position.y + self.size.height <= position.y)
+        return self.position.x > position.x ||
+                self.position.y > position.y ||
+                self.position.x + self.size.width <= position.x ||
+                self.position.y + self.size.height <= position.y
     }
     
 }

@@ -12,7 +12,7 @@ class SizeTest: XCTestCase {
         super.tearDown()
     }
     
-    func testIsAproxEqual() {
+    func testIsApproxEqual() {
         for _ in 1...100 {
             let sizeA = Size(width: drand48(), height: drand48())
             let sizeB = Size(width: drand48(), height: drand48())
