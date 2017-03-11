@@ -23,10 +23,14 @@
 		31B371781E6FCB8A002AF87E /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B371771E6FCB8A002AF87E /* Position.swift */; };
 		31B3717A1E6FCC2D002AF87E /* PositionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B371791E6FCC2D002AF87E /* PositionTest.swift */; };
 		91F02139546A3E67034C2B4A /* Snake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F025AF70E64B004BAF3FF5 /* Snake.swift */; };
+		91F0233847DA93B3F42880B5 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F021E09699580B4756FCF8 /* GameModel.swift */; };
 		91F024F5B739B79C840203B5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F026C4508F7DC3848F6B6F /* Game.swift */; };
+		91F02653344A115C7C283830 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F02E0C61265778FF9F5DD0 /* Observable.swift */; };
 		91F02AD9ADD32A6871DF91FB /* MapTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F0267E5B1C6AD14A8674C4 /* MapTest.swift */; };
 		91F02B33D47736C576A71290 /* FoodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F02DD79B235B5DB5DD1BA9 /* FoodTest.swift */; };
+		91F02DE917F3A1852E921941 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F023FCC8EBEC5A4A88F9C3 /* Observer.swift */; };
 		91F02E07ACA3A9E321738807 /* SnakeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F024D2D24CA71B06FFEE3A /* SnakeTest.swift */; };
+		91F02E5CFBA665287F261FD3 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F02B45CD1D2240428084C9 /* Event.swift */; };
 		91F02F4B62A12B8ECF3D0B3C /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F0264EC205711098007FC6 /* Food.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,12 +73,16 @@
 		31B371751E6FC9B5002AF87E /* SizeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeTest.swift; sourceTree = "<group>"; };
 		31B371771E6FCB8A002AF87E /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		31B371791E6FCC2D002AF87E /* PositionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTest.swift; sourceTree = "<group>"; };
+		91F021E09699580B4756FCF8 /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		91F023FCC8EBEC5A4A88F9C3 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		91F024D2D24CA71B06FFEE3A /* SnakeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeTest.swift; sourceTree = "<group>"; };
 		91F025AF70E64B004BAF3FF5 /* Snake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snake.swift; sourceTree = "<group>"; };
 		91F0264EC205711098007FC6 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		91F0267E5B1C6AD14A8674C4 /* MapTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTest.swift; sourceTree = "<group>"; };
 		91F026C4508F7DC3848F6B6F /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		91F02B45CD1D2240428084C9 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		91F02DD79B235B5DB5DD1BA9 /* FoodTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTest.swift; sourceTree = "<group>"; };
+		91F02E0C61265778FF9F5DD0 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +138,7 @@
 				31B3716A1E6FBC78002AF87E /* Controller */,
 				31B3716C1E6FBC96002AF87E /* Model */,
 				31B3716E1E6FBCBC002AF87E /* Domain */,
+				91F023BBF75A66C8F756E08C /* Observer */,
 			);
 			path = MaterialSnake;
 			sourceTree = "<group>";
@@ -180,6 +189,7 @@
 		31B3716C1E6FBC96002AF87E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				91F021E09699580B4756FCF8 /* GameModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -205,6 +215,16 @@
 				91F026C4508F7DC3848F6B6F /* Game.swift */,
 			);
 			name = Domain;
+			sourceTree = "<group>";
+		};
+		91F023BBF75A66C8F756E08C /* Observer */ = {
+			isa = PBXGroup;
+			children = (
+				91F02E0C61265778FF9F5DD0 /* Observable.swift */,
+				91F023FCC8EBEC5A4A88F9C3 /* Observer.swift */,
+				91F02B45CD1D2240428084C9 /* Event.swift */,
+			);
+			path = Observer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,6 +375,10 @@
 				91F02139546A3E67034C2B4A /* Snake.swift in Sources */,
 				91F02F4B62A12B8ECF3D0B3C /* Food.swift in Sources */,
 				91F024F5B739B79C840203B5 /* Game.swift in Sources */,
+				91F0233847DA93B3F42880B5 /* GameModel.swift in Sources */,
+				91F02653344A115C7C283830 /* Observable.swift in Sources */,
+				91F02DE917F3A1852E921941 /* Observer.swift in Sources */,
+				91F02E5CFBA665287F261FD3 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
