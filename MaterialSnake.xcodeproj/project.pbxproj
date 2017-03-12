@@ -10,7 +10,7 @@
 		3174FE541E730D1D00312AD1 /* SpaceEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3174FE531E730D1D00312AD1 /* SpaceEntity.swift */; };
 		3174FE561E730DA700312AD1 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3174FE551E730DA700312AD1 /* Map.swift */; };
 		31B371391E6FB6C3002AF87E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B371381E6FB6C3002AF87E /* AppDelegate.swift */; };
-		31B3713B1E6FB6C3002AF87E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3713A1E6FB6C3002AF87E /* ViewController.swift */; };
+		31B3713B1E6FB6C3002AF87E /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3713A1E6FB6C3002AF87E /* GameController.swift */; };
 		31B3713E1E6FB6C3002AF87E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31B3713C1E6FB6C3002AF87E /* Main.storyboard */; };
 		31B371411E6FB6C3002AF87E /* MaterialSnake.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 31B3713F1E6FB6C3002AF87E /* MaterialSnake.xcdatamodeld */; };
 		31B371431E6FB6C3002AF87E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31B371421E6FB6C3002AF87E /* Assets.xcassets */; };
@@ -56,7 +56,7 @@
 		3174FE551E730DA700312AD1 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		31B371351E6FB6C3002AF87E /* MaterialSnake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaterialSnake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31B371381E6FB6C3002AF87E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		31B3713A1E6FB6C3002AF87E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		31B3713A1E6FB6C3002AF87E /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		31B3713D1E6FB6C3002AF87E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		31B371401E6FB6C3002AF87E /* MaterialSnake.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MaterialSnake.xcdatamodel; sourceTree = "<group>"; };
 		31B371421E6FB6C3002AF87E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -181,7 +181,7 @@
 		31B3716A1E6FBC78002AF87E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				31B3713A1E6FB6C3002AF87E /* ViewController.swift */,
+				31B3713A1E6FB6C3002AF87E /* GameController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -364,7 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31B3713B1E6FB6C3002AF87E /* ViewController.swift in Sources */,
+				31B3713B1E6FB6C3002AF87E /* GameController.swift in Sources */,
 				31B371741E6FC7A7002AF87E /* Size.swift in Sources */,
 				3174FE561E730DA700312AD1 /* Map.swift in Sources */,
 				31B371781E6FCB8A002AF87E /* Position.swift in Sources */,
