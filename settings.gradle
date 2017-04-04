@@ -1,0 +1,5 @@
+rootProject.name = 'test.mpp'
+include 'mpp.client'
+include 'mpp.server'
+include 'mpp.domain'
+include 'mpp.model'
