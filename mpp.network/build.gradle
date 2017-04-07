@@ -17,5 +17,6 @@ repositories {
 dependencies {
     compile project(':mpp.domain')
     compile project(':mpp.model')
+    compile project(':mpp.client')
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
