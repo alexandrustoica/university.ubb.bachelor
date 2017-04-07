@@ -48,11 +48,16 @@ public class ControllerApplication implements ControllerProtocol {
 
     @Override
     public void initialize() {
-        updateData();
+        activeUserLabel.setText(controller.getActiveUser().getName());
     }
 
     @FXML
     private void onAddButtonClick() {
+        // TODO
+    }
+
+    @FXML
+    private void onProfileButtonClick() {
         // TODO
     }
 

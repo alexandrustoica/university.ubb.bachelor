@@ -3,6 +3,7 @@ package controller;
 import client.ClientTransmissionController;
 import client.ClientTransmissionProtocol;
 import domain.User;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -53,10 +54,13 @@ public class ControllerLogin implements ControllerProtocol {
         String password = passwordTextField.getText();
         User user = controller.requestLogin(username, password);
         if (user == null) {
-            this.errorLabel.setText(controller.getErrors().getMessage());
+            Platform.runLater(() ->
+                this.errorLabel.setText(controller.getErrors().getMessage()));
             return;
         }
         this.controller.setActiveUser(user);
+        this.stageManager.switchScene(ViewType.HOME);
+
     }
 
     @FXML

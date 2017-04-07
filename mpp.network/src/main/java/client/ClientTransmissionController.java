@@ -49,7 +49,8 @@ public class ClientTransmissionController implements ClientTransmissionProtocol 
         while (!isReady) {
             lock.lock();
         }
-        if (this.errors.getErrors().isEmpty()) {
+        isReady = false;
+        if (this.errors.getErrors() != null) {
             return (User)this.object;
         }
         return null;
@@ -62,15 +63,18 @@ public class ClientTransmissionController implements ClientTransmissionProtocol 
         while (!isReady) {
             lock.lock();
         }
-        if (this.errors.getErrors().isEmpty()) {
-            return (User)this.object;
+        isReady = false;
+        if (this.errors.getErrors() != null) {
+            return (User) this.object;
         }
         return null;
     }
 
     @Override
     public Errors getErrors() {
-        return errors;
+        Errors errorsResult = this.errors;
+        this.errors = new Errors();
+        return errorsResult;
     }
 
     @Override

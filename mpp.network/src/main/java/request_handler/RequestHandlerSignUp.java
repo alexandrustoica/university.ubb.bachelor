@@ -46,7 +46,7 @@ public class RequestHandlerSignUp
             errors.add(new Error("Passwords don't match!"));
             return false;
         }
-        return false;
+        return true;
     }
 
     @Override
