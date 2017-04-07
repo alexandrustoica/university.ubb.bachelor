@@ -1,10 +1,15 @@
 package client;
 
 import domain.User;
-import exception.ConnectionException;
+import error.Errors;
 import observer.ObserverType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import request.RequestProtocol;
+import request.RequestSignUp;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Name:        {ClassName}
@@ -24,20 +29,35 @@ public class ClientTransmissionController implements ClientTransmissionProtocol 
     private ClientConnectionManager connectionManager;
     private Object object;
     private Boolean isReady = false;
-
+    private User activeUser;
+    private Errors errors;
+    private Lock lock = new ReentrantLock();
 
     @Autowired
     public ClientTransmissionController(ClientConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
         this.connectionManager.setObserver(this);
+        this.errors = new Errors();
+    }
+
+
+    @Override
+    public User requestSignUp(String username, String password, String confirm) {
+
+        RequestProtocol requestSignUp = new RequestSignUp(username, password, confirm);
+        connectionManager.send(requestSignUp);
+        while (!isReady) {
+            lock.lock();
+        }
+        if (this.errors.getErrors().isEmpty()) {
+            return (User)this.object;
+        }
+        return null;
     }
 
     @Override
-    public User setActiveUser(String username, String password) {
-        // RequestProtocol requestProtocol = new LoginRequest(username, password);
-        // connectionManager.send(requestProtocol);
-        // TODO
-        return null;
+    public Errors getErrors() {
+        return errors;
     }
 
     @Override
@@ -50,4 +70,21 @@ public class ClientTransmissionController implements ClientTransmissionProtocol 
         this.object = object;
         isReady = true;
     }
+
+    @Override
+    public void notifyErrors(Errors errors) {
+        this.errors = errors;
+        isReady = true;
+    }
+
+    @Override
+    public User getActiveUser() {
+        return activeUser;
+    }
+
+    @Override
+    public void setActiveUser(User activeUser) {
+        this.activeUser = activeUser;
+    }
+
 }

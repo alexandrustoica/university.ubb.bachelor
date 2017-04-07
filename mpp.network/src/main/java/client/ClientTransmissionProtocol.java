@@ -1,6 +1,7 @@
 package client;
 
 import domain.User;
+import error.Errors;
 import exception.ConnectionException;
 import observer.ObserverConnectionProtocol;
 
@@ -16,15 +17,9 @@ import observer.ObserverConnectionProtocol;
 
 public interface ClientTransmissionProtocol extends ObserverConnectionProtocol {
 
-//    void sendLoginRequest(String username, String password);
-//    void sendSignUpRequest(String username, String password, String confirm);
-//    void sendGetPlayersOfEventRequest(Integer idEvent);
-//    void sendGetPlayersRequest();
-//    void sendGetEventsOfPlayerRequest(Integer idPlayer);
-//    void sendGetEventsRequest();
-//    void setObserver(ObserverProtocol observer);
-
-    User setActiveUser(String username, String password);
-
+    User requestSignUp(String username, String password, String confirm);
+    Errors getErrors();
+    User getActiveUser();
+    void setActiveUser(User user);
 
 }

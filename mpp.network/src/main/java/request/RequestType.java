@@ -11,5 +11,5 @@ package request;
  */
 
 public enum RequestType {
-
+    SIGN_UP
 }
