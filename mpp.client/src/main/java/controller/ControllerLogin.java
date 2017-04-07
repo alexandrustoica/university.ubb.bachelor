@@ -2,6 +2,7 @@ package controller;
 
 import client.ClientTransmissionController;
 import client.ClientTransmissionProtocol;
+import domain.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -50,8 +51,12 @@ public class ControllerLogin implements ControllerProtocol {
     private void onLoginButtonClick() {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
-        // TODO
-        // User activeUser = controller.setActiveUser(username, password);
+        User user = controller.requestLogin(username, password);
+        if (user == null) {
+            this.errorLabel.setText(controller.getErrors().getMessage());
+            return;
+        }
+        this.controller.setActiveUser(user);
     }
 
     @FXML

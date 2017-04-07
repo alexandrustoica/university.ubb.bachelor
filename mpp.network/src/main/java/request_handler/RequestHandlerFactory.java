@@ -1,5 +1,6 @@
 package request_handler;
 
+import request.RequestLogin;
 import request.RequestProtocol;
 import request.RequestSignUp;
 
@@ -19,6 +20,8 @@ public class RequestHandlerFactory {
         switch(request.getType()) {
             case SIGN_UP:
                 return new RequestHandlerSignUp((RequestSignUp) request);
+            case LOGIN:
+                return new RequestHandlerLogin((RequestLogin) request);
             default:
                 return new RequestHandlerSignUp((RequestSignUp) request);
         }

@@ -11,5 +11,6 @@ package response;
  */
 
 public enum ResponseType {
-    SIGN_UP
+    SIGN_UP,
+    LOGIN
 }
