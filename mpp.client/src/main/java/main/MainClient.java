@@ -19,6 +19,7 @@ import view.ViewType;
  */
 
 @SpringBootApplication
+@SuppressWarnings("all")
 public class MainClient extends Application {
 
     private ConfigurableApplicationContext context;
