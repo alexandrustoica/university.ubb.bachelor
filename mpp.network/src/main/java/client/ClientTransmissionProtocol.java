@@ -18,6 +18,7 @@ import observer.ObserverConnectionProtocol;
 public interface ClientTransmissionProtocol extends ObserverConnectionProtocol {
 
     User requestSignUp(String username, String password, String confirm);
+    User requestLogin(String username, String password);
     Errors getErrors();
     User getActiveUser();
     void setActiveUser(User user);

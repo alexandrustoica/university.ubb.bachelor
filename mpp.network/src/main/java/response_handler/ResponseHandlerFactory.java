@@ -1,7 +1,7 @@
 package response_handler;
 
-import connection.ResponseHandler;
 import observer.ObserverConnectionProtocol;
+import response.ResponseLogin;
 import response.ResponseProtocol;
 import response.ResponseSignUp;
 
@@ -18,12 +18,15 @@ import response.ResponseSignUp;
 public class ResponseHandlerFactory {
 
     public static InternalResponseHandlerProtocol getHandler(ResponseProtocol response, ObserverConnectionProtocol observer) {
-
         switch (response.getType()) {
             case SIGN_UP:
-                ResponseHandlerSignUp responseHandler = new ResponseHandlerSignUp((ResponseSignUp) response);
-                responseHandler.addObserver(observer);
-                return responseHandler;
+                ResponseHandlerSignUp responseHandlerSignUp = new ResponseHandlerSignUp((ResponseSignUp) response);
+                responseHandlerSignUp.addObserver(observer);
+                return responseHandlerSignUp;
+            case LOGIN:
+                ResponseHandlerLogin responseHandlerLogin = new ResponseHandlerLogin((ResponseLogin) response);
+                responseHandlerLogin.addObserver(observer);
+                return responseHandlerLogin;
             default:
                 return new ResponseHandlerSignUp((ResponseSignUp) response);
         }

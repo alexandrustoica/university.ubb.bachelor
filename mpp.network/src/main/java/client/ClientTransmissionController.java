@@ -5,6 +5,7 @@ import error.Errors;
 import observer.ObserverType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import request.RequestLogin;
 import request.RequestProtocol;
 import request.RequestSignUp;
 
@@ -43,9 +44,21 @@ public class ClientTransmissionController implements ClientTransmissionProtocol 
 
     @Override
     public User requestSignUp(String username, String password, String confirm) {
-
         RequestProtocol requestSignUp = new RequestSignUp(username, password, confirm);
         connectionManager.send(requestSignUp);
+        while (!isReady) {
+            lock.lock();
+        }
+        if (this.errors.getErrors().isEmpty()) {
+            return (User)this.object;
+        }
+        return null;
+    }
+
+    @Override
+    public User requestLogin(String username, String password) {
+        RequestProtocol requestLogin = new RequestLogin(username, password);
+        connectionManager.send(requestLogin);
         while (!isReady) {
             lock.lock();
         }
