@@ -28,7 +28,7 @@ public class ResponseHandlerSignUp
     @Override
     @SuppressWarnings("all")
     public void solve() {
-        if(response.getErrors().getErrors().isEmpty()) {
+        if(response.getErrors() == null) {
             observers.forEach(observer -> observer.notify(response.getUser()));
         } else {
             observers.forEach(observer -> observer.notifyErrors(response.getErrors()));

@@ -55,10 +55,12 @@ public class ControllerSignUp implements ControllerProtocol {
         String confirm = confirmTextField.getText();
         User user = controller.requestSignUp(username, password, confirm);
         if (user == null) {
-            this.errorLabel.setText(controller.getErrors().getMessage());
+            Platform.runLater(() ->
+                    this.errorLabel.setText(controller.getErrors().getMessage()));
             return;
         }
         this.controller.setActiveUser(user);
+        this.stageManager.switchScene(ViewType.HOME);
     }
 
 }
