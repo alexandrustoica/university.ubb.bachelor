@@ -58,5 +58,6 @@ public class ControllerLogin implements ControllerProtocol {
     private void onSignUpButtonClick() {
         stageManager.switchScene(ViewType.SIGNUP);
     }
+
 }
 
