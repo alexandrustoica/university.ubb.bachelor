@@ -32,14 +32,15 @@ public class SpringConfiguration {
     private SpringFXMLLoader loader;             // FXML Loader with DI.
 
     private StageManager stageManager;
-
+    private ClientTransmissionController clientTransmissionController;
     private static final Integer port = 55555;
     private static final String host = "localhost";
     private static final String propertiesURL = "/client.properties";
 
     @Bean
     public ClientTransmissionController clientTransmissionController() {
-        return new ClientTransmissionController(clientConnectionManager());
+        clientTransmissionController = new ClientTransmissionController(clientConnectionManager());
+        return clientTransmissionController;
     }
 
     @Bean
@@ -58,17 +59,17 @@ public class SpringConfiguration {
 
     @Bean @Lazy
     public ControllerApplication controllerApplication() {
-        return new ControllerApplication(stageManager, clientTransmissionController());
+        return new ControllerApplication(stageManager, clientTransmissionController);
     }
 
     @Bean @Lazy
     public ControllerLogin controllerLogin() {
-        return new ControllerLogin(stageManager, clientTransmissionController());
+        return new ControllerLogin(stageManager, clientTransmissionController);
     }
 
     @Bean @Lazy
     public ControllerSignUp controllerSignUp() {
-        return new ControllerSignUp(stageManager, clientTransmissionController());
+        return new ControllerSignUp(stageManager, clientTransmissionController);
     }
 
     /**
