@@ -4,20 +4,14 @@ import client.ClientTransmissionController;
 import client.ClientTransmissionProtocol;
 import domain.Event;
 import domain.Player;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import manager.StageManager;
-import observer.ObserverApplicationProtocol;
-import observer.ObserverType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 
 /**
  * Name:        {ClassName}
@@ -30,7 +24,7 @@ import java.util.ArrayList;
  */
 
 @Component
-public class ControllerApplication implements ControllerProtocol, ObserverApplicationProtocol {
+public class ControllerApplication implements ControllerProtocol {
 
     @FXML private Label activeUserLabel;
 
@@ -50,17 +44,11 @@ public class ControllerApplication implements ControllerProtocol, ObserverApplic
     public ControllerApplication(StageManager stageManager, ClientTransmissionController controller) {
         this.stageManager = stageManager;
         this.controller = controller;
-        this.controller.setObserver(this);
     }
 
     @Override
     public void initialize() {
         updateData();
-    }
-
-    @Override
-    public ObserverType getType() {
-        return ObserverType.SIGNUP;
     }
 
     @FXML
@@ -74,18 +62,8 @@ public class ControllerApplication implements ControllerProtocol, ObserverApplic
     }
 
     private void updateData() {
-        controller.sendGetPlayersRequest();
-        // TODO controller.sendGetEventsRequest();
+        // TODO
     }
 
 
-    @Override
-    public synchronized void notifyGetPlayers(ArrayList<Player> players) {
-        Platform.runLater(() -> playerListView.setItems(FXCollections.observableArrayList(players)));
-    }
-
-    @Override
-    public synchronized void notifyGetEvents(ArrayList<Event> events) {
-        Platform.runLater(() -> eventListView.setItems(FXCollections.observableArrayList(events)));
-    }
 }

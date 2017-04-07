@@ -2,15 +2,10 @@ package controller;
 
 import client.ClientTransmissionController;
 import client.ClientTransmissionProtocol;
-import domain.User;
-import error.Errors;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import manager.StageManager;
-import observer.ObserverAuthenticationProtocol;
-import observer.ObserverType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -27,7 +22,7 @@ import view.ViewType;
  */
 
 @Component
-public class ControllerSignUp implements ControllerProtocol, ObserverAuthenticationProtocol {
+public class ControllerSignUp implements ControllerProtocol {
 
     private final StageManager stageManager;
     private final ClientTransmissionProtocol controller;
@@ -41,7 +36,6 @@ public class ControllerSignUp implements ControllerProtocol, ObserverAuthenticat
     public ControllerSignUp(StageManager stageManager, ClientTransmissionController controller) {
         this.stageManager = stageManager;
         this.controller = controller;
-        this.controller.setObserver(this);
     }
 
     @Override
@@ -57,21 +51,7 @@ public class ControllerSignUp implements ControllerProtocol, ObserverAuthenticat
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         String confirm = confirmTextField.getText();
-        controller.sendSignUpRequest(username, password, confirm);
+        // TODO
     }
 
-    @Override
-    public ObserverType getType() {
-        return ObserverType.SIGNUP;
-    }
-
-    @Override
-    public void notifyErrors(Errors errors) {
-        Platform.runLater(() -> errorLabel.setText(errors.getMessage()));
-    }
-
-    @Override
-    public void notifySuccess(User user) {
-        stageManager.switchScene(ViewType.HOME);
-    }
 }

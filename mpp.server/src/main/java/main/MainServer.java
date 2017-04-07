@@ -56,7 +56,7 @@ public class MainServer {
     }
 
     /**
-     * Effect: Handles exceptions in our client class.
+     * Effect: Handles exception in our client class.
      */
     private static void handleErrors(Exception error) {
         System.out.println(error.getMessage());

@@ -10,7 +10,6 @@ import manager.StageManager;
 import client.ClientConnectionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
-
 import java.io.IOException;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -20,13 +19,13 @@ import java.util.ResourceBundle;
  * Effect:      {ClassEffect}
  * Date:        02/04/2017
  * Tested:      False
- *
  * @author Alexandru Stoica
  * @version 1.0
  */
 
 @Configuration
 @ComponentScan("loader")
+@SuppressWarnings("all")
 public class SpringConfiguration {
 
     @Autowired
@@ -117,7 +116,7 @@ public class SpringConfiguration {
     }
 
     /**
-     * Effect: Handles exceptions in our client class.
+     * Effect: Handles exception in our client class.
      */
     private static void handleErrors(Exception error) {
         System.out.println(error.getMessage());
