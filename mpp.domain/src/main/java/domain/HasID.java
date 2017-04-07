@@ -1,5 +1,7 @@
 package domain;
 
+import java.io.Serializable;
+
 /**
  * Name:        HasID
  * Effect:      Interface
@@ -8,7 +10,7 @@ package domain;
  * @version     1.0
  */
 
-public interface HasID<ID> {
+public interface HasID<ID> extends Serializable {
 
     ID getID();
     void setID(ID id);
