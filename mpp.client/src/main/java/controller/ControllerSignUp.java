@@ -2,6 +2,8 @@ package controller;
 
 import client.ClientTransmissionController;
 import client.ClientTransmissionProtocol;
+import domain.User;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -51,7 +53,12 @@ public class ControllerSignUp implements ControllerProtocol {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         String confirm = confirmTextField.getText();
-        // TODO
+        User user = controller.requestSignUp(username, password, confirm);
+        if (user == null) {
+            this.errorLabel.setText(controller.getErrors().getMessage());
+            return;
+        }
+        this.controller.setActiveUser(user);
     }
 
 }

@@ -18,11 +18,8 @@ public class RequestHandler implements RequestHandlerProtocol {
 
     @Override
     public ResponseProtocol handleRequest(RequestProtocol request) {
-        InternalRequestHandlerProtocol handler;
-        switch (request.getType()) {
-            default:
-                return null;
-        }
+        InternalRequestHandlerProtocol handler = RequestHandlerFactory.getHandler(request);
+        return handler.solve();
     }
 
 }

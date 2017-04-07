@@ -1,5 +1,7 @@
 package observer;
 
+import error.Errors;
+
 /**
  * Name:        {ClassName}
  * Effect:      {ClassEffect}
@@ -13,5 +15,6 @@ package observer;
 public interface ObserverConnectionProtocol extends ObserverProtocol {
 
     void notify(Object object);
+    void notifyErrors(Errors errors);
 
 }
