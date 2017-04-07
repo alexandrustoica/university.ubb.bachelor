@@ -25,7 +25,7 @@ buildscript {
 }
 
 dependencies {
-    compile project(':mpp.server')
+    compile project(':mpp.network')
     compile project(':mpp.domain')
     compile project(':mpp.model')
     compile("org.springframework.boot:spring-boot-starter-web") {

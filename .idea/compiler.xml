@@ -8,6 +8,8 @@
       <module name="mpp.domain_test" target="1.8" />
       <module name="mpp.model_main" target="1.8" />
       <module name="mpp.model_test" target="1.8" />
+      <module name="mpp.network_main" target="1.8" />
+      <module name="mpp.network_test" target="1.8" />
       <module name="mpp.server_main" target="1.8" />
       <module name="mpp.server_test" target="1.8" />
       <module name="test.mpp.client_main" target="1.8" />

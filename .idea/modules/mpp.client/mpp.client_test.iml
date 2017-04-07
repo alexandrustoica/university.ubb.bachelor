@@ -10,7 +10,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mpp.client_main" />
-    <orderEntry type="module" module-name="mpp.server_main" />
+    <orderEntry type="module" module-name="mpp.network_main" />
     <orderEntry type="module" module-name="mpp.domain_main" />
     <orderEntry type="module" module-name="mpp.model_main" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:1.5.2.RELEASE" level="project" />

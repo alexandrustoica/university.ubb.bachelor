@@ -11,7 +11,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mpp.domain_main" />
     <orderEntry type="module" module-name="mpp.model_main" />
+    <orderEntry type="module" module-name="mpp.network_main" />
     <orderEntry type="library" name="Gradle: org.xerial:sqlite-jdbc:3.8.11" level="project" />
-    <orderEntry type="module" module-name="mpp.client_main" />
   </component>
 </module>

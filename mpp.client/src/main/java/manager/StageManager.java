@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import loader.SpringFXMLLoader;
 import view.ViewType;
-
 import java.util.Objects;
 
 /**
