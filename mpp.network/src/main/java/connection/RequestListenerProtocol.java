@@ -1,6 +1,8 @@
 package connection;
 
 import error.Errors;
+import observer.ObserverConnectionProtocol;
+import observer.ObserverServerProtocol;
 
 /**
  * Name:        {ClassName}
@@ -17,5 +19,6 @@ public interface RequestListenerProtocol extends Runnable {
     void listen();
     void stop();
     void handleErrors(Errors errors);
-
+    void setObserver(ObserverServerProtocol observer);
+    
 }

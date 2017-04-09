@@ -2,6 +2,7 @@ package connection;
 
 import error.Errors;
 import error.Error;
+import observer.ObserverServerProtocol;
 import request.RequestProtocol;
 import response.ResponseProtocol;
 
@@ -83,4 +84,10 @@ public class RequestListener implements RequestListenerProtocol {
     public void handleErrors(Errors errors) {
         System.out.println(errors.getMessage());
     }
+
+    @Override
+    public void setObserver(ObserverServerProtocol observer) {
+        handler.setObserver(observer);
+    }
+
 }

@@ -1,5 +1,7 @@
 package request_handler;
 
+import observer.ObservableProtocol;
+import observer.ObserverServerProtocol;
 import response.ResponseProtocol;
 
 /**
@@ -12,7 +14,8 @@ import response.ResponseProtocol;
  * @version 1.0
  */
 
-public interface InternalRequestHandlerProtocol {
+public interface InternalRequestHandlerProtocol
+        extends ObservableProtocol<ObserverServerProtocol> {
 
     ResponseProtocol solve();
 

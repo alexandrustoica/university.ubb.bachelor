@@ -16,7 +16,7 @@ class RequestHandlerDatabase {
 
     private static final String dataBundle = "server";
 
-    String getDatabaseURL() {
+    static String getDatabaseURL() {
         return RequestHandlerDatabase.getDataFromBundle("server.database");
     }
 

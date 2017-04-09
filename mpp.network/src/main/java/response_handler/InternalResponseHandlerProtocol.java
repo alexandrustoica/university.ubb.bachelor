@@ -1,5 +1,8 @@
 package response_handler;
 
+import observer.ObservableProtocol;
+import observer.ObserverConnectionProtocol;
+
 /**
  * Name:        {ClassName}
  * Effect:      {ClassEffect}
@@ -10,6 +13,9 @@ package response_handler;
  * @version 1.0
  */
 
-public interface InternalResponseHandlerProtocol {
+public interface InternalResponseHandlerProtocol
+        extends ObservableProtocol<ObserverConnectionProtocol> {
+
     void solve();
+
 }
