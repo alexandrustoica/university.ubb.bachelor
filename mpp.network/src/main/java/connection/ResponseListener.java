@@ -8,6 +8,8 @@ import observer.ObserverProtocol;
 import observer.ObserverResponseProtocol;
 import observer.ObserverType;
 import response.ResponseProtocol;
+import response.ResponseType;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -47,7 +49,6 @@ public class ResponseListener extends Observable<ObserverProtocol> implements Re
                         ((ObserverResponseProtocol) observer).notifyMe(response);
                     }
                 }
-                isFinished = true;
             }
         } catch (IOException | ClassNotFoundException error) {
             errors.add(new Error(error.getMessage()));
@@ -57,7 +58,7 @@ public class ResponseListener extends Observable<ObserverProtocol> implements Re
 
     @Override
     public void stop() {
-
+        isFinished = true;
     }
 
     @Override

@@ -31,7 +31,7 @@ public class RequestSender implements RequestSenderProtocol {
     public RequestSender(ObjectInputStream input, ObjectOutputStream output) {
         this.input = input;
         this.output = output;
-        this.handler = new ResponseHandler();
+        handler = new ResponseHandler();
     }
 
     @Override

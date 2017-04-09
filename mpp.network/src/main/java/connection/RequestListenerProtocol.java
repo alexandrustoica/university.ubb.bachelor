@@ -3,6 +3,7 @@ package connection;
 import error.Errors;
 import observer.ObserverConnectionProtocol;
 import observer.ObserverServerProtocol;
+import response.ResponseNotification;
 
 /**
  * Name:        {ClassName}
@@ -20,5 +21,6 @@ public interface RequestListenerProtocol extends Runnable {
     void stop();
     void handleErrors(Errors errors);
     void setObserver(ObserverServerProtocol observer);
-    
+    void sendNotification(ResponseNotification notification);
+
 }

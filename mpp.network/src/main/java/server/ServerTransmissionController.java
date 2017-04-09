@@ -3,6 +3,7 @@ package server;
 import domain.User;
 import error.Errors;
 import observer.ObserverType;
+import response.NotificationType;
 
 import java.util.ArrayList;
 
@@ -43,9 +44,7 @@ public class ServerTransmissionController implements ServerTransmissionProtocol 
         Client client = new Client(orderNumber, user);
         orderNumber += 1;
         clients.add(client);
-        clients.forEach(item -> {
-            System.out.println(item.getUser().getName());
-        });
+        connectionManager.notifyClients(NotificationType.UPDATE);
     }
 
 }
