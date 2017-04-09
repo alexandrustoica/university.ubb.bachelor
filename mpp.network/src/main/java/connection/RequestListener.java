@@ -4,6 +4,7 @@ import error.Errors;
 import error.Error;
 import observer.ObserverServerProtocol;
 import request.RequestProtocol;
+import response.ResponseNotification;
 import response.ResponseProtocol;
 
 import java.io.IOException;
@@ -77,6 +78,18 @@ public class RequestListener implements RequestListenerProtocol {
         } catch (IOException error) {
             errors.add(new Error(error.getMessage()));
             handleErrors(errors);
+        }
+    }
+
+    @Override
+    public void sendNotification(ResponseNotification notification) {
+        Errors errors = new Errors();
+        try {
+            sender.sendResponse(notification);
+        } catch (IOException error) {
+            errors.add(new Error(error.getMessage()));
+            handleErrors(errors);
+            connected = false;
         }
     }
 

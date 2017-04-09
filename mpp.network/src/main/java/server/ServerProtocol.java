@@ -15,7 +15,7 @@ import java.net.Socket;
 public interface ServerProtocol {
 
     void start();
-    void processRequest(Socket socket);
+    void processClient(Socket socket);
     void stop();
 
 }

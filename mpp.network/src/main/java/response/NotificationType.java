@@ -1,17 +1,17 @@
 package response;
 
+import java.io.Serializable;
+
 /**
  * Name:        {ClassName}
  * Effect:      {ClassEffect}
- * Date:        07/04/2017
+ * Date:        10/04/2017
  * Tested:      False
  *
  * @author Alexandru Stoica
  * @version 1.0
  */
 
-public enum ResponseType {
-    SIGN_UP,
-    LOGIN,
-    NOTIFICATION
+public enum NotificationType implements Serializable {
+    UPDATE
 }

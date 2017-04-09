@@ -2,12 +2,14 @@ package server;
 
 import connection.RequestListener;
 import connection.RequestListenerProtocol;
-import observer.ObserverConnectionProtocol;
 import observer.ObserverServerProtocol;
+import response.NotificationType;
+import response.ResponseNotification;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Name:        {ClassName}
@@ -24,9 +26,11 @@ public class ServerConnectionManager implements ConcurrentServerProtocol {
     private ServerSocket serverSocket;
     private Integer port;
     private ObserverServerProtocol observer;
+    private ArrayList<RequestListenerProtocol> clients;
 
     public ServerConnectionManager(Integer port) {
         this.port = port;
+        this.clients = new ArrayList<>();
     }
 
     public void start() {
@@ -34,7 +38,7 @@ public class ServerConnectionManager implements ConcurrentServerProtocol {
             serverSocket = new ServerSocket(port);
             while (true) {
                 Socket socket = serverSocket.accept();
-                processRequest(socket);
+                processClient(socket);
             }
         } catch (IOException error) {
             System.out.println(error.getMessage());
@@ -45,9 +49,14 @@ public class ServerConnectionManager implements ConcurrentServerProtocol {
         this.observer = observer;
     }
 
-    public void processRequest(Socket socket) {
+    public void processClient(Socket socket) {
         Thread thread = createThread(socket);
         thread.start();
+    }
+
+    public void notifyClients(NotificationType notification) {
+        clients.forEach(client ->
+                client.sendNotification(new ResponseNotification(notification)));
     }
 
     public void stop() {
@@ -61,6 +70,7 @@ public class ServerConnectionManager implements ConcurrentServerProtocol {
     public Thread createThread(Socket socket) {
         RequestListenerProtocol listener = new RequestListener(socket);
         listener.setObserver(observer);
+        clients.add(listener);
         return new Thread(listener);
     }
 
