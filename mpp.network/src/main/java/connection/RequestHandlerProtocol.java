@@ -1,5 +1,7 @@
 package connection;
 
+import observer.ObserverConnectionProtocol;
+import observer.ObserverServerProtocol;
 import request.RequestProtocol;
 import response.ResponseProtocol;
 
@@ -16,5 +18,6 @@ import response.ResponseProtocol;
 public interface RequestHandlerProtocol {
 
     ResponseProtocol handleRequest(RequestProtocol request);
+    void setObserver(ObserverServerProtocol observer);
 
 }

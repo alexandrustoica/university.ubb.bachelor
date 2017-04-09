@@ -1,5 +1,7 @@
 package server;
 
+import observer.ObserverServerProtocol;
+
 /**
  * Name:        {ClassName}
  * Effect:      {ClassEffect}
@@ -10,6 +12,8 @@ package server;
  * @version 1.0
  */
 
-public interface ServerTransmissionProtocol {
+public interface ServerTransmissionProtocol extends ObserverServerProtocol {
+
+    void start();
 
 }

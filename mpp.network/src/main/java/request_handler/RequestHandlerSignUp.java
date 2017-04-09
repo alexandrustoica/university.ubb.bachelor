@@ -4,6 +4,9 @@ import domain.User;
 import error.Error;
 import error.Errors;
 import model.ModelUser;
+import observer.Observable;
+import observer.ObserverConnectionProtocol;
+import observer.ObserverServerProtocol;
 import request.RequestSignUp;
 import response.ResponseProtocol;
 import response.ResponseSignUp;
@@ -19,7 +22,7 @@ import response.ResponseSignUp;
  */
 
 public class RequestHandlerSignUp
-        extends RequestHandlerDatabase
+        extends Observable<ObserverServerProtocol>
         implements InternalRequestHandlerProtocol {
 
     private RequestSignUp request;
@@ -51,12 +54,13 @@ public class RequestHandlerSignUp
 
     @Override
     public ResponseProtocol solve() {
-        ModelUser model = new ModelUser(getDatabaseURL());
+        ModelUser model = new ModelUser(RequestHandlerDatabase.getDatabaseURL());
         if (checkUsername(request.getUsername(), model) &&
                 checkPassword(request.getPassword(), request.getConfirm())) {
             User user = new User(request.getUsername(), request.getPassword());
             int id = model.add(user);
             User result = model.getElementById(id);
+            observers.forEach(observer -> observer.notifyLoggedUser(result));
             return new ResponseSignUp(result);
         }
         return new ResponseSignUp(errors);

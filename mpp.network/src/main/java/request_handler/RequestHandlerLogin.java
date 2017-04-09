@@ -4,6 +4,9 @@ import domain.User;
 import error.Error;
 import error.Errors;
 import model.ModelUser;
+import observer.Observable;
+import observer.ObserverConnectionProtocol;
+import observer.ObserverServerProtocol;
 import request.RequestLogin;
 import response.ResponseLogin;
 import response.ResponseProtocol;
@@ -19,7 +22,7 @@ import response.ResponseProtocol;
  */
 
 public class RequestHandlerLogin
-        extends RequestHandlerDatabase
+        extends Observable<ObserverServerProtocol>
         implements InternalRequestHandlerProtocol {
 
     private RequestLogin request;
@@ -33,10 +36,11 @@ public class RequestHandlerLogin
 
     @Override
     public ResponseProtocol solve() {
-        ModelUser model = new ModelUser(getDatabaseURL());
+        ModelUser model = new ModelUser(RequestHandlerDatabase.getDatabaseURL());
         for (User user : model.getAll()) {
             if (user.getName().equals(request.getUsername()) &&
                     user.getPassword().equals(request.getPassword())) {
+                observers.forEach(observer -> observer.notifyLoggedUser(user));
                 return new ResponseLogin(user);
             }
         }

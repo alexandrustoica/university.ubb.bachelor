@@ -2,6 +2,9 @@ package main;
 
 import server.ServerProtocol;
 import server.ServerConnectionManager;
+import server.ServerTransmissionController;
+import server.ServerTransmissionProtocol;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -23,8 +26,9 @@ public class MainServer {
     public static void main(String[] args) {
         Properties properties = getProperties(propertiesURL);
         Integer serverPort = getPort(properties);
-        ServerProtocol server = new ServerConnectionManager(serverPort);
-        server.start();
+        ServerConnectionManager server = new ServerConnectionManager(serverPort);
+        ServerTransmissionProtocol controller = new ServerTransmissionController(server);
+        controller.start();
     }
 
     /**

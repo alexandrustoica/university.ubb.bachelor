@@ -1,19 +1,19 @@
 package observer;
 
+import domain.User;
+
 /**
  * Name:        {ClassName}
  * Effect:      {ClassEffect}
- * Date:        03/04/2017
+ * Date:        09/04/2017
  * Tested:      False
  *
  * @author Alexandru Stoica
  * @version 1.0
  */
 
-public enum ObserverType {
+public interface ObserverServerProtocol extends ObserverProtocol {
 
-    RESPONSE,
-    CLIENT,
-    SERVER
+    void notifyLoggedUser(User user);
 
 }
