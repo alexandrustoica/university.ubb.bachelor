@@ -74,7 +74,6 @@ public class RequestListener implements RequestListenerProtocol {
         try {
             input.close();
             socket.close();
-
         } catch (IOException error) {
             errors.add(new Error(error.getMessage()));
             handleErrors(errors);

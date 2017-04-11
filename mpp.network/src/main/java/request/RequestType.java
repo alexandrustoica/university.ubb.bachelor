@@ -12,5 +12,8 @@ package request;
 
 public enum RequestType {
     SIGN_UP,
-    LOGIN
+    LOGIN,
+    ADD_PLAYER,
+    READ_EVENT,
+    READ_PLAYER
 }

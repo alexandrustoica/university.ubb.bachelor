@@ -4,6 +4,7 @@ import domain.User;
 import error.Errors;
 import observer.ObserverType;
 import response.NotificationType;
+import response.ResponseNotification;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,11 @@ public class ServerTransmissionController implements ServerTransmissionProtocol 
         orderNumber += 1;
         clients.add(client);
         connectionManager.notifyClients(NotificationType.UPDATE);
+    }
+
+    @Override
+    public void notifyAllUsers(ResponseNotification notification) {
+        connectionManager.notifyClients(notification.getNotification());
     }
 
 }

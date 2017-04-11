@@ -1,6 +1,7 @@
 package observer;
 
 import error.Errors;
+import response.ResponseNotification;
 
 /**
  * Name:        {ClassName}
@@ -15,6 +16,7 @@ import error.Errors;
 public interface ObserverConnectionProtocol extends ObserverProtocol {
 
     void notify(Object object);
+    void notifyUpdate(ResponseNotification notification);
     void notifyErrors(Errors errors);
 
 }

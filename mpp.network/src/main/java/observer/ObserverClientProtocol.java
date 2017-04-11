@@ -1,18 +1,19 @@
 package observer;
 
+import response.NotificationType;
+
 /**
  * Name:        {ClassName}
  * Effect:      {ClassEffect}
- * Date:        03/04/2017
+ * Date:        10/04/2017
  * Tested:      False
  *
  * @author Alexandru Stoica
  * @version 1.0
  */
 
-public enum NotificationType {
+public interface ObserverClientProtocol {
 
-    PLAYERCHANGE,
-    EVENTCHANGE
+    void notify(NotificationType notification);
 
 }

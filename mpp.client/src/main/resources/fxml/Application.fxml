@@ -87,7 +87,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="userProfileButton" mnemonicParsing="false" onAction="#onProfileButtonClick" style="-fx-background-color: #fcd734; -fx-background-radius: 0;">
+            <Button fx:id="userProfileButton" mnemonicParsing="false" style="-fx-background-color: #fcd734; -fx-background-radius: 0;">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>

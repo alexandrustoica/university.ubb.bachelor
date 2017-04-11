@@ -1,10 +1,7 @@
 package response_handler;
 
 import observer.ObserverConnectionProtocol;
-import response.ResponseLogin;
-import response.ResponseNotification;
-import response.ResponseProtocol;
-import response.ResponseSignUp;
+import response.*;
 
 /**
  * Name:        {ClassName}
@@ -35,6 +32,16 @@ public class ResponseHandlerFactory {
                         new ResponseHandlerNotification((ResponseNotification) response);
                 responseHandlerNotification.addObserver(observer);
                 return responseHandlerNotification;
+            case READ_PLAYER:
+                ResponseHandlerReadPlayer responseHandlerReadPlayer =
+                        new ResponseHandlerReadPlayer((ResponseReadPlayer) response);
+                responseHandlerReadPlayer.addObserver(observer);
+                return responseHandlerReadPlayer;
+            case READ_EVENT:
+                ResponseHandlerReadEvent responseHandlerReadEvent =
+                        new ResponseHandlerReadEvent((ResponseReadEvent) response);
+                responseHandlerReadEvent.addObserver(observer);
+                return responseHandlerReadEvent;
             default:
                 return new ResponseHandlerSignUp((ResponseSignUp) response);
         }

@@ -26,7 +26,7 @@ public class ResponseHandlerNotification
 
     @Override
     public void solve() {
-        System.out.println(notification.getNotification());
+        observers.forEach(observer -> observer.notifyUpdate(notification));
     }
 
 }

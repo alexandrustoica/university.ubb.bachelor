@@ -1,14 +1,17 @@
 package client;
 
+import domain.Event;
+import domain.Player;
 import domain.User;
 import error.Errors;
+import observer.ObserverClientProtocol;
 import observer.ObserverType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import request.RequestLogin;
-import request.RequestProtocol;
-import request.RequestSignUp;
+import request.*;
+import response.ResponseNotification;
 
+import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -26,13 +29,13 @@ import java.util.concurrent.locks.ReentrantLock;
 @Component
 public class ClientTransmissionController implements ClientTransmissionProtocol {
 
-
     private ClientConnectionManager connectionManager;
     private Object object;
     private Boolean isReady = false;
     private User activeUser;
     private Errors errors;
     private Lock lock = new ReentrantLock();
+    private ObserverClientProtocol observer;
 
     @Autowired
     public ClientTransmissionController(ClientConnectionManager connectionManager) {
@@ -71,6 +74,68 @@ public class ClientTransmissionController implements ClientTransmissionProtocol 
     }
 
     @Override
+    public ArrayList<Player> getAllPlayers() {
+        RequestProtocol requestReadPlayer = new RequestReadPlayer();
+        connectionManager.send(requestReadPlayer);
+        while (!isReady) {
+            lock.lock();
+        }
+        isReady = false;
+        if (this.errors.getErrors() != null) {
+            return (ArrayList<Player>) this.object;
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Player> getPlayersFromEvent(Integer idEvent) {
+        RequestProtocol requestReadPlayer = new RequestReadPlayer(idEvent);
+        connectionManager.send(requestReadPlayer);
+        while (!isReady) {
+            lock.lock();
+        }
+        isReady = false;
+        if (this.errors.getErrors() != null) {
+            return (ArrayList<Player>) this.object;
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Event> getAllEvents() {
+        RequestProtocol requestReadEvent = new RequestReadEvent();
+        connectionManager.send(requestReadEvent);
+        while (!isReady) {
+            lock.lock();
+        }
+        isReady = false;
+        if (this.errors.getErrors() != null) {
+            return (ArrayList<Event>) this.object;
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Event> getEventsFromPlayer(Integer idPlayer) {
+        RequestProtocol requestReadEvent = new RequestReadEvent(idPlayer);
+        connectionManager.send(requestReadEvent);
+        while (!isReady) {
+            lock.lock();
+        }
+        isReady = false;
+        if (this.errors.getErrors() != null) {
+            return (ArrayList<Event>) this.object;
+        }
+        return null;
+    }
+
+    @Override
+    public void addPlayer(String name, Integer age, ArrayList<Integer> events) {
+        RequestProtocol requestReadEvent = new RequestAddPlayer(name, age, events);
+        connectionManager.send(requestReadEvent);
+    }
+
+    @Override
     public Errors getErrors() {
         Errors errorsResult = this.errors;
         this.errors = new Errors();
@@ -89,6 +154,12 @@ public class ClientTransmissionController implements ClientTransmissionProtocol 
     }
 
     @Override
+    public void notifyUpdate(ResponseNotification notification) {
+        observer.notify(notification.getNotification());
+    }
+
+
+    @Override
     public void notifyErrors(Errors errors) {
         this.errors = errors;
         isReady = true;
@@ -100,8 +171,18 @@ public class ClientTransmissionController implements ClientTransmissionProtocol 
     }
 
     @Override
+    public void setObserver(ObserverClientProtocol observer) {
+        this.observer = observer;
+    }
+
+    @Override
     public void setActiveUser(User activeUser) {
         this.activeUser = activeUser;
+    }
+
+    @Override
+    public void exit() {
+        connectionManager.stop();
     }
 
 }
