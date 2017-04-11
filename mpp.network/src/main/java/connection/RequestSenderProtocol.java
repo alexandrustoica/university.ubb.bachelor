@@ -18,5 +18,6 @@ public interface RequestSenderProtocol extends ObserverResponseProtocol {
 
     void setObserver(ObserverConnectionProtocol observer);
     void sendRequest(RequestProtocol request);
+    void stop();
 
 }

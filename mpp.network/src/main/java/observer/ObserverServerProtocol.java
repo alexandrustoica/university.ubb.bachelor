@@ -1,6 +1,7 @@
 package observer;
 
 import domain.User;
+import response.ResponseNotification;
 
 /**
  * Name:        {ClassName}
@@ -15,5 +16,6 @@ import domain.User;
 public interface ObserverServerProtocol extends ObserverProtocol {
 
     void notifyLoggedUser(User user);
+    void notifyAllUsers(ResponseNotification notification);
 
 }

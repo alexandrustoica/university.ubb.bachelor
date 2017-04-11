@@ -55,4 +55,8 @@ public class ClientConnectionManager {
         System.out.println(errors.getMessage());
     }
 
+    public void stop() {
+        sender.stop();
+    }
+
 }

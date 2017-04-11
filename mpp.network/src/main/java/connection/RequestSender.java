@@ -27,11 +27,15 @@ public class RequestSender implements RequestSenderProtocol {
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private ResponseHandlerProtocol handler;
+    private ResponseListenerProtocol listener;
 
     public RequestSender(ObjectInputStream input, ObjectOutputStream output) {
         this.input = input;
         this.output = output;
         handler = new ResponseHandler();
+        listener = new ResponseListener(input);
+        listener.addObserver(this);
+        startResponseListener();
     }
 
     @Override
@@ -45,7 +49,6 @@ public class RequestSender implements RequestSenderProtocol {
         try {
            output.writeObject(request);
            output.flush();
-           startResponseListener();
         } catch (IOException error) {
            errors.add(new Error(error.getMessage()));
            handleErrors(errors);
@@ -53,8 +56,6 @@ public class RequestSender implements RequestSenderProtocol {
     }
 
     private void startResponseListener() {
-        ResponseListenerProtocol listener = new ResponseListener(input);
-        listener.addObserver(this);
         Thread thread = new Thread(listener);
         thread.start();
     }
@@ -71,6 +72,17 @@ public class RequestSender implements RequestSenderProtocol {
     @Override
     public ObserverType getType() {
         return ObserverType.RESPONSE;
+    }
+
+    @Override
+    public void stop() {
+        listener.stop();
+        handler = null;
+        try {
+            output.close();
+        } catch (IOException error) {
+            handleErrors(new Errors(new Error(error.getMessage())));
+        }
     }
 
 }

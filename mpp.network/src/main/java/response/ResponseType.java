@@ -13,5 +13,7 @@ package response;
 public enum ResponseType {
     SIGN_UP,
     LOGIN,
+    READ_PLAYER,
+    READ_EVENT,
     NOTIFICATION
 }

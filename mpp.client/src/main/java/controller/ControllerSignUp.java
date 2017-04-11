@@ -8,9 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import manager.StageManager;
+import observer.ObserverClientProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import response.NotificationType;
 import view.ViewType;
 
 /**
@@ -24,7 +26,7 @@ import view.ViewType;
  */
 
 @Component
-public class ControllerSignUp implements ControllerProtocol {
+public class ControllerSignUp implements ControllerProtocol, ObserverClientProtocol {
 
     private final StageManager stageManager;
     private final ClientTransmissionProtocol controller;
@@ -38,6 +40,7 @@ public class ControllerSignUp implements ControllerProtocol {
     public ControllerSignUp(StageManager stageManager, ClientTransmissionController controller) {
         this.stageManager = stageManager;
         this.controller = controller;
+        this.controller.setObserver(this);
     }
 
     @Override
@@ -61,6 +64,11 @@ public class ControllerSignUp implements ControllerProtocol {
         }
         this.controller.setActiveUser(user);
         this.stageManager.switchScene(ViewType.HOME);
+    }
+
+    @Override
+    public void notify(NotificationType notification) {
+
     }
 
 }
