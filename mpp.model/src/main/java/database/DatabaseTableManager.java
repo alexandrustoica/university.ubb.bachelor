@@ -30,6 +30,10 @@ public class DatabaseTableManager extends DatabaseConnectionManager {
         this.database = database;
     }
 
+    private Boolean isWindows() {
+        return System.getProperty("os.name").startsWith("Windows");
+    }
+
     private void createTable() throws Errors {
         try {
             makeConnection();
@@ -38,7 +42,13 @@ public class DatabaseTableManager extends DatabaseConnectionManager {
             for (String name : table.getColumns().keySet()) {
                 createTableCommand += name + " " + table.getColumns().get(name).toString() + ", " + System.lineSeparator();
             }
-            createTableCommand = createTableCommand.substring(0, createTableCommand.length() - 3);
+            Integer offset = 0;
+            if(!isWindows()) {
+                offset = 3;
+            } else {
+                offset = 4;
+            }
+            createTableCommand = createTableCommand.substring(0, createTableCommand.length() - offset);
             createTableCommand += ")";
             statement.execute(createTableCommand);
             closeConnection();
