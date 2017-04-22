@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{25CE4B16-F57F-41E4-8F1A-F84B64B2ECB8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NetworkComponent</RootNamespace>
+    <AssemblyName>NetworkComponent</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connection\ClientConnectionManager.cs" />
+    <Compile Include="Connection\IClientConnection.cs" />
+    <Compile Include="Connection\IServerConnection.cs" />
+    <Compile Include="Connection\ServerConnectionManager.cs" />
+    <Compile Include="Connection\IConnection.cs" />
+    <Compile Include="Handler\IRequestHandler.cs" />
+    <Compile Include="Handler\IResponseHandler.cs" />
+    <Compile Include="Handler\RequestHandler.cs" />
+    <Compile Include="Handler\ResponseHandler.cs" />
+    <Compile Include="Listener\IRequestListener.cs" />
+    <Compile Include="Listener\RequestListener.cs" />
+    <Compile Include="Listener\ResponseListener.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestHandlerBehaviour\FactoryRequestHandlerBehaviour.cs" />
+    <Compile Include="RequestHandlerBehaviour\IRequestHandlerBehaviour.cs" />
+    <Compile Include="RequestHandlerBehaviour\LoginRequestHandlerBehaviour.cs" />
+    <Compile Include="Request\IRequest.cs" />
+    <Compile Include="Request\Request.cs" />
+    <Compile Include="ResponseHandlerBehaviour\FactoryResponseHandlerBehaviour.cs" />
+    <Compile Include="ResponseHandlerBehaviour\IResponseHandlerBehaviour.cs" />
+    <Compile Include="ResponseHandlerBehaviour\LoginResponseHandlerBehaviour.cs" />
+    <Compile Include="ResponseHandlerBehaviour\NotificationResponseHandlerBehaviour.cs" />
+    <Compile Include="Response\IResponse.cs" />
+    <Compile Include="Listener\IResponseListener.cs" />
+    <Compile Include="Response\Response.cs" />
+    <Compile Include="Response\UpdateType.cs" />
+    <Compile Include="Sender\IRequestSender.cs" />
+    <Compile Include="Sender\IResponseSender.cs" />
+    <Compile Include="Sender\RequestSender.cs" />
+    <Compile Include="Sender\ResponseSender.cs" />
+    <Compile Include="Service\IClientService.cs" />
+    <Compile Include="Subscribe\IConnectionObserver.cs" />
+    <Compile Include="System\ICanSendRequest.cs" />
+    <Compile Include="System\IErrorSupport.cs" />
+    <Compile Include="Transferable\ITransferable.cs" />
+    <Compile Include="Request\RequestType.cs" />
+    <Compile Include="Transferable\TransferType.cs" />
+    <Compile Include="Response\ResponseType.cs" />
+    <Compile Include="Subscribe\ISubscriber.cs" />
+    <Compile Include="System\ICanListen.cs" />
+    <Compile Include="System\ICanSendResponse.cs" />
+    <Compile Include="System\IStartable.cs" />
+    <Compile Include="System\IStoppable.cs" />
+    <Compile Include="Subscribe\ISubscription.cs" />
+    <Compile Include="Transmission\IClientTransmission.cs" />
+    <Compile Include="Transmission\ClientTransmissionManager.cs" />
+    <Compile Include="Transmission\IServerTransmission.cs" />
+    <Compile Include="Transmission\ITransmission.cs" />
+    <Compile Include="Transmission\ServerTransmissionManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelComponent\ModelComponent.csproj">
+      <Project>{940FA664-9EB8-4F79-A35A-131DC27C95EC}</Project>
+      <Name>ModelComponent</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
