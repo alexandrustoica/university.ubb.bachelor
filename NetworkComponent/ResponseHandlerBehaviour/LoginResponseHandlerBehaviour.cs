@@ -1,4 +1,5 @@
 ﻿using ModelComponent;
+using ModelComponent.Domain;
 using NetworkComponent.Response;
 using NetworkComponent.Subscribe;
 

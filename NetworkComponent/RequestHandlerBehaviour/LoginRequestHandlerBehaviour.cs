@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ModelComponent;
+using ModelComponent.Domain;
 using NetworkComponent.Request;
 using NetworkComponent.Response;
 using NetworkComponent.Subscribe;

@@ -1,4 +1,5 @@
 ﻿using ModelComponent;
+using ModelComponent.Domain;
 
 namespace NetworkComponent.Service
 {
