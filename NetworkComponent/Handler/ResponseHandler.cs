@@ -6,7 +6,7 @@ namespace NetworkComponent.Handler
     public class ResponseHandler : IResponseHandler
     {
         private ISubscriber _subscriber;
-        private IResponseHandlerBehaviour _behaviour;
+        private ResponseHandlerBehaviour.ResponseHandlerBehaviour _behaviour;
         public void Subscribe(ISubscriber subscriber)
         {
             _subscriber = subscriber;

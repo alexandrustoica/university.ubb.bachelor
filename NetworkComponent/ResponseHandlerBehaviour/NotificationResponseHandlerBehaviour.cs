@@ -1,19 +1,12 @@
 ﻿using NetworkComponent.Response;
-using NetworkComponent.Subscribe;
 
 namespace NetworkComponent.ResponseHandlerBehaviour
 {
-    public class NotificationResponseHandlerBehaviour: IResponseHandlerBehaviour
+    public class NotificationResponseHandlerBehaviour: ResponseHandlerBehaviour
     {
-        private IConnectionObserver _observer;
-        public void Subscribe(ISubscriber subscriber)
+        public override void Solve(IResponse response)
         {
-            _observer = (IConnectionObserver)subscriber;
-        }
-
-        public void Solve(IResponse response)
-        {
-            _observer.Update(response);
+            Subscriber.Update(response);
         }
     }
 }

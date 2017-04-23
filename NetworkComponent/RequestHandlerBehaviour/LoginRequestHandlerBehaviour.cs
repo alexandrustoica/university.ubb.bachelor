@@ -9,11 +9,9 @@ using NetworkComponent.Subscribe;
 namespace NetworkComponent.RequestHandlerBehaviour
 {
     public class LoginRequestHandlerBehaviour:
-        IRequestHandlerBehaviour
+        RequestHandlerBehaviour
     {
-        private ISubscriber _subscriber;
-
-        public IResponse Solve(IRequest request)
+        public override IResponse Solve(IRequest request)
         {
             //var id = (int) request.Get("id");
             //var username = (string) request.Get("username");
@@ -28,16 +26,11 @@ namespace NetworkComponent.RequestHandlerBehaviour
 
             IResponse notification = new Response.Response(ResponseType.Notification);
             notification.Add(UpdateType.All, "update");
-            _subscriber.Update(notification);
+            Subscriber.Update(notification);
 
             IResponse response = new Response.Response(ResponseType.Login);
             response.Add(new User(1, "ana", "24pass"), "user");
             return response;
-        }
-
-        public void Subscribe(ISubscriber subscriber)
-        {
-            _subscriber = subscriber;
         }
     }
 }

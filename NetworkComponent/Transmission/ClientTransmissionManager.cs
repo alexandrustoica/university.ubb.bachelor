@@ -67,12 +67,27 @@ namespace NetworkComponent.Transmission
             list.Add(new User(1, "Ana", "password"));
             list.Add(new User(1, "Naan", "23423"));
             request.Add(list, "users");
+            Send(request);
+            return (User) _result;
+        }
+
+        private void Send(IRequest request)
+        {
             _connection.Send(request);
             while (!_isReady)
             {
                 // TODO
             }
             _isReady = false;
+        }
+
+        public User SignUp(string username, string password, string confirm)
+        {
+            IRequest request = new Request.Request(RequestType.SignUp);
+            request.Add(username, "username");
+            request.Add(password, "password");
+            request.Add(confirm, "confirm");
+            Send(request);
             return (User) _result;
         }
     }

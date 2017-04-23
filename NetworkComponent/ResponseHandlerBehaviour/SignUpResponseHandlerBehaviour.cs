@@ -1,11 +1,9 @@
-﻿using ModelComponent;
-using ModelComponent.Domain;
+﻿using ModelComponent.Domain;
 using NetworkComponent.Response;
-using NetworkComponent.Subscribe;
 
 namespace NetworkComponent.ResponseHandlerBehaviour
 {
-    public class LoginResponseHandlerBehaviour: ResponseHandlerBehaviour
+    public class SignUpResponseHandlerBehaviour: ResponseHandlerBehaviour
     {
         public override void Solve(IResponse response)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using ModelComponent.Domain;
 using NetworkComponent.Connection;
 using NetworkComponent.Response;
 using NetworkComponent.Subscribe;
@@ -23,17 +24,18 @@ namespace ClientComponent
              _transmission.Start();
             _transmission.Subscribe(this);
         }
-
-        private void OnLoginButton(object sender, EventArgs e)
-        {
-            var user = _transmission.Login("Ana", "test");
-            Message.Text = user.Name;
-        }
-
+        
         public void Update(ITransferable notification)
         {
-            var response = (IResponse) notification;
-            Console.WriteLine(response.Get("update"));
+        }
+
+        private void signUpButton_Click(object sender, EventArgs e)
+        {
+            var username = usernameTextBox.Text;
+            var password = passwordTextBox.Text;
+            var confirm = confirmTextBox.Text;
+            var user = _transmission.SignUp(username, password, confirm);
+            label1.Text = user.Name + " " + user.GetId().ToString() + " " + user.Password;
         }
     }
 }

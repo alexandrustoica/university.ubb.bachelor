@@ -7,7 +7,7 @@ namespace NetworkComponent.Handler
     public class RequestHandler: IRequestHandler
     {
         private ISubscriber _subscriber;
-        private IRequestHandlerBehaviour _behaviour;
+        private RequestHandlerBehaviour.RequestHandlerBehaviour _behaviour;
         public void Subscribe(ISubscriber subscriber)
         {
             _subscriber = subscriber;

@@ -5,12 +5,14 @@ namespace NetworkComponent.RequestHandlerBehaviour
 {
     public class FactoryRequestHandlerBehaviour
     {
-        public IRequestHandlerBehaviour GetBehaviour(IRequest request)
+        public RequestHandlerBehaviour GetBehaviour(IRequest request)
         {
             switch (request.GetRequestType())
             {
                 case RequestType.Login:
                     return new LoginRequestHandlerBehaviour();
+                case RequestType.SignUp:
+                    return new SignUpRequestHandlerBehaviour();
                 default:
                     throw new Exception("Unsupported Request Type!");
             }

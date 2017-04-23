@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using ModelComponent.Database;
 using ModelComponent.Entity;
 using ModelComponent.Repository;
@@ -8,19 +9,20 @@ namespace ModelComponent.Model
     public class Model<T, E> : IModel<T>
         where E : IIdableEntity, new()
         {
-        private const string Database = "database.db";
+
         public string PreferredDatabaseSource { get; set; }
 
         protected IRepositoryEntity<T, E> Repository;
 
         public Model(string database)
         {
-            PreferredDatabaseSource = database;
+            var defaultDatabase = Path.Combine(Directory.GetCurrentDirectory(), "database.db");
+            PreferredDatabaseSource = database ?? defaultDatabase;
             var validator = new DatabaseTableValidator(PreferredDatabaseSource);
             validator.CheckDatabase();
         }
 
-        public Model() : this(Database) {}
+        public Model() : this(null) {}
     
         public int Add(T element)
         {
