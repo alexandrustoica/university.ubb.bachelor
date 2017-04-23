@@ -4,8 +4,8 @@
     /// Interface designed to add ID support to our entity objects.
     /// </summary>
     /// <typeparam name="T">The id's type</typeparam>
-    public interface IIdableEntity<T>
+    public abstract class IIdableEntity
     {
-        T Id { get; set; }        
+        public abstract int Id { get; set; }        
     }
 }

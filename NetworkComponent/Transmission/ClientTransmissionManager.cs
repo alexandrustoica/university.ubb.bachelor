@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ModelComponent;
 using ModelComponent.Domain;
 using NetworkComponent.Connection;
 using NetworkComponent.Transferable;

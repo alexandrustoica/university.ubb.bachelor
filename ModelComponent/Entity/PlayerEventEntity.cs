@@ -6,10 +6,10 @@ namespace ModelComponent.Entity
     /// <summary>
     /// Represents the relationship between players and events.
     /// </summary>
-    public class PlayerEventEntity: IIdableEntity<int>
+    public class PlayerEventEntity: IIdableEntity
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public override int Id { get; set; }
         
         [ForeignKey("PlayerDatabaseEntity")]
         [NotNull]

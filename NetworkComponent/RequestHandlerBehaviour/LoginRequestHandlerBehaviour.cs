@@ -23,7 +23,7 @@ namespace NetworkComponent.RequestHandlerBehaviour
             foreach (var user in list)
             {
                Console.WriteLine(user.GetId() + " " +
-                   user.GetName() + " " +  user.GetPassword());
+                   user.Name + " " +  user.Password);
             }
 
             IResponse notification = new Response.Response(ResponseType.Notification);

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientComponent", "ClientCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelComponent", "ModelComponent\ModelComponent.csproj", "{940FA664-9EB8-4F79-A35A-131DC27C95EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelComponentTests", "ModelComponentTests\ModelComponentTests.csproj", "{C4170066-1518-4F3A-8D31-F2D32DA24356}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,22 @@ Global
 		{940FA664-9EB8-4F79-A35A-131DC27C95EC}.Release|x64.Build.0 = Release|Any CPU
 		{940FA664-9EB8-4F79-A35A-131DC27C95EC}.Release|x86.ActiveCfg = Release|Any CPU
 		{940FA664-9EB8-4F79-A35A-131DC27C95EC}.Release|x86.Build.0 = Release|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Debug|x64.Build.0 = Debug|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Debug|x86.Build.0 = Debug|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Release|ARM.Build.0 = Release|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Release|x64.ActiveCfg = Release|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Release|x64.Build.0 = Release|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Release|x86.ActiveCfg = Release|Any CPU
+		{C4170066-1518-4F3A-8D31-F2D32DA24356}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

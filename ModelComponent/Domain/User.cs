@@ -19,6 +19,8 @@ namespace ModelComponent.Domain
         /// </summary>
         public string Password { get; }
 
+        public User(): base(0) { }
+
         /// <summary>
         /// Creates a user with an empty/invalid id = 0.
         /// </summary>

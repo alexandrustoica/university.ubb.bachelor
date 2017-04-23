@@ -19,6 +19,8 @@ namespace ModelComponent.Domain
         /// </summary>
         public EventStyle Style { get; }
 
+        public Event(): base(0) { }
+
         /// <summary>
         /// Creates an event with a valid id.
         /// </summary>

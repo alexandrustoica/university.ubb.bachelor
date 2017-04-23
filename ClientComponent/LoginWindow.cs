@@ -27,7 +27,7 @@ namespace ClientComponent
         private void OnLoginButton(object sender, EventArgs e)
         {
             var user = _transmission.Login("Ana", "test");
-            Message.Text = user.GetName();
+            Message.Text = user.Name;
         }
 
         public void Update(ITransferable notification)

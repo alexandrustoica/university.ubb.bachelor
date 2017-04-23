@@ -5,10 +5,10 @@ namespace ModelComponent.Entity
     /// <summary>
     /// The player's representation in database.
     /// </summary>
-    public class PlayerEntity: IIdableEntity<int>
+    public class PlayerEntity: IIdableEntity
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public override int Id { get; set; }
 
         /// <summary>
         /// The player's name [not null]

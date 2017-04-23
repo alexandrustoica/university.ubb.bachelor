@@ -5,10 +5,10 @@ namespace ModelComponent.Entity
     /// <summary>
     /// The user's representation in database.
     /// </summary>
-    public class UserEntity: IIdableEntity<int>
+    public class UserEntity: IIdableEntity
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public override int Id { get; set; }
 
         /// <summary>
         /// The user's name [unique] [not null]

@@ -21,6 +21,8 @@ namespace ModelComponent.Domain
         /// </summary>
         public int Age { get; }
 
+        public Player(): base(0) { }
+
         /// <summary>
         /// Creates a player with a valid id.
         /// </summary>

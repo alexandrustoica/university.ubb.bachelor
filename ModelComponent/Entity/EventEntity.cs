@@ -5,10 +5,10 @@ namespace ModelComponent.Entity
     /// <summary>
     /// The event's representation in datebase.
     /// </summary>
-    public class EventEntity: IIdableEntity<int>
+    public class EventEntity: IIdableEntity
     {  
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public override int Id { get; set; }
 
         /// <summary>
         /// The event's distance [m] [not null]
