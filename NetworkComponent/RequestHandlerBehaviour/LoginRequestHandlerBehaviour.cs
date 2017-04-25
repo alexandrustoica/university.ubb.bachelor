@@ -1,35 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using ModelComponent;
+﻿using System.Linq;
 using ModelComponent.Domain;
+using ModelComponent.Model;
 using NetworkComponent.Request;
 using NetworkComponent.Response;
-using NetworkComponent.Subscribe;
 
 namespace NetworkComponent.RequestHandlerBehaviour
 {
     public class LoginRequestHandlerBehaviour:
         RequestHandlerBehaviour
     {
+        private readonly ModelUser _model;
+
+        public LoginRequestHandlerBehaviour()
+        {
+            _model = new ModelUser();
+        }
+
+        private User IsUserValid(string username,  string password)
+        {
+            return _model.GetAll().FirstOrDefault(user =>
+            user.Name.Equals(username) && user.Password.Equals(password));
+        }
+
+
         public override IResponse Solve(IRequest request)
         {
-            //var id = (int) request.Get("id");
-            //var username = (string) request.Get("username");
-            //var password = (string) request.Get("password");
-            //Console.WriteLine(id + " " + username + " " + password);
-            var list = (List<User>) request.Get("users");
-            foreach (var user in list)
-            {
-               Console.WriteLine(user.GetId() + " " +
-                   user.Name + " " +  user.Password);
-            }
-
-            IResponse notification = new Response.Response(ResponseType.Notification);
-            notification.Add(UpdateType.All, "update");
-            Subscriber.Update(notification);
-
+            var username = (string) request.Get("username");
+            var password = (string) request.Get("password");
             IResponse response = new Response.Response(ResponseType.Login);
-            response.Add(new User(1, "ana", "24pass"), "user");
+            var user = IsUserValid(username, password);
+            if (user != null) 
+            {
+                response.Add(user, "user");
+                return response;
+            }
+            response.SetError(404, "Invalid User Data!");
             return response;
         }
     }

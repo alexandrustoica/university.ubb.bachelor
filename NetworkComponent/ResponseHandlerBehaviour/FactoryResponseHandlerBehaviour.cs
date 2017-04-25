@@ -16,6 +16,10 @@ namespace NetworkComponent.ResponseHandlerBehaviour
                     return new NotificationResponseHandlerBehaviour();
                 case ResponseType.SignUp:
                     return new SignUpResponseHandlerBehaviour();
+                case ResponseType.GetPlayers:
+                    return new GetPlayersResponseHandlerBehaviour();
+                case ResponseType.GetEvent:
+                    return new GetEventsResponseHandlerBehaviour();
                 default:
                     throw new Exception("Unsupported Request Type!");
             }

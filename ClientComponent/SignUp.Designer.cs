@@ -1,6 +1,6 @@
 ﻿namespace ClientComponent
 {
-    partial class LoginWindow
+    partial class SignUp
     {
         /// <summary>
         /// Required designer variable.
@@ -138,14 +138,15 @@
             this.loginButton.TabIndex = 5;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = false;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
-            // LoginWindow
+            // SignUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(279, 275);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "LoginWindow";
+            this.Name = "SignUp";
             this.Text = "Sign Up";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

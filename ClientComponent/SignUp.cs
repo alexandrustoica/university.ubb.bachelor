@@ -1,30 +1,39 @@
 ﻿using System;
 using System.Windows.Forms;
-using ModelComponent.Domain;
 using NetworkComponent.Connection;
-using NetworkComponent.Response;
 using NetworkComponent.Subscribe;
-using NetworkComponent.System;
 using NetworkComponent.Transferable;
 using NetworkComponent.Transmission;
 
 namespace ClientComponent
 {
-    public partial class LoginWindow : Form, ISubscriber
+    public partial class SignUp : Form, ISubscriber
     {
         private readonly IClientTransmission _transmission;
         private const int Port = 55555;
         private const string Host = "127.0.0.1";
+        private readonly Login _login;
+        private readonly Home _home;
 
-        public LoginWindow()
+        public SignUp()
         {
             InitializeComponent();
             IClientConnection connection = new ClientConnectionManager(Host, Port);
             _transmission = new ClientTransmissionManager(connection);
-             _transmission.Start();
+            _transmission.Start();
             _transmission.Subscribe(this);
+            _home = new Home(_transmission)
+            {
+                Location = Location,
+                StartPosition = FormStartPosition.Manual
+            };
+            _login = new Login(this, _home, _transmission)
+            {
+                Location = Location,
+                StartPosition = FormStartPosition.Manual
+            };
         }
-        
+
         public void Update(ITransferable notification)
         {
         }
@@ -35,7 +44,16 @@ namespace ClientComponent
             var password = passwordTextBox.Text;
             var confirm = confirmTextBox.Text;
             var user = _transmission.SignUp(username, password, confirm);
-            label1.Text = user.Name + " " + user.GetId().ToString() + " " + user.Password;
+            _home.Location = Location;
+            _home.Show();
+            Hide();
+        }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            _login.Location = Location;
+            _login.Show();
+            Hide();
         }
     }
 }

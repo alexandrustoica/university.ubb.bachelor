@@ -3,6 +3,9 @@
     public enum RequestType
     {
         Login,
-        SignUp
+        SignUp,
+        GetPlayers,
+        GetEvents,
+        AddPlayer
     }
 }

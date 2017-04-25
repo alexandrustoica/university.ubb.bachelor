@@ -33,6 +33,7 @@ namespace NetworkComponent.Transmission
 
         public void Update(ITransferable notification)
         {
+            _isReady = true;
             _subscriber.Update(notification);
         }
 
@@ -60,13 +61,8 @@ namespace NetworkComponent.Transmission
         public User Login(string username, string password)
         {
             IRequest request = new Request.Request(RequestType.Login);
-            //request.Add(1, "id");
-            //request.Add(username, "username");
-            //request.Add(password, "password");
-            var list = new List<User>();
-            list.Add(new User(1, "Ana", "password"));
-            list.Add(new User(1, "Naan", "23423"));
-            request.Add(list, "users");
+            request.Add(username, "username");
+            request.Add(password, "password");
             Send(request);
             return (User) _result;
         }
@@ -89,6 +85,31 @@ namespace NetworkComponent.Transmission
             request.Add(confirm, "confirm");
             Send(request);
             return (User) _result;
+        }
+
+        public List<Player> GetPlayers(int idEvent)
+        {
+            IRequest request = new Request.Request(RequestType.GetPlayers);
+            request.Add(idEvent != 0 ? idEvent : 0, "event");
+            Send(request);
+            return (List<Player>) _result;
+        }
+
+        public List<Event> GetEvents(int idPlayer)
+        {
+            IRequest request = new Request.Request(RequestType.GetEvents);
+            request.Add(idPlayer != 0 ? idPlayer : 0, "player");
+            Send(request);
+            return (List<Event>)_result;
+        }
+
+        public void AddPlayer(string name, int age, List<int> idEvents)
+        {
+            IRequest request = new Request.Request(RequestType.AddPlayer);
+            request.Add(name, "name");
+            request.Add(age, "age");
+            request.Add(idEvents, "events");
+            Send(request);
         }
     }
 }

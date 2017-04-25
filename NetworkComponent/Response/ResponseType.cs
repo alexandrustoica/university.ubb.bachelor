@@ -4,6 +4,9 @@
     {
         Notification, 
         Login, 
-        SignUp
+        SignUp,
+        GetPlayers,
+        GetEvent,
+        AddPlayer
     }
 }
