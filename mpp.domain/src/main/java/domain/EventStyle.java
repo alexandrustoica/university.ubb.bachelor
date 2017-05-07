@@ -3,11 +3,8 @@ package domain;
 import java.io.Serializable;
 
 /**
- * Name:        EventStyle
- * Effect:      Defines the event's styles.
- * Date:        01/04/2017
- * @author      Alexandru Stoica
- * @version     1.0
+ * @author Alexandru Stoica
+ * @version 1.0
  */
 
 public enum EventStyle implements Serializable {

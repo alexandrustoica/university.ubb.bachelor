@@ -8,15 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Name:        {ClassName}
- * Effect:      {ClassEffect}
- * Date:        01/04/2017
- * Tested:      False
- *
  * @author Alexandru Stoica
  * @version 1.0
  */
-
 
 public class DatabaseTableManager extends DatabaseConnectionManager {
 

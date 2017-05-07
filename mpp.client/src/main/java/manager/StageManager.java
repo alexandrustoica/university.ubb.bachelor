@@ -8,11 +8,6 @@ import view.ViewType;
 import java.util.Objects;
 
 /**
- * Name:        {ClassName}
- * Effect:      {ClassEffect}
- * Date:        02/04/2017
- * Tested:      False
- *
  * @author Alexandru Stoica
  * @version 1.0
  */
@@ -59,7 +54,7 @@ public class StageManager {
     }
 
     /**
-     * Effect: Uses the root to get the current scene or creates a new one if it's the case.
+     * Effect: Uses the root to getUser the current scene or creates a new one if it's the case.
      * @param root: The parent node of the fxml file. [Parent]
      * @return scene: the new current scene [Scene]
      */

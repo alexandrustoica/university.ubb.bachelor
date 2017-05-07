@@ -3,11 +3,8 @@ package domain;
 import java.io.Serializable;
 
 /**
- * Name:        Player
- * Effect:      Describes the player entity.
- * Date:        01/04/2017
- * @author      Alexandru Stoica
- * @version     1.0
+ * @author Alexandru Stoica
+ * @version 1.0
  */
 
 public class Player extends Idable<Integer> implements Serializable {

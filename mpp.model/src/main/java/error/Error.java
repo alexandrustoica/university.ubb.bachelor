@@ -1,11 +1,8 @@
 package error;
 
 /**
- * Name:        Error
- * Effect:      Defines a error entity.
- * Date:        01/04/2017
- * @author      Alexandru Stoica
- * @version     1.0
+ * @author Alexandru Stoica
+ * @version 1.0
  */
 
 public class Error extends Throwable {

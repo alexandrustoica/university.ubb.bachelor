@@ -1,11 +1,8 @@
 package domain;
 
 /**
- * Name:        Idable
- * Effect:      Describes the id-able objects in the domain.
- * Date:        01/04/2017
- * @author      Alexandru Stoica
- * @version     1.0
+ * @author Alexandru Stoica
+ * @version 1.0
  */
 
 public class Idable<ID> implements HasID<ID> {

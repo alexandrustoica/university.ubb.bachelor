@@ -1,24 +1,21 @@
 package main;
 
-import client.ClientTransmissionController;
-import controller.ControllerApplication;
+import controller.ControllerHome;
 import controller.ControllerLogin;
 import controller.ControllerSignUp;
 import javafx.stage.Stage;
 import loader.SpringFXMLLoader;
+import manager.ClientManager;
 import manager.StageManager;
-import client.ClientConnectionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import service.ClientService;
+
 import java.io.IOException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
- * Name:        {ClassName}
- * Effect:      {ClassEffect}
- * Date:        02/04/2017
- * Tested:      False
  * @author Alexandru Stoica
  * @version 1.0
  */
@@ -32,23 +29,20 @@ public class SpringConfiguration {
     private SpringFXMLLoader loader;             // FXML Loader with DI.
 
     private StageManager stageManager;
-    private ClientTransmissionController clientTransmissionController;
-    private static final Integer port = 55555;
+    private final ClientService clientManager;
+
+    public SpringConfiguration() throws Exception {
+        clientManager = new ClientManager();
+        clientManager.start();
+    }
+
+    private static final Integer port = 1099;
     private static final String host = "localhost";
     private static final String propertiesURL = "/client.properties";
 
     @Bean
-    public ClientTransmissionController clientTransmissionController() {
-        clientTransmissionController = new ClientTransmissionController(clientConnectionManager());
-        return clientTransmissionController;
-    }
-
-    @Bean
-    public ClientConnectionManager clientConnectionManager() {
-        Properties properties = getProperties(propertiesURL);
-        Integer serverPort = getPort(properties);
-        String serverHost = properties.getProperty("server.host", host);
-        return new ClientConnectionManager(serverHost, serverPort);
+    public ClientService clientProtocol() throws Exception {
+        return clientManager;
     }
 
     /** Local Resources Bundle */
@@ -58,18 +52,18 @@ public class SpringConfiguration {
     }
 
     @Bean @Lazy
-    public ControllerApplication controllerApplication() {
-        return new ControllerApplication(stageManager, clientTransmissionController);
+    public ControllerHome controllerApplication() throws Exception {
+        return new ControllerHome(stageManager, clientManager);
     }
 
     @Bean @Lazy
-    public ControllerLogin controllerLogin() {
-        return new ControllerLogin(stageManager, clientTransmissionController);
+    public ControllerLogin controllerLogin() throws Exception {
+        return new ControllerLogin(stageManager, clientManager);
     }
 
     @Bean @Lazy
-    public ControllerSignUp controllerSignUp() {
-        return new ControllerSignUp(stageManager, clientTransmissionController);
+    public ControllerSignUp controllerSignUp() throws Exception {
+        return new ControllerSignUp(stageManager, clientManager);
     }
 
     /**

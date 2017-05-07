@@ -4,13 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Name:        Errors
- * Effect:      Collection of Error entities.
- * Date:        01/04/2017
- * Tested:      False
- *
- * @author      Alexandru Stoica
- * @version     1.0
+ * @author Alexandru Stoica
+ * @version 1.0
  */
 
 public class Errors extends Throwable implements Iterable<Error> {

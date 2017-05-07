@@ -1,35 +1,28 @@
 package controller;
 
-import client.ClientTransmissionController;
-import client.ClientTransmissionProtocol;
 import domain.User;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import manager.StageManager;
-import observer.ObserverClientProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import response.NotificationType;
+import service.ClientService;
 import view.ViewType;
 
+import java.rmi.RemoteException;
+
 /**
- * Name:        {ClassName}
- * Effect:      {ClassEffect}
- * Date:        02/04/2017
- * Tested:      False
- *
  * @author Alexandru Stoica
  * @version 1.0
  */
 
 @Component
-public class ControllerSignUp implements ControllerProtocol, ObserverClientProtocol {
+public class ControllerSignUp implements ControllerProtocol {
 
     private final StageManager stageManager;
-    private final ClientTransmissionProtocol controller;
+    private final ClientService clientManager;
 
     @FXML private TextField usernameTextField;
     @FXML private TextField passwordTextField;
@@ -37,18 +30,16 @@ public class ControllerSignUp implements ControllerProtocol, ObserverClientProto
     @FXML private Label errorLabel;
 
     @Autowired @Lazy
-    public ControllerSignUp(StageManager stageManager, ClientTransmissionController controller) {
+    public ControllerSignUp(StageManager stageManager, ClientService clientManager) throws Exception {
         this.stageManager = stageManager;
-        this.controller = controller;
-        this.controller.setObserver(this);
+        this.clientManager = clientManager;
     }
 
     @Override
-    public void initialize() {
+    public void initialize() { }
 
-    }
-
-    @FXML private void onLoginButtonClick() {
+    @FXML private void onLoginButtonClick() throws RemoteException {
+        clientManager.stop();
         stageManager.switchScene(ViewType.LOGIN);
     }
 
@@ -56,19 +47,12 @@ public class ControllerSignUp implements ControllerProtocol, ObserverClientProto
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         String confirm = confirmTextField.getText();
-        User user = controller.requestSignUp(username, password, confirm);
-        if (user == null) {
-            Platform.runLater(() ->
-                    this.errorLabel.setText(controller.getErrors().getMessage()));
-            return;
+        try {
+            User user = clientManager.signUp(username, password, confirm);
+            clientManager.setUser(user);
+            stageManager.switchScene(ViewType.HOME);
+        } catch (RemoteException exception) {
+            errorLabel.setText(exception.getMessage());
         }
-        this.controller.setActiveUser(user);
-        this.stageManager.switchScene(ViewType.HOME);
     }
-
-    @Override
-    public void notify(NotificationType notification) {
-
-    }
-
 }

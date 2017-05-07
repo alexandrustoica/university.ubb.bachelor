@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Name:        {ClassName}
- * Effect:      {ClassEffect}
- * Date:        01/04/2017
- * Tested:      False
- *
  * @author Alexandru Stoica
  * @version 1.0
  */

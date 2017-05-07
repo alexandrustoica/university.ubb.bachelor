@@ -12,7 +12,6 @@
     <orderEntry type="module" module-name="mpp.domain_main" />
     <orderEntry type="module" module-name="mpp.model_main" />
     <orderEntry type="library" name="Gradle: org.xerial:sqlite-jdbc:3.8.11" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.3.7.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.3.7.RELEASE" level="project" />
+    <orderEntry type="module" module-name="mpp.server_main" />
   </component>
 </module>

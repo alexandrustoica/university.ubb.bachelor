@@ -5,11 +5,6 @@ import error.Errors;
 import java.util.ArrayList;
 
 /**
- * Name:        {ClassName}
- * Effect:      {ClassEffect}
- * Date:        01/04/2017
- * Tested:      False
- *
  * @author Alexandru Stoica
  * @version 1.0
  */

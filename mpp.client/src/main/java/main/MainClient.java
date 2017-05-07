@@ -9,11 +9,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import view.ViewType;
 
 /**
- * Name:        {ClassName}
- * Effect:      {ClassEffect}
- * Date:        02/04/2017
- * Tested:      False
- *
  * @author Alexandru Stoica
  * @version 1.0
  */
@@ -32,7 +27,7 @@ public class MainClient extends Application {
     /**
      * Effect: Spring gets initialised here.
      * <p> We need Spring in order to create the StageManager. </p>
-     * @throws Exception : If Spring is unable to get an Application Context.
+     * @throws Exception : If Spring is unable to getUser an Application Context.
      */
     @Override
     public void init() throws Exception {
