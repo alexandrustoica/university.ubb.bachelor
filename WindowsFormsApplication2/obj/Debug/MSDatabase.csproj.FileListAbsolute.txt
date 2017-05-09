@@ -1,0 +1,9 @@
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.pdb
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2\obj\Debug\MSDatabase.csprojResolveAssemblyReference.cache
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.MainApplicationWindow.resources
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Properties.Resources.resources
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2\obj\Debug\MSDatabase.csproj.GenerateResource.Cache
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.exe
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.pdb

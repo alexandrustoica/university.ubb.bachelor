@@ -6,3 +6,12 @@ C:\Users\Alexandru\Documents\Visual Studio 2015\Projects\WindowsFormsApplication
 C:\Users\Alexandru\Documents\Visual Studio 2015\Projects\WindowsFormsApplication2\WindowsFormsApplication2Tests\obj\Debug\WindowsFormsApplication2Tests.csprojResolveAssemblyReference.cache
 C:\Users\Alexandru\Documents\Visual Studio 2015\Projects\WindowsFormsApplication2\WindowsFormsApplication2Tests\obj\Debug\WindowsFormsApplication2Tests.dll
 C:\Users\Alexandru\Documents\Visual Studio 2015\Projects\WindowsFormsApplication2\WindowsFormsApplication2Tests\obj\Debug\WindowsFormsApplication2Tests.pdb
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2Tests\bin\Debug\WindowsFormsApplication2Tests.dll
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2Tests\bin\Debug\WindowsFormsApplication2Tests.pdb
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2Tests\bin\Debug\WindowsFormsApplication2.exe
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2Tests\bin\Debug\WindowsFormsApplication2.pdb
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2Tests\bin\Debug\WindowsFormsApplication2.exe.config
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2Tests\obj\Debug\WindowsFormsApplication2Tests.csprojResolveAssemblyReference.cache
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2Tests\obj\Debug\WindowsFormsApplication2Tests.dll
+C:\Users\Alexandru\Source\Repos\MSDatabase\WindowsFormsApplication2Tests\obj\Debug\WindowsFormsApplication2Tests.pdb

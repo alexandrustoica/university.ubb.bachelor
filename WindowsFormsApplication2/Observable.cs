@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 
 namespace WindowsFormsApplication2 {
-	public class Observable
+
+    public class Observable
 	{
-		private List<Observer> observers;
+		private readonly List<Observer> _observers;
 
 		public Observable()
 		{
-			this.observers = new List<Observer>();
+            _observers = new List<Observer>();
 		}
 
-		public void addObserver(Observer observer)
+		public void AddObserver(Observer observer)
 		{
-			observers.Add(observer);
+			_observers.Add(observer);
 		}
 
-		public void notifyObservers(NotificationType type)
+		public void NotifyObservers(NotificationType type)
 		{
-			foreach (var observer in observers)
+			foreach (var observer in _observers)
 			{
 				observer.notifyMe(type);
 			}

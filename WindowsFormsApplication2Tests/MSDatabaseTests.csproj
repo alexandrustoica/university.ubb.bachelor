@@ -6,8 +6,8 @@
     <ProjectGuid>{4E53B3BE-A7BC-4B54-BE31-3FE72203D82F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsFormsApplication2Tests</RootNamespace>
-    <AssemblyName>WindowsFormsApplication2Tests</AssemblyName>
+    <RootNamespace>MSDatabaseTests</RootNamespace>
+    <AssemblyName>MSDatabaseTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -58,9 +58,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WindowsFormsApplication2\WindowsFormsApplication2.csproj">
+    <ProjectReference Include="..\WindowsFormsApplication2\MSDatabase.csproj">
       <Project>{A6D7864B-1940-4E5F-9BE4-27929909EF6D}</Project>
-      <Name>WindowsFormsApplication2</Name>
+      <Name>MSDatabase</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

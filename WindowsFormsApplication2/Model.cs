@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -16,7 +17,10 @@ namespace WindowsFormsApplication2 {
 		private readonly string DatabaseDataSource;
 		private readonly string DatabaseName;
 
-		public Model() : this("DESKTOP-9K3Q22D", "TaskDatabase") { }
+	    private static readonly string _serverName = ConfigurationManager.ConnectionStrings["serverName"].ConnectionString;
+	    private static readonly string _databaseName = ConfigurationManager.ConnectionStrings["databaseName"].ConnectionString;
+        
+        public Model() : this(_serverName, databaseName: _databaseName) { }
 
 		public Model(string dataSource, string databaseName)
 		{
@@ -45,6 +49,15 @@ namespace WindowsFormsApplication2 {
 			return ModelDataSet.Tables[0];
 		}
 
+	    public DataTable _GetTable(DatabaseTable table)
+	    {
+            ModelDataAdaptor.SelectCommand = new SqlCommand(ConfigurationManager.AppSettings["SelectQuery"] + table.Name, ModelConnection);
+	        ModelDataSet.Clear();
+	        ModelDataAdaptor.Fill(ModelDataSet);
+	        ModelBindingSource.DataSource = ModelDataSet.Tables[0];
+            return ModelDataSet.Tables[0];
+	    }
+
 		public DataTable GetChildTableOfId(int idFk, string nameFk, string childTableName)
 		{
 			ModelDataAdaptor.SelectCommand = new SqlCommand("select * from " +
@@ -55,12 +68,25 @@ namespace WindowsFormsApplication2 {
 			return ModelDataSet.Tables[0];
 		}
 
+//	    public DataTable GetChildWithId(DatabaseTable child, int id)
+//	    {
+//	        ModelDataAdaptor.SelectCommand = new SqlCommand("select * from " +
+//	                                                        childTableName + " where " + nameFk + "=" + idFk, ModelConnection);
+//
+//	        ModelDataAdaptor.SelectCommand = new SqlCommand("", ModelConnection);
+//	        ModelDataAdaptor.Selectommand.Parameters.Add("@id", SqlDbType.VarChar).Value = task.Text;
+//            ModelDataSet.Clear();
+//	        ModelDataAdaptor.Fill(ModelDataSet);
+//	        ModelBindingSource.DataSource = ModelDataSet.Tables[0];
+//	        return ModelDataSet.Tables[0];
+//        }
+
 		public int AddTaskToProject(int idProject, Task task, string tableName)
 		{		
 			ModelDataAdaptor.InsertCommand = new SqlCommand(" insert into " + tableName + " values (@text, @id_project)", ModelConnection);
 			ModelDataAdaptor.InsertCommand.Parameters.Add("@text", SqlDbType.VarChar).Value = task.Text;
 			ModelDataAdaptor.InsertCommand.Parameters.Add("@id_project", SqlDbType.Int).Value = idProject;
-			int id = 0;
+			var id = 0;
 			var selectCommand = new SqlCommand("select @@IDENTITY", ModelConnection);
 			ModelConnection.Open();
 			ModelDataAdaptor.InsertCommand.ExecuteNonQuery();
@@ -68,7 +94,7 @@ namespace WindowsFormsApplication2 {
 			ModelDataSet.Clear();
 			ModelDataAdaptor.Fill(ModelDataSet, "Task");
 			ModelConnection.Close();
-			notifyObservers(NotificationType.NotificationAdd);											 
+			NotifyObservers(NotificationType.NotificationAdd);											 
 			return id;   
 		}
 
@@ -84,7 +110,7 @@ namespace WindowsFormsApplication2 {
 			ModelDataSet.Clear();
 			ModelDataAdaptor.Fill(ModelDataSet, "Task");
 			ModelConnection.Close();
-			notifyObservers(NotificationType.NotificationUpdate);
+			NotifyObservers(NotificationType.NotificationUpdate);
 		}
 
 		public void DeleteTask(int idTask, string tableName)
@@ -97,7 +123,7 @@ namespace WindowsFormsApplication2 {
 			ModelDataSet.Clear();
 			ModelDataAdaptor.Fill(ModelDataSet, "Task");	   
 			ModelConnection.Close();							   
-			notifyObservers(NotificationType.NotificationDelete);
+			NotifyObservers(NotificationType.NotificationDelete);
 		}
 
 	}

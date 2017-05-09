@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication2", "WindowsFormsApplication2\WindowsFormsApplication2.csproj", "{A6D7864B-1940-4E5F-9BE4-27929909EF6D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDatabase", "WindowsFormsApplication2\MSDatabase.csproj", "{A6D7864B-1940-4E5F-9BE4-27929909EF6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication2Tests", "WindowsFormsApplication2Tests\WindowsFormsApplication2Tests.csproj", "{4E53B3BE-A7BC-4B54-BE31-3FE72203D82F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDatabaseTests", "WindowsFormsApplication2Tests\MSDatabaseTests.csproj", "{4E53B3BE-A7BC-4B54-BE31-3FE72203D82F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
