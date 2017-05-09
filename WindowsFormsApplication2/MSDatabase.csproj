@@ -59,7 +59,6 @@
     <Compile Include="MainApplicationWindow.Designer.cs">
       <DependentUpon>MainApplicationWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model.cs" />
     <Compile Include="NotificationType.cs" />
     <Compile Include="Observable.cs" />
     <Compile Include="Observer.cs" />
