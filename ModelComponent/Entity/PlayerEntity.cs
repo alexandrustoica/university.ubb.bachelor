@@ -1,4 +1,6 @@
 ﻿using SQLite;
+using SQLite.Net.Attributes;
+
 
 namespace ModelComponent.Entity
 {

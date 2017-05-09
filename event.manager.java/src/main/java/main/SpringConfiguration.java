@@ -6,9 +6,6 @@ import controller.ControllerSignUp;
 import javafx.stage.Stage;
 import loader.SpringFXMLLoader;
 import manager.StageManager;
-import network.Connection;
-import network.ConnectionManager;
-import org.apache.thrift.TException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -41,19 +38,18 @@ public class SpringConfiguration {
         return ResourceBundle.getBundle("Bundle");
     }
 
-
     @Bean @Lazy
-    public ControllerHome controllerApplication() throws Exception {
+    public ControllerHome controllerHome() {
         return new ControllerHome(stageManager);
     }
 
     @Bean @Lazy
-    public ControllerLogin controllerLogin() throws Exception {
+    public ControllerLogin controllerLogin() {
         return new ControllerLogin(stageManager);
     }
 
     @Bean @Lazy
-    public ControllerSignUp controllerSignUp() throws Exception {
+    public ControllerSignUp controllerSignUp() {
         return new ControllerSignUp(stageManager);
     }
 

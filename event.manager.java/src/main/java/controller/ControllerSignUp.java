@@ -44,7 +44,6 @@ public class ControllerSignUp implements ControllerProtocol {
     }
 
     @FXML private void onLoginButtonClick() throws RemoteException {
-        //connection.stop();
         stageManager.switchScene(ViewType.LOGIN, connection);
     }
 

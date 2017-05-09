@@ -3,9 +3,8 @@ package cell;
 import domain.Player;
 import javafx.scene.control.ListCell;
 import network.Connection;
+import org.apache.thrift.TException;
 import utils.ThrowPipe;
-
-import java.rmi.RemoteException;
 
 /**
  * @author Alexandru Stoica
@@ -20,9 +19,8 @@ public class PlayerListCell extends ListCell<Player> {
         this.clientManager = clientManager;
     }
 
-    private String getCellText(Player item) throws RemoteException {
-       // return item + " Events: " + clientManager.getEventsFromPlayer(item).size();
-        return "";
+    private String getCellText(Player item) throws TException {
+        return item + " Events: " + clientManager.getEventsFromPlayer(item).size();
     }
 
     protected void updateItem(Player item, boolean empty) {

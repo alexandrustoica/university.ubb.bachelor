@@ -12,11 +12,10 @@ import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 import service.*;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class ConnectionManager implements Connection {
+public class ConnectionManager extends Observable implements Connection {
 
     private final String host;
     private final Integer serverPort;
@@ -56,8 +55,18 @@ public class ConnectionManager implements Connection {
     }
 
     @Override
+    public void popObserver(Observer observer) {
+        removeObserver(observer);
+    }
+
+    @Override
+    public void pushObserver(Observer observer) {
+        addObserver(observer);
+    }
+
+    @Override
     public void update(Notification notification) {
-        System.out.print(notification);
+        notifyObservers(notification);
     }
 
     private UserData convertToUserData(User user) {
@@ -120,5 +129,10 @@ public class ConnectionManager implements Connection {
     public Integer addPlayer(String name, Integer age, List<Event> events) throws TException {
         return connection.addPlayer(convertToPlayerData(new Player(name, age)),
                 events.stream().map(this::convertToEventData).collect(Collectors.toList()));
+    }
+
+    @Override
+    public void stop() throws TException {
+        connection.unsubscribe(host, clientPort);
     }
 }

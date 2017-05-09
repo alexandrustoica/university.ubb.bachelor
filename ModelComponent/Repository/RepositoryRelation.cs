@@ -13,7 +13,7 @@ namespace ModelComponent.Repository
         where ED : IIdableEntity, new()
         where T : Idable<int>, new()
         where E : Idable<int>, new()
-        where TE : new()
+        where TE : class, new()
     {
 
     private readonly IConvertorEntity<T, TD> _convertorEntityT;

@@ -46,7 +46,7 @@ public enum ViewType implements ViewTypeInterface {
 
         @Override
         public String getFXMLFile() {
-            return "/fxml/Application.fxml";
+            return "/fxml/Home.fxml";
         }
 
     }

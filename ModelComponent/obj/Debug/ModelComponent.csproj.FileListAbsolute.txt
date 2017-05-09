@@ -3,8 +3,11 @@ C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelCompo
 C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\ModelComponent.dll.config
 C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\ModelComponent.dll
 C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\ModelComponent.pdb
-C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\SQLite-net.dll
-C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\SQLite-net.xml
-C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\obj\Debug\ModelComponent.csprojResolveAssemblyReference.cache
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\EntityFramework.dll
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\SQLite.Net.dll
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\SQLite.Net.Platform.Generic.dll
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\EntityFramework.xml
 C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\obj\Debug\ModelComponent.dll
 C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\obj\Debug\ModelComponent.pdb
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\System.Data.SQLite.dll
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\System.Data.SQLite.xml

@@ -1,4 +1,9 @@
-﻿using SQLite;
+﻿
+
+using SQLite;
+using SQLite.Net;
+using SQLite.Net.Interop;
+using SQLite.Net.Platform.Generic;
 
 namespace ModelComponent.Database
 { 
@@ -41,7 +46,8 @@ namespace ModelComponent.Database
         /// </summary>
         public void SetConnection()
         {
-            Connection = new SQLiteConnection(Database);
+            ISQLitePlatform platform = new SQLitePlatformGeneric();
+            Connection = new SQLiteConnection(platform, Database);
         }
 
         /// <summary>
@@ -65,4 +71,5 @@ namespace ModelComponent.Database
             }
         }
     }
+
 }

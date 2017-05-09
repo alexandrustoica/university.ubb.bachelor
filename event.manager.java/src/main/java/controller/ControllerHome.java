@@ -7,21 +7,19 @@ import domain.Player;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import manager.StageManager;
 import network.Connection;
+import network.Observer;
 import org.apache.thrift.TException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import service.Notification;
 import utils.Functional;
 import utils.ThrowPipe;
-import view.ViewType;
 
-import java.rmi.RemoteException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,8 +29,10 @@ import java.util.stream.Collectors;
  */
 
 @Component
-public class ControllerHome implements ControllerProtocol{
+public class ControllerHome implements ControllerProtocol, Observer {
 
+    @FXML public BorderPane applicationPane;
+    @FXML public Button userProfileButton;
     @FXML private Label activeUserLabel;
     @FXML private TextField searchEventTextField;
     @FXML private TextField searchPlayerTextField;
@@ -56,7 +56,7 @@ public class ControllerHome implements ControllerProtocol{
 
     private <T> void updateListView(ListView<T> listView, List<T> list) {
         listView.getItems().clear();
-        listView.setItems(FXCollections.observableList(list));
+        listView.setItems(FXCollections.observableArrayList(list));
     }
 
     private void setupEventListProperties() {
@@ -77,9 +77,21 @@ public class ControllerHome implements ControllerProtocol{
                         event.getDistance().toString().contains(newValue)).collect(Collectors.toList()))));
     }
 
-    private void update() throws RemoteException {
-        Platform.runLater(() -> ThrowPipe.wrap(() -> updateListView(playerListView, connection.getPlayers())));
-        Platform.runLater(() -> ThrowPipe.wrap(() -> updateListView(eventListView, connection.getEvents())));
+    private void update() throws TException {
+        Platform.runLater(() -> {
+            try {
+                updateListView(playerListView, connection.getPlayers());
+            } catch (TException e) {
+                e.printStackTrace();
+            }
+        });
+        Platform.runLater(() -> {
+            try {
+                updateListView(eventListView, connection.getEvents());
+            } catch (TException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void handler(Functional.SimpleMethod method) {
@@ -87,20 +99,25 @@ public class ControllerHome implements ControllerProtocol{
         catch (Exception exception) { exception.printStackTrace(); }
     }
 
-    @Override
-    public void initialize() {
+    private void build() throws TException {
         eventListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         ThrowPipe.wrap(() -> activeUserLabel.setText(connection.getUser().getName()));
         setCellFactories();
         setupEventSearchProperties();
         setupPlayerSearchProperties();
         setupEventListProperties();
-        handler(this::update);
+        update();
     }
+
+    @Override
+    public void initialize() { }
 
     @Override
     public void setConnection(Connection connection) {
         this.connection = connection;
+        this.connection.pushObserver(this);
+        try { build();}
+        catch (TException e) { e.printStackTrace(); }
     }
 
     @FXML
@@ -112,8 +129,15 @@ public class ControllerHome implements ControllerProtocol{
     }
 
     @FXML
-    private void onLogoutButtonClick() {
-        stageManager.switchScene(ViewType.LOGIN, connection);
+    private void onLogoutButtonClick() throws TException {
+        this.connection.stop();
+        this.connection.popObserver(this);
+        Platform.exit();
     }
 
+    @Override
+    public void update(Notification notification) {
+        try { update(); }
+        catch (TException e) { e.printStackTrace(); }
+    }
 }

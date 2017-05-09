@@ -43,7 +43,7 @@ public class SpringFXMLLoader {
         loader.setControllerFactory(context::getBean);
         loader.setResources(resourceBundle);
         loader.setLocation(getClass().getResource(fxmlFilePath));
-        Parent result =  loader.load();
+        Parent result = loader.load();
         ControllerProtocol controller = loader.getController();
         controller.setConnection(connection);
         return result;

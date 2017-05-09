@@ -16,7 +16,7 @@ public enum Notification implements org.apache.thrift.TEnum {
 
   private final int value;
 
-  private Notification(int value) {
+  Notification(int value) {
     this.value = value;
   }
 
