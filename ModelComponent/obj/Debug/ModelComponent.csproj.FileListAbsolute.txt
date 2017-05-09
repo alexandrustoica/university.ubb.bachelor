@@ -1,0 +1,10 @@
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\x86\e_sqlite3.dll
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\x64\e_sqlite3.dll
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\ModelComponent.dll.config
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\ModelComponent.dll
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\ModelComponent.pdb
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\SQLite-net.dll
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\bin\Debug\SQLite-net.xml
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\obj\Debug\ModelComponent.csprojResolveAssemblyReference.cache
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\obj\Debug\ModelComponent.dll
+C:\Users\Alexandru\Documents\Visual Studio 2017\Projects\EventManager\ModelComponent\obj\Debug\ModelComponent.pdb
