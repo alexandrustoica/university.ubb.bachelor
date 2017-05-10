@@ -1,0 +1,14 @@
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\x86\e_sqlite3.dll
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\x64\e_sqlite3.dll
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\@event.server.csharp.exe.config
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\@event.server.csharp.exe
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\@event.server.csharp.pdb
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\ModelComponent.dll
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\Thrift.dll
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\SQLite.Net.dll
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\SQLite.Net.Platform.Generic.dll
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\ModelComponent.pdb
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\bin\Debug\ModelComponent.dll.config
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\obj\Debug\event.server.csharp.csprojResolveAssemblyReference.cache
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\obj\Debug\@event.server.csharp.exe
+\\Mac\Home\Desktop\event.manager.csharp\event.server.csharp\obj\Debug\@event.server.csharp.pdb
