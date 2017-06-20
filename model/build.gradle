@@ -9,11 +9,13 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
 
@@ -22,6 +24,23 @@ repositories {
 }
 
 dependencies {
+    // Spring
+    compile group: 'org.springframework', name: 'spring-orm', version: '4.0.3.RELEASE'
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    runtime("com.h2database:h2")
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile group: 'org.springframework', name: 'spring-test', version: '4.0.5.RELEASE'
+    // Log4J
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    // MySQL
+    compile("mysql:mysql-connector-java:5.1.23")
+    // Hibernate
+    compile("org.hibernate:hibernate-core:5.2.9.Final")
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.10.Final'
+    // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    // JUnit
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.4.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
