@@ -1,4 +1,4 @@
-package model;
+package repository;
 
 import domain.Idable;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
  * @version 1.0
  */
 
-public interface Model<T extends Idable<Id>, Id extends Serializable> {
+public interface Repository<T extends Idable<Id>, Id extends Serializable> {
     T insert(T element);
     T update(T element, T with);
     Optional<T> delete(T element);

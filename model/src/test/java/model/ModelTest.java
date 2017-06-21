@@ -1,17 +1,18 @@
 package model;
 
-import database.DatabaseLoaderFactory;
-import database.DatabaseLoaderInterface;
-import database.DatabaseLoaderType;
+import database.DatabaseLoader;
+import database.DatabaseSessionGateway;
 import domain.UserEntity;
 import org.junit.Before;
 import org.junit.Test;
-import utils.Try;
 
-import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-import static org.junit.Assert.assertTrue;
-import static utils.Try.runFunction;
+import static database.ConfigurationType.TEST;
+import static junit.framework.TestCase.assertEquals;
+
 
 /**
  * @author Alexandru Stoica
@@ -20,51 +21,74 @@ import static utils.Try.runFunction;
 
 public class ModelTest {
 
-    private Model<UserEntity, Integer> model;
+    private ModelRelational<UserEntity, Integer> model;
 
     @Before
     public void setUp() throws Exception {
-        DatabaseLoaderInterface loader = new DatabaseLoaderFactory().getLoader(DatabaseLoaderType.TEST);
-        model = new Model<>(UserEntity.class, loader);
+        DatabaseSessionGateway loader = new DatabaseLoader(TEST);
+        model = new ModelRelational<>(UserEntity.class, loader);
     }
 
-    @Test(expected = RemoteException.class)
-    public void isAddingObject() throws Exception {
+    @Test
+    public void isAddingElement() throws Exception {
         // declarations:
         UserEntity user = new UserEntity("username", "password");
-        UserEntity except = new UserEntity("username", "");
         // then:
-        assertTrue(runFunction(model::add, user)
-                .orThrow(exception -> new RemoteException(exception.getMessage())).equals(1));
+        UserEntity inserted = model.insert(user);
         // when:
-        runFunction(model::add, except).orThrow(exception -> new RemoteException(exception.getMessage()));
+        assertEquals((long)inserted.getId(), 1);
     }
 
-    @Test(expected = RemoteException.class)
-    public void isUpdatingObject() throws Exception {
+    @Test
+    public void isUpdatingElement() throws Exception {
         // declarations:
         UserEntity user = new UserEntity("username", "password");
         UserEntity with = new UserEntity("with", "password");
-        UserEntity except = new UserEntity("with", null);
+        UserEntity expected = new UserEntity(1, "with", "password");
         // preconditions:
-        runFunction(model::add, user).orThrow(exception -> new RemoteException(exception.getMessage()));
+        user = model.insert(user);
+        // when:
+        user = model.update(user, with);
         // then:
-        assertTrue(Try.runMethod(model::update, user, with)
-                .orThrow(exception -> new RemoteException(exception.getMessage())));
-        // then: [test exceptions]
-        Try.runMethod(model::update, user, except).orThrow(exception -> new RemoteException(exception.getMessage()));
-    }
-    @Test(expected = RemoteException.class)
-    public void isDeletingObject() throws Exception {
-        // declarations:
-        UserEntity user = new UserEntity("username", "password");
-        UserEntity with = new UserEntity("with", "password");
-        // preconditions:
-        model.add(user);
-        // then:
-        runFunction(model::delete, user).orThrow(exception -> new RemoteException(exception.getMessage()));
-        // then: [test exceptions]
-        runFunction(model::delete, with).orThrow(exception -> new RemoteException(exception.getMessage()));
+        assertEquals(user, expected);
     }
 
+    @Test
+    public void isDeletingElement() throws Exception {
+        // declarations:
+        UserEntity user = new UserEntity("username", "password");
+        // preconditions:
+        UserEntity inserted = model.insert(user);
+        // when:
+        Optional<UserEntity> deleted = model.delete(inserted);
+        // then:
+        deleted.ifPresent(item -> assertEquals(item, inserted));
+    }
+
+    @Test
+    public void isGettingElements() throws Exception {
+        // declarations:
+        UserEntity user = new UserEntity("username", "password");
+        UserEntity test = new UserEntity("username", "password");
+        List<UserEntity> list = new ArrayList<>();
+        // preconditions:
+        list.add(model.insert(user));
+        list.add(model.insert(test));
+        // when:
+        List<UserEntity> results = model.all();
+        // then:
+        assertEquals(results, list);
+    }
+
+    @Test
+    public void isGettingElement() throws Exception {
+        // declarations:
+        UserEntity user = new UserEntity("username", "password");
+        // preconditions:
+        UserEntity inserted = model.insert(user);
+        // when:
+        Optional<UserEntity> result = model.getElementById(inserted.getId());
+        // then:
+        result.ifPresent(item -> assertEquals(item, inserted));
+    }
 }

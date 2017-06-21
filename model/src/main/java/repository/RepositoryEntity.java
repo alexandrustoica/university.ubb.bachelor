@@ -1,12 +1,8 @@
 package repository;
 
-import database.DatabaseLoaderInterface;
+import database.DatabaseSessionGateway;
 import domain.Idable;
-import exception.SystemException;
-import exception.ValidatorSystemException;
 import org.hibernate.Session;
-import utils.Try;
-import validator.ValidatorRepository;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,104 +10,62 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.List;
-
-import static utils.Try.runFunction;
+import java.util.Optional;
 
 /**
- * Tested: True
- *
  * @author Alexandru Stoica
  * @version 1.0
  */
 
+public class RepositoryEntity<T extends Idable<Id>, Id extends Serializable> implements Repository<T, Id> {
 
-public class RepositoryEntity<T extends Idable<Id>, Id extends Serializable>
-        implements RepositoryInterface<T, Id> {
+    private final DatabaseSessionGateway gateway;
+    private final Class<T> type;
 
-    /**
-     * The database loader.
-     * Needed to load the database configuration for our repository.
-     */
-    private final DatabaseLoaderInterface loader;
-
-    /**
-     * The item's class.
-     * We need this attribute in order to know the item's class in our searching methods.
-     */
-    private Class<T> repositoryClass;
-
-    /**
-     * The repository's validator
-     * Needed to validate data.
-     */
-    private final ValidatorRepository<T> validator;
-
-    /**
-     * This generic repository needs to know
-     * the item's class in order to communicate with Hibernate.
-     *
-     * @param repositoryClass The item's class.
-     * @param loader          The database loader.
-     */
-    public RepositoryEntity(Class<T> repositoryClass, final DatabaseLoaderInterface loader) {
-        this.loader = loader;
-        this.repositoryClass = repositoryClass;
-        this.validator = new ValidatorRepository<>(repositoryClass);
+    public RepositoryEntity(final Class<T> type, final DatabaseSessionGateway gateway) {
+        this.gateway = gateway;
+        this.type = type;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Id add(T element) throws SystemException {
-        runFunction(validator::validate, element).orThrow(exception -> exception);
-        Session session = loader.getFactory().openSession();
+    public T insert(T element) {
+        Session session = gateway.openSession();
         session.beginTransaction();
         session.save(element);
-        session.getTransaction().commit();
-        session.close();
-        return element.getId();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void update(T element, T with) throws SystemException {
-        runFunction(validator::validate, with).orThrow(exception -> exception);
-        Session session = loader.getFactory().openSession();
-        with.setId(element.getId());
-        session.beginTransaction();
-        session.update(with);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public T delete(Id id) throws SystemException {
-        Session session = loader.getFactory().openSession();
-        session.beginTransaction();
-        T element = this.getElementById(id);
-        Try.runMethod(session::delete, element)
-                .orThrow(exception -> new ValidatorSystemException(exception.getMessage()));
         session.getTransaction().commit();
         session.close();
         return element;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
+    public T update(T element, T with) {
+        Session session = gateway.openSession();
+        with.setId(element.getId());
+        session.beginTransaction();
+        session.update(with);
+        session.getTransaction().commit();
+        session.close();
+        return with;
+    }
+
+    @Override
+    public Optional<T> delete(T element) {
+        Session session = gateway.openSession();
+        session.beginTransaction();
+        Optional<T> result = this.getElementById(element.getId());
+        result.ifPresent(session::delete);
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
-    public List<T> getAll() {
-        Session session = loader.getFactory().openSession();
+    public List<T> all() {
+        Session session = gateway.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<T> criteriaQuery = builder.createQuery(repositoryClass);
-        Root<T> root = criteriaQuery.from(repositoryClass);
+        CriteriaQuery<T> criteriaQuery = builder.createQuery(type);
+        Root<T> root = criteriaQuery.from(type);
         criteriaQuery.select(root);
         Query resultQuery = session.createQuery(criteriaQuery);
         List<T> result = resultQuery.getResultList();
@@ -119,15 +73,11 @@ public class RepositoryEntity<T extends Idable<Id>, Id extends Serializable>
         return result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public T getElementById(Id id) throws SystemException {
-        Session session = loader.getFactory().openSession();
-        T element = session.get(repositoryClass, id);
+    public Optional<T> getElementById(Id id) {
+        Session session = gateway.openSession();
+        T element = session.get(type, id);
         session.close();
-        return element;
+        return Optional.ofNullable(element);
     }
-
 }

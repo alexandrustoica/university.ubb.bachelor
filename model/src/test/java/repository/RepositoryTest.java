@@ -1,130 +1,115 @@
 package repository;
 
-import database.DatabaseLoaderFactory;
-import database.DatabaseLoaderInterface;
-import database.DatabaseLoaderType;
-import domain.NotificationEntity;
+import database.DatabaseLoader;
+import database.DatabaseSessionGateway;
 import domain.UserEntity;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
+import static database.ConfigurationType.TEST;
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author Tiron Andreea- Ecaterina
+ * @author Alexandru Stoica
  * @version 1.0
  */
 
 public class RepositoryTest {
 
-    private RepositoryInterface<UserEntity, Integer> repositoryUser;
-    private RepositoryInterface<NotificationEntity, Integer> repositoryNotification;
-    private DatabaseLoaderInterface loader;
+    private Repository<UserEntity, Integer> repositoryUser;
+    private DatabaseSessionGateway loader;
 
     @Before
     public void setUp() throws Exception {
-        loader = new DatabaseLoaderFactory().getLoader(DatabaseLoaderType.TEST);
+        DatabaseSessionGateway loader = new DatabaseLoader(TEST);
         repositoryUser = new RepositoryEntity<>(UserEntity.class, loader);
-        repositoryNotification = new RepositoryEntity<>(NotificationEntity.class, loader);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        loader.getFactory().close();
     }
 
     @Test
-    @Transactional
-    public void add() throws Exception {
+    public void isInsertingElement() throws Exception {
         // declarations:
-        UserEntity test = new UserEntity(1, "username", "password", "email",
-                "name", "website", "bio", "location");
-        UserEntity user = new UserEntity("username", "password", "email",
-                "name", "website", "bio", "location");
+        UserEntity user = new UserEntity("username", "password");
+        UserEntity test = new UserEntity(1, "username", "password");
         // when:
-        Integer idUser = repositoryUser.add(user);
+        UserEntity inserted = repositoryUser.insert(user);
         // then:
-        assertEquals(user, test);
+        assertEquals(inserted, test);
     }
 
     @Test
-    public void update() throws Exception {
+    public void isUpdatingElement() throws Exception {
         // declarations:
-        UserEntity user = new UserEntity("username", "password", "email",
-                "name", "website", "bio", "location");
-        UserEntity update = new UserEntity("usernameUpdate", "passwordUpdate", "emailUpdate",
-                "nameUpdate", "websiteUpdate", "bioUpdate", "locationUpdate");
+        UserEntity user = new UserEntity("username", "password");
+        UserEntity update = new UserEntity("usernameUpdate", "passwordUpdate");
         // when:
-        repositoryUser.add(user);
-        repositoryUser.update(user, update);
-        UserEntity result = repositoryUser.getElementById(user.getId());
+        UserEntity inserted = repositoryUser.insert(user);
+        UserEntity updated = repositoryUser.update(inserted, update);
         // then:
-        assertEquals(result, update);
+        assertEquals(updated, update);
     }
 
     @Test
-    public void delete() throws Exception {
-        UserEntity user = new UserEntity("username", "password", "email",
-                "name", "website", "bio", "location");
-        // when:
-        repositoryUser.add(user);
-        // This test is here only to make sure that we have something in repository in order to delete.
-        assertEquals(user, repositoryUser.getElementById(1));
-        repositoryUser.delete(user.getId());
-        assertTrue(repositoryUser.getAll().isEmpty());
-    }
-
-    @Test
-    public void getAll() throws Exception {
+    public void isDeletingElement() throws Exception {
         // declarations:
-        UserEntity user = new UserEntity("username", "password", "email",
-                "name", "website", "bio", "location");
-        UserEntity test = new UserEntity("test", "password", "email",
-                "name", "website", "bio", "location");
+        UserEntity user = new UserEntity("username", "password");
+        // preconditions:
+        UserEntity inserted = repositoryUser.insert(user);
         // when:
-        repositoryUser.add(user);
-        repositoryUser.add(test);
-        List<UserEntity> result = repositoryUser.getAll();
+        Optional<UserEntity> deleted = repositoryUser.delete(inserted);
         // then:
-        assertTrue(result.get(0).equals(user) && result.get(1).equals(test) && result.size() == 2);
+        deleted.ifPresent(item -> assertEquals(item, inserted));
+        assertTrue(repositoryUser.all().isEmpty());
     }
 
     @Test
-    public void getElementById() throws Exception {
+    public void isNotDeletingElement() throws Exception {
         // declarations:
-        UserEntity user = new UserEntity("username", "password", "email", "name",
-                "website", "bio", "location");
-        UserEntity test = new UserEntity("test", "password", "email", "name",
-                "website", "bio", "location");
+        UserEntity user = new UserEntity("username", "password");
         // when:
-        repositoryUser.add(user);
-        repositoryUser.add(test);
+        Optional<UserEntity> deleted = repositoryUser.delete(user);
         // then:
-        assertEquals(repositoryUser.getElementById(1), user);
+        assertFalse(deleted.isPresent());
+
     }
 
     @Test
-    public void getAllNotifications() throws Exception {
+    public void isGettingElements() throws Exception {
         // declarations:
-        UserEntity user = new UserEntity("username", "password", "email", "name",
-                "website", "bio", "location");
-        NotificationEntity notificationFirst = new NotificationEntity("payment", false);
-        NotificationEntity notificationSecond = new NotificationEntity("subscription", true);
+        UserEntity user = new UserEntity(1, "username", "password");
+        UserEntity test = new UserEntity(2, "test", "password");
+        List<UserEntity> list = new ArrayList<>();
+        // preconditions:
+        list.add(repositoryUser.insert(user));
+        list.add(repositoryUser.insert(test));
         // when:
-        repositoryUser.add(user);
-        notificationFirst.setUser(user);
-        repositoryNotification.add(notificationFirst);
-        notificationSecond.setUser(user);
-        repositoryNotification.add(notificationSecond);
+        List<UserEntity> result = repositoryUser.all();
         // then:
-        Set<NotificationEntity> notifications = repositoryUser.getElementById(1).getNotifications();
-        assertTrue(notifications.contains(notificationFirst) &&
-                notifications.contains(notificationSecond) && notifications.size() == 2);
+        assertEquals(result, list);
+    }
+
+    @Test
+    public void isGettingElement() throws Exception {
+        // declarations:
+        UserEntity user = new UserEntity("username", "password");
+        // preconditions:
+        UserEntity inserted = repositoryUser.insert(user);
+        // when:
+        Optional<UserEntity> result = repositoryUser.getElementById(1);
+        // then:
+        result.ifPresent(item -> assertEquals(item, inserted));
+    }
+
+    @Test
+    public void isNotGettingElement() throws Exception {
+        // when:
+        Optional<UserEntity> result = repositoryUser.getElementById(1);
+        // then:
+        assertFalse(result.isPresent());
     }
 }

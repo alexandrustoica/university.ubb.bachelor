@@ -24,6 +24,9 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+    // TypeTools
+    compile 'net.jodah:typetools:0.5.0'
     // Spring
     compile group: 'org.springframework', name: 'spring-orm', version: '4.0.3.RELEASE'
     compile("org.springframework.boot:spring-boot-starter-jdbc")
