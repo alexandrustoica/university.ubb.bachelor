@@ -20,7 +20,6 @@
                   <HBox prefHeight="40.0">
                      <children>
                         <TextField fx:id="searchTextFieldLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" promptText="Search for items ..." HBox.hgrow="ALWAYS" />
-                        <Button fx:id="searchButtonLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onSearchButtonLeft" text="Search" />
                      </children>
                   </HBox>
                   <ListView fx:id="listViewLeft" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES" />
@@ -46,7 +45,6 @@
                   <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0">
                      <children>
                         <TextField fx:id="searchTextFieldRight" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" promptText="Search for items ..." HBox.hgrow="ALWAYS" />
-                        <Button fx:id="searchButtonRight" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onSearchButtonRight" text="Search" />
                      </children>
                   </HBox>
                   <ListView fx:id="listViewRight" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />

@@ -12,7 +12,6 @@ import java.rmi.RemoteException;
  */
 
 public interface SignUpService extends Remote {
-
     User signUp(@NotNull final String username,
                 @NotNull final String password,
                 @NotNull final String confirm) throws RemoteException;

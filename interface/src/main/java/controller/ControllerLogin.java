@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import manager.PerformerManager;
 import manager.StageManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import java.util.Optional;
 
 @Lazy
 @Component
-public class ControllerLogin implements ControllerInterface {
+public class ControllerLogin extends PerformerManager implements ControllerInterface {
 
     private static Logger logger;
 
@@ -65,9 +66,7 @@ public class ControllerLogin implements ControllerInterface {
     }
 
     @FXML
-    void onLogoButtonClick() {
-        // TODO
-    }
+    void onLogoButtonClick() { }
 
     @FXML
     void onSignUpButtonClick()  {
@@ -79,23 +78,20 @@ public class ControllerLogin implements ControllerInterface {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         Optional<User> user = login(username, password);
-        user.ifPresent(item -> {
-            try {
-                registerService.register(item, id);
-                manager.switchScene(ViewType.GENERIC_VIEW);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        });
+        user.ifPresent(this::gotoGenericView);
+    }
+
+    private void gotoGenericView(User item) {
+        perform(registerService::register, item, id);
+        manager.switchScene(ViewType.GENERIC_VIEW);
     }
 
     private Optional<User> login(String username, String password) {
-        try {
-            return Optional.ofNullable(loginService.login(username, password));
-        } catch (RemoteException exception) {
-            logger.error(exception.getMessage());
-            errorLabel.setText(exception.getMessage());
-            return Optional.empty();
-        }
+        return perform(loginService::login, username, password);
+    }
+
+    @Override
+    protected void handler(Throwable exception) {
+        logger.error(exception.getMessage());
     }
 }

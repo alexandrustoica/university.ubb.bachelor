@@ -20,7 +20,8 @@ import java.util.List;
 
 @Lazy
 @Component
-public class LocalNotificationCenter extends UnicastRemoteObject implements SubscriberService, Serializable, NotificationCenter {
+public class LocalNotificationCenter extends UnicastRemoteObject
+        implements SubscriberService, Serializable, NotificationCenter {
 
     private List<SubscriberController> subscribers;
 
@@ -31,11 +32,7 @@ public class LocalNotificationCenter extends UnicastRemoteObject implements Subs
     public LocalNotificationCenter(RemoteNotificationCenterService remoteNotificationCenter) throws RemoteException {
         super();
         subscribers = new ArrayList<>();
-        try {
-            remoteNotificationCenter.subscribe(this);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        subscribeToRemoteCenter(remoteNotificationCenter);
     }
 
     @Override public void update(RemoteNotification notification) throws RemoteException {
@@ -52,5 +49,13 @@ public class LocalNotificationCenter extends UnicastRemoteObject implements Subs
 
     @Override public void notifyAll(RemoteNotification notification) {
         subscribers.forEach(subscriber -> subscriber.update(notification));
+    }
+
+    private void subscribeToRemoteCenter(RemoteNotificationCenterService remoteNotificationCenter) {
+        try {
+            remoteNotificationCenter.subscribe(this);
+        } catch (RemoteException exception) {
+            exception.printStackTrace();
+        }
     }
 }

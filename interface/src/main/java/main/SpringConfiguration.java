@@ -32,7 +32,7 @@ public class SpringConfiguration {
     @Autowired
     private SpringFXMLLoader loader;
 
-    private final static Integer id = 0 + (int)(Math.random() * 100000);
+    private final static Integer id = 0 + (int) (Math.random() * 100000);
 
     private StageManager stageManager;
 

@@ -42,66 +42,67 @@ public class ManyToManyManager<TransferT extends Idable<Id>, TransferU extends I
 
     @Override
     public TransferT insert(TransferT element) throws RemoteException {
+        TransferT result = translatorT.translate(model.insert(translatorT.transform(element)));
         notifyClients();
-        return translatorT.translate(model.insert(translatorT.transform(element)));
+        return result;
     }
-
 
     @Override
     public TransferT update(TransferT element, TransferT with) throws RemoteException {
-        notifyClients();
-        return translatorT.translate(model.update(model.getElementById(element.getId())
+        TransferT result = translatorT.translate(model.update(model.getElementById(element.getId())
                         .orElseThrow(() -> new RemoteException("Unable to find item...")),
                 translatorT.transform(with)));
+        notifyClients();
+        return result;
     }
     @Override
     public TransferT delete(TransferT element) throws RemoteException {
-        notifyClients();
-        return translatorT.translate(model.delete(translatorT.transform(element))
+        TransferT result = translatorT.translate(model.delete(translatorT.transform(element))
                 .orElseThrow(() -> new RemoteException("Unable to delete element")));
+        notifyClients();
+        return result;
     }
 
     @Override
     public TransferT getElementById(Id id) throws RemoteException {
-        notifyClients();
         return translatorT.translate(model.getElementById(id)
                 .orElseThrow(() -> new RemoteException("Unable to find the element!")));
     }
 
     @Override
     public List<TransferT> all() throws RemoteException {
-        notifyClients();
         return model.all().stream()
                 .map(element -> translatorT.translate(element))
                 .collect(Collectors.toList());
     }
 
     @Override public TransferU add(TransferU element) throws RemoteException {
+        TransferU result = translatorU.translate(model.add(translatorU.transform(element)));
         notifyClients();
-        return translatorU.translate(model.add(translatorU.transform(element)));
+        return result;
     }
 
     @Override public TransferU refresh(TransferU element, TransferU with) throws RemoteException {
-        notifyClients();
-        return translatorU.translate(model.refresh(model.receiveElementById(element.getId())
+        TransferU result = translatorU.translate(model.refresh(model.receiveElementById(element.getId())
                         .orElseThrow(() -> new RemoteException("Unable to find item...")),
                 translatorU.transform(with)));
+        notifyClients();
+        return result;
     }
 
     @Override public TransferU remove(TransferU element) throws RemoteException {
-        notifyClients();
-        return translatorU.translate(model.remove(translatorU.transform(element))
+        TransferU result = translatorU.translate(model.remove(translatorU.transform(element))
                 .orElseThrow(() -> new RemoteException("Unable to delete element")));
+        notifyClients();
+        return result;
     }
 
     @Override public TransferU receiveElementById(Id id) throws RemoteException {
-        notifyClients();
         return translatorU.translate(model.receiveElementById(id)
                 .orElseThrow(() -> new RemoteException("Unable to find the element!")));
     }
 
     @Override public List<TransferU> every() throws RemoteException {
-        notifyClients();
         return model.every().stream()
                 .map(element -> translatorU.translate(element))
                 .collect(Collectors.toList());
