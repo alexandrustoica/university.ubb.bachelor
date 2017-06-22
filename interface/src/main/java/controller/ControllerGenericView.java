@@ -9,7 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import manager.ListViewBuilder;
 import manager.PerformerManager;
 import manager.StageManager;
 import org.apache.log4j.Logger;
@@ -22,6 +24,7 @@ import transfarable.Project;
 import transfarable.RemoteNotification;
 import transfarable.Task;
 import transfarable.User;
+import view.Icon;
 import view.ViewType;
 
 import java.rmi.RemoteException;
@@ -97,6 +100,7 @@ public class ControllerGenericView extends PerformerManager implements Subscribe
     private void build() {
         refreshLists();
         refreshListViews();
+
         buildSearchFunction();
     }
 
@@ -121,10 +125,55 @@ public class ControllerGenericView extends PerformerManager implements Subscribe
     private void refreshListViews() {
         listViewLeft.setItems(listLeft);
         listViewRight.setItems(listRight);
+        listViewLeft = new ListViewBuilder<>(listViewLeft)
+                .setIcon(Icon.CLOSE)
+                .textProvider(Project::getName)
+                .setColor("green")
+                .setAction((service, item) -> {
+                    perform(((ServiceProjectTask) service)::delete, item);
+                    return null;}, service)
+                .build();
+        listViewRight = new ListViewBuilder<>(listViewRight)
+                .setIcon(Icon.CLOSE)
+                .textProvider(Task::getText)
+                .setColor("green")
+                .setAction((service, item) -> {
+                    perform(((ServiceProjectTask) service)::remove, item);
+                    return null;}, service)
+                .build();
+        listViewLeft.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listViewRight.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
     }
 
     private <T> ObservableList<T> refreshList(SupplierThrow<List<T>, RemoteException> supplier) {
         return FXCollections.observableArrayList(perform(supplier).orElse(new ArrayList<>()));
+    }
+
+    @FXML
+    private void onItemLeftClick() {
+        Optional<List<Task>> result =
+                perform(service::everyFrom, listViewLeft.getSelectionModel().getSelectedItem());
+        result.ifPresent(list -> listViewRight.setItems(listRight.filtered(list::contains)));
+    }
+
+    @FXML
+    private void onItemRightClick() {
+        Optional<List<Project>> result =
+                perform(service::allFrom, listViewRight.getSelectionModel().getSelectedItem());
+        result.ifPresent(list -> listViewLeft.setItems(listLeft.filtered(list::contains)));
+    }
+
+    @FXML
+    private void onBackButtonLeftClick() {
+        listLeft = refreshList(service::all);
+        Platform.runLater(this::refreshListViews);
+    }
+
+    @FXML
+    private void onBackButtonRightClick() {
+        listRight = refreshList(service::every);
+        Platform.runLater(this::refreshListViews);
     }
 
     @FXML
@@ -165,13 +214,9 @@ public class ControllerGenericView extends PerformerManager implements Subscribe
 
     @FXML
     private void onLogoutButtonClick() {
-        try {
-            User user = registerService.unregister(id);
-            logger.info(user.getUsername() + " has logged out ...");
-            manager.switchScene(ViewType.LOGIN);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        Optional<User> user = perform(registerService::unregister, id);
+        user.ifPresent(item -> logger.info(item.getUsername() + " has logged out..."));
+        manager.switchScene(ViewType.LOGIN);
     }
 
     @Override

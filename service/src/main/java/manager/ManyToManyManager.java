@@ -108,6 +108,20 @@ public class ManyToManyManager<TransferT extends Idable<Id>, TransferU extends I
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<TransferU> everyFrom(TransferT element) throws RemoteException {
+        return model.everyFrom(model.getElementById(element.getId()).orElseThrow(excepted))
+                .stream().map(entity -> translatorU.translate(entity))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TransferT> allFrom(TransferU element) throws RemoteException {
+        return model.allFrom(model.receiveElementById(element.getId()).orElseThrow(excepted))
+                .stream().map(entity -> translatorT.translate(entity))
+                .collect(Collectors.toList());
+    }
+
     @Override public Pair<TransferT, TransferU> insert(TransferT left, TransferU right) throws RemoteException {
         Pair<Optional<EntityT>, Optional<EntityU>> result =
                 model.insert(model.getElementById(left.getId()).orElseThrow(excepted),

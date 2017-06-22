@@ -73,6 +73,16 @@ public class ServerSpringConfiguration {
         rmiServiceExporter.setRegistryPort(port);
         return rmiServiceExporter;
     }
+    @Bean
+    public RmiServiceExporter signUpService() throws IOException {
+        RmiServiceExporter rmiServiceExporter = new RmiServiceExporter();
+        SignUpService service = new SignUpManager(userModel());
+        rmiServiceExporter.setServiceName("SignUpService");
+        rmiServiceExporter.setService(service);
+        rmiServiceExporter.setServiceInterface(SignUpService.class);
+        rmiServiceExporter.setRegistryPort(port);
+        return rmiServiceExporter;
+    }
 
     @Bean
     public RmiServiceExporter projectTaskService() throws IOException {

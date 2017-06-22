@@ -9,10 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
-import service.LoginService;
-import service.RegisterService;
-import service.RemoteNotificationCenterService;
-import service.ServiceProjectTask;
+import service.*;
 
 import java.util.ResourceBundle;
 
@@ -66,6 +63,11 @@ public class SpringConfiguration {
     @Bean
     public LoginService loginService() {
         return (LoginService) getService(LoginService.class, "LoginService", port).getObject();
+    }
+
+    @Bean
+    public SignUpService signUpService() {
+        return (SignUpService) getService(SignUpService.class, "SignUpService", port).getObject();
     }
 
     @Bean

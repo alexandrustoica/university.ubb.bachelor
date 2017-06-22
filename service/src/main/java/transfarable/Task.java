@@ -38,6 +38,21 @@ public class Task implements Serializable, Idable<Integer> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return getId().equals(task.getId()) && getText().equals(task.getText());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getText().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return id.toString() + " " + text;
     }

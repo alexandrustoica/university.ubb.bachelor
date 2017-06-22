@@ -19,10 +19,11 @@
                <children>
                   <HBox prefHeight="40.0">
                      <children>
+                        <Button mnemonicParsing="false" onAction="#onBackButtonLeftClick" text="Back" />
                         <TextField fx:id="searchTextFieldLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" promptText="Search for items ..." HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <ListView fx:id="listViewLeft" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES" />
+                  <ListView fx:id="listViewLeft" minHeight="0.0" minWidth="0.0" onMouseClicked="#onItemLeftClick" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/list.css" VBox.vgrow="SOMETIMES" />
                   <HBox>
                      <children>
                         <VBox HBox.hgrow="ALWAYS">
@@ -44,10 +45,11 @@
                <children>
                   <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0">
                      <children>
+                        <Button mnemonicParsing="false" onAction="#onBackButtonRightClick" text="Back" />
                         <TextField fx:id="searchTextFieldRight" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" promptText="Search for items ..." HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <ListView fx:id="listViewRight" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <ListView fx:id="listViewRight" minHeight="0.0" minWidth="0.0" onMouseClicked="#onItemRightClick" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/list.css" VBox.vgrow="ALWAYS" />
                   <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                      <children>
                         <VBox HBox.hgrow="ALWAYS">

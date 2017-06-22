@@ -2,13 +2,15 @@ package model;
 
 import database.DatabaseLoader;
 import database.DatabaseSessionGateway;
-import javafx.util.Pair;
-import org.junit.Before;
-import org.junit.Test;
 import domain.ProjectEntity;
 import domain.ProjectTaskEntity;
 import domain.TaskEntity;
+import javafx.util.Pair;
+import org.junit.Before;
+import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static database.ConfigurationType.TEST;
@@ -120,5 +122,43 @@ public class ModelManyToManyTest {
         assertEquals(model.every().size(), 0);
         model.getElementById(project.getId())
                 .ifPresent(item -> assertEquals(item.getTasks().size(), 0));
+    }
+
+    @Test
+    public void isGettingEveryFrom() throws Exception {
+        // declarations:
+        ProjectEntity project = new ProjectEntity("test");
+        TaskEntity task = new TaskEntity("test");
+        TaskEntity test = new TaskEntity("test");
+        List<TaskEntity> tasks = new ArrayList<>();
+        // preconditions:
+        project = model.insert(project);
+        model.add(task);
+        model.add(test);
+        model.insert(project, task);
+        model.insert(project, test);
+        tasks.add(model.receiveElementById(task.getId()).orElse(null));
+        tasks.add(model.receiveElementById(test.getId()).orElse(null));
+        // then:
+        assertEquals(model.everyFrom(project), tasks);
+    }
+
+    @Test
+    public void isGettingAllFrom() throws Exception {
+        // declarations:
+        TaskEntity task = new TaskEntity("test");
+        ProjectEntity project = new ProjectEntity("test");
+        ProjectEntity test = new ProjectEntity("test");
+        List<ProjectEntity> projects = new ArrayList<>();
+        // preconditions:
+        model.add(task);
+        model.insert(test);
+        model.insert(project);
+        model.insert(project, task);
+        model.insert(test, task);
+        projects.add(model.getElementById(project.getId()).orElse(null));
+        projects.add(model.getElementById(test.getId()).orElse(null));
+        // then:
+        assertEquals(model.allFrom(task), projects);
     }
 }

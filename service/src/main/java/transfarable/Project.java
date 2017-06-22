@@ -38,6 +38,21 @@ public class Project implements Serializable, Idable<Integer> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Project)) return false;
+        Project project = (Project) o;
+        return getId().equals(project.getId()) && getName().equals(project.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return id.toString() + " " + name;
     }

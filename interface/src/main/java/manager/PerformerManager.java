@@ -1,6 +1,7 @@
 package manager;
 
 import functional.BiPerformer;
+import functional.ExtraPerformer;
 import functional.Performer;
 import functional.SupplierThrow;
 
@@ -28,6 +29,15 @@ public abstract class PerformerManager {
     perform(BiPerformer<R, T, U, E> performer, T param1, U param2) {
         try {
             return Optional.ofNullable(performer.apply(param1, param2));
+        } catch (Throwable exception) {
+            handler(exception);
+            return Optional.empty();
+        }
+    }
+    protected <R, T, U, X, E extends Throwable> Optional<R>
+    perform(ExtraPerformer<R, T, X, U, E> performer, T param1, U param2, X param3) {
+        try {
+            return Optional.ofNullable(performer.apply(param1, param2, param3));
         } catch (Throwable exception) {
             handler(exception);
             return Optional.empty();

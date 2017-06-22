@@ -25,6 +25,8 @@ public interface ModelManyToMany<T extends Idable<Id>, U extends Idable<Id>, Rel
     Optional<U> remove(U element);
     Optional<U> receiveElementById(Id id);
     List<U> every();
+    List<T> allFrom(U element);
+    List<U> everyFrom(T element);
     Pair<Optional<T>, Optional<U>> insert(T left, U right);
     Pair<Optional<T>, Optional<U>> delete(T left, U right);
 }

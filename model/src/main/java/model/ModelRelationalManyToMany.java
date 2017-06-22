@@ -11,6 +11,7 @@ import domain.RelationEntity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Alexandru Stoica
@@ -80,6 +81,22 @@ public class ModelRelationalManyToMany<T extends Idable<Id>, U extends Idable<Id
     @Override
     public List<U> every() {
         return modelU.all();
+    }
+
+    @Override
+    public List<T> allFrom(U element) {
+        return repositoryRelation.all().stream()
+                .filter(item -> item.supplyU().getId().equals(element.getId()))
+                .map(RelationEntity::supplyT)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<U> everyFrom(T element) {
+        return repositoryRelation.all().stream()
+                .filter(item -> item.supplyT().getId().equals(element.getId()))
+                .map(RelationEntity::supplyU)
+                .collect(Collectors.toList());
     }
 
     @Override

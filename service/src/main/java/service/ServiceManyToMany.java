@@ -28,6 +28,8 @@ public interface ServiceManyToMany<TransferT extends Idable<Id>, TransferU exten
     TransferU remove(TransferU element) throws RemoteException;
     TransferU receiveElementById(Id id) throws RemoteException;
     List<TransferU> every() throws RemoteException;
+    List<TransferU> everyFrom(TransferT element) throws RemoteException;
+    List<TransferT> allFrom(TransferU element) throws RemoteException;
     Pair<TransferT, TransferU> insert(TransferT left, TransferU right) throws RemoteException;
     Pair<TransferT, TransferU> delete(TransferT left, TransferU right) throws RemoteException;
 }
