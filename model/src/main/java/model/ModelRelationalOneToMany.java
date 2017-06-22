@@ -19,7 +19,7 @@ public class ModelRelationalOneToMany<One extends Idable<Id>, Many extends Idabl
     private final Repository<Many, Id> repositoryRelation;
     private final ConfigurationModel<One, Many> configuration;
 
-    protected ModelRelationalOneToMany(final ConfigurationModel<One, Many> configuration,
+    public ModelRelationalOneToMany(final ConfigurationModel<One, Many> configuration,
                                      final Class<One> typeOne,
                                      final Class<Many> typeMany,
                                      final DatabaseSessionGateway loader) {

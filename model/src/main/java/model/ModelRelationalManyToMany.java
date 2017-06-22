@@ -26,10 +26,10 @@ public class ModelRelationalManyToMany<T extends Idable<Id>, U extends Idable<Id
     private final Class<Relation> type;
     private static Logger logger;
 
-    protected ModelRelationalManyToMany(final Class<T> typeT,
-                                        final Class<U> typeU,
-                                        final Class<Relation> typeRelation,
-                                        final DatabaseSessionGateway loader) {
+    public ModelRelationalManyToMany(final Class<T> typeT,
+                                     final Class<U> typeU,
+                                     final Class<Relation> typeRelation,
+                                     final DatabaseSessionGateway loader) {
         modelT = new ModelRelational<>(typeT, loader);
         modelU = new ModelRelational<>(typeU, loader);
         type = typeRelation;

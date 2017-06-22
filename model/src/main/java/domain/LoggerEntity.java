@@ -1,7 +1,5 @@
 package domain;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -27,21 +25,25 @@ public class LoggerEntity implements Idable<Integer> {
     @Column(name = "HOST_USER")
     private String host;
 
+    @Column(name = "ID_CLIENT")
+    private Integer idClient;
+
     private static final Integer DEFAULT_ID = 0;
     private static final String DEFAULT_HOST = "";
 
     public LoggerEntity() {
-        this(DEFAULT_ID, DEFAULT_HOST);
+        this(DEFAULT_ID, DEFAULT_HOST, DEFAULT_ID);
     }
 
-    public LoggerEntity(@NotNull final Integer idUser, @NotNull final String host) {
-        this(DEFAULT_ID, idUser, host);
+    public LoggerEntity(Integer idUser, String host, Integer idClient) {
+        this(DEFAULT_ID, idUser, host, idClient);
     }
 
-    public LoggerEntity(@NotNull final Integer id, @NotNull final Integer idUser, @NotNull final String host) {
+    public LoggerEntity(Integer id, Integer idUser, String host, Integer idClient) {
         this.id = id;
         this.idUser = idUser;
         this.host = host;
+        this.idClient = idClient;
     }
 
     @Override
@@ -61,4 +63,9 @@ public class LoggerEntity implements Idable<Integer> {
     public Integer getIdUser() {
         return idUser;
     }
+
+    public Integer getIdClient() {
+        return idClient;
+    }
+
 }

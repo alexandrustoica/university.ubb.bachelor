@@ -18,7 +18,7 @@ public class ModelRelational<T extends Idable<Id>,  Id extends Serializable> imp
 
     private final Repository<T, Id> repository;
 
-    protected ModelRelational(final Class<T> type, final DatabaseSessionGateway gateway) {
+    public ModelRelational(final Class<T> type, final DatabaseSessionGateway gateway) {
         repository = new RepositoryEntity<>(type, gateway);
     }
 

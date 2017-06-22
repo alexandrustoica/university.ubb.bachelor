@@ -2,12 +2,22 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/application/application.iml" filepath="$PROJECT_DIR$/.idea/modules/application/application.iml" group="application" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/generic-model.iml" filepath="$PROJECT_DIR$/.idea/modules/generic-model.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/generic-model_main.iml" filepath="$PROJECT_DIR$/.idea/modules/generic-model_main.iml" group="generic-model" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/generic-model_test.iml" filepath="$PROJECT_DIR$/.idea/modules/generic-model_test.iml" group="generic-model" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/interface.iml" filepath="$PROJECT_DIR$/.idea/modules/interface.iml" group="interface" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/interface/interface_main.iml" filepath="$PROJECT_DIR$/.idea/modules/interface/interface_main.iml" group="interface" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/interface/interface_test.iml" filepath="$PROJECT_DIR$/.idea/modules/interface/interface_test.iml" group="interface" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/model.iml" filepath="$PROJECT_DIR$/.idea/modules/model.iml" group="model" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/model_main.iml" filepath="$PROJECT_DIR$/.idea/modules/model/model_main.iml" group="model" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/model_test.iml" filepath="$PROJECT_DIR$/.idea/modules/model/model_test.iml" group="model" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server.iml" filepath="$PROJECT_DIR$/.idea/modules/server.iml" group="server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_main.iml" group="server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_test.iml" group="server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service.iml" filepath="$PROJECT_DIR$/.idea/modules/service.iml" group="service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service_main.iml" group="service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service_test.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service_test.iml" group="service" />
     </modules>
   </component>
 </project>
