@@ -4,4 +4,5 @@ include 'service'
 include 'server'
 include 'application'
 include 'interface'
+include 'rest'
 

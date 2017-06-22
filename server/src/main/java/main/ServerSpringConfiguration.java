@@ -121,5 +121,4 @@ public class ServerSpringConfiguration {
         rmiServiceExporter.setRegistryPort(port);
         return rmiServiceExporter;
     }
-
 }

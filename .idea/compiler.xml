@@ -10,6 +10,8 @@
       <module name="interface_test" target="1.8" />
       <module name="model_main" target="1.8" />
       <module name="model_test" target="1.8" />
+      <module name="rest_main" target="1.8" />
+      <module name="rest_test" target="1.8" />
       <module name="server_main" target="1.8" />
       <module name="server_test" target="1.8" />
       <module name="service_main" target="1.8" />
