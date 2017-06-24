@@ -105,9 +105,34 @@ function Board(id, url, text) {
     this.text = text;
 }
 
+function TableView() {
+    this.selected = document.createElement("td");
+    this.selectedId = () => this.selected.parentNode
+        .getElementsByClassName("id")[0].innerHTML;
+
+    this.table = (data) => buildTable(data, (cell) => this.updateSelected(cell));
+    this.view = (data) => document.getElementById("body")
+        .replaceChild(this.table(data), document.getElementById("table"));
+
+    this.updateSelected = (newValue) => {
+        // TODO: Improve
+        this.selected.style.background = "white";
+        this.selected = newValue;
+        this.selected.style.background = "red";
+    };
+}
+
+let tableView = new TableView();
+
+const view = (model) => model.all((data) => tableView.view(data));
+const addAndView = (item, model) => model.insert(item, (inserted) => view(model));
+const updateAndView = (element, updated, model) => model.update(element, updated, (data) => view(model));
+
 window.onload = function () {
     let board = new GenericModel("board", handler);
-    let model = new GenericModel("user", handler);
-    board.all((data) => replaceDataInTable(data));
-    //model.all((data) => replaceDataInTable(data));
+    view(board);
+    let container = buildBiForm(["id", "url", "text"],
+        (item) => addAndView(item, board),
+        (item) => board.get(tableView.selectedId(), (selected) => updateAndView(selected, item, board)));
+    document.getElementById("body").appendChild(container);
 };

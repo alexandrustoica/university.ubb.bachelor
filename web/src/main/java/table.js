@@ -1,6 +1,4 @@
 
-const replaceDataInTable = (data) => document.getElementById("body")
-        .replaceChild(buildTable(data), document.getElementById("table"));
 
 const createTable = () => {
     this.table = document.createElement("table");
@@ -8,16 +6,17 @@ const createTable = () => {
     return this.table;
 };
 
-const loadCell = (row, value) => {
+const loadCell = (row, value, type) => {
     let cell = row.insertCell(row.length);
     cell.innerHTML = value;
+    cell.className = type;
     return cell;
 };
 
 const loadRow = (table, item) => {
     let row = table.insertRow();
-    for (let prop in item) {
-        loadCell(row, item[prop]);
+    for (let property in item) {
+        loadCell(row, item[property], property);
     }
     return table;
 };
@@ -27,6 +26,8 @@ const loadTable = (emptyTable, list) => {
     return emptyTable;
 };
 
-const buildTable = (list) => {
-    return loadTable(createTable(), list);
+const buildTable = (list, onCellClick) => {
+    let table = loadTable(createTable(), list);
+    table.onclick = (event) => onCellClick(event.srcElement);
+    return table;
 };
