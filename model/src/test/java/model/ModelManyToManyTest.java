@@ -1,7 +1,7 @@
 package model;
 
 import database.DatabaseLoader;
-import database.DatabaseSessionGateway;
+import database.DatabaseGateway;
 import domain.ProjectEntity;
 import domain.ProjectTaskEntity;
 import domain.TaskEntity;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static database.ConfigurationType.TEST;
+import static database.DatabaseType.TEST;
 import static org.junit.Assert.*;
 
 /**
@@ -27,7 +27,7 @@ public class ModelManyToManyTest {
 
     @Before
     public void setUp() throws Exception {
-        DatabaseSessionGateway loader = new DatabaseLoader(TEST);
+        DatabaseGateway loader = new DatabaseLoader(TEST);
         model = new ModelRelationalManyToMany<>(ProjectEntity.class, TaskEntity.class, ProjectTaskEntity.class, loader);
     }
 

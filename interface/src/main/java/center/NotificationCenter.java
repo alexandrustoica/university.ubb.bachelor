@@ -1,6 +1,6 @@
 package center;
 
-import transfarable.RemoteNotification;
+import dto.RemoteNotification;
 
 /**
  * @author Alexandru Stoica

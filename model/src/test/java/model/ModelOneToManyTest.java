@@ -1,7 +1,7 @@
 package model;
 
 import database.DatabaseLoader;
-import database.DatabaseSessionGateway;
+import database.DatabaseGateway;
 import domain.NotificationEntity;
 import domain.UserEntity;
 import org.junit.Before;
@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.util.Optional;
 
-import static database.ConfigurationType.TEST;
+import static database.DatabaseType.TEST;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
@@ -24,7 +24,7 @@ public class ModelOneToManyTest {
 
     @Before
     public void setUp() throws Exception {
-        DatabaseSessionGateway loader = new DatabaseLoader(TEST);
+        DatabaseGateway loader = new DatabaseLoader(TEST);
         ConfigurationModel<UserEntity, NotificationEntity> configuration =
                 new ConfigurationModelOneToMany<>(NotificationEntity::getUser, NotificationEntity::setUser);
         model = new ModelRelationalOneToMany<>(configuration, UserEntity.class, NotificationEntity.class, loader);

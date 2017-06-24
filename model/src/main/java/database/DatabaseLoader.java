@@ -24,13 +24,13 @@ import java.util.Set;
  * @version 1.0
  */
 
-public class DatabaseLoader implements DatabaseSessionGateway {
+public class DatabaseLoader implements DatabaseGateway {
 
     private Configuration configuration;
     private final SessionFactory factory;
     private static Logger logger;
 
-    public DatabaseLoader(DatabaseType configurationType) {
+    public DatabaseLoader(DatabaseTypeInterface configurationType) {
         logger = Logger.getLogger(DatabaseLoader.class);
         setupConfiguration(configurationType);
         Collection<URL> urls = ClasspathHelper.forPackage("domain");
@@ -47,7 +47,7 @@ public class DatabaseLoader implements DatabaseSessionGateway {
         return factory.openSession();
     }
 
-    private void setupConfiguration(DatabaseType type) {
+    private void setupConfiguration(DatabaseTypeInterface type) {
         Properties properties = new Properties();
         String url = ResourceBundle.getBundle("database_url").getString(type.getConfigurationKey());
         loadProperties(properties, url);

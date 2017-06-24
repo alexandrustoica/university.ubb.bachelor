@@ -1,6 +1,6 @@
 package model;
 
-import database.DatabaseSessionGateway;
+import database.DatabaseGateway;
 import domain.Idable;
 import repository.RepositoryEntity;
 import repository.Repository;
@@ -22,7 +22,7 @@ public class ModelRelationalOneToMany<One extends Idable<Id>, Many extends Idabl
     public ModelRelationalOneToMany(final ConfigurationModel<One, Many> configuration,
                                      final Class<One> typeOne,
                                      final Class<Many> typeMany,
-                                     final DatabaseSessionGateway loader) {
+                                     final DatabaseGateway loader) {
         super(typeOne, loader);
         this.configuration = configuration;
         repositoryRelation = new RepositoryEntity<>(typeMany, loader);

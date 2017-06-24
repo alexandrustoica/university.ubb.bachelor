@@ -1,6 +1,6 @@
 package repository;
 
-import database.DatabaseSessionGateway;
+import database.DatabaseGateway;
 import domain.Idable;
 import org.hibernate.Session;
 
@@ -19,10 +19,10 @@ import java.util.Optional;
 
 public class RepositoryEntity<T extends Idable<Id>, Id extends Serializable> implements Repository<T, Id> {
 
-    private final DatabaseSessionGateway gateway;
+    private final DatabaseGateway gateway;
     private final Class<T> type;
 
-    public RepositoryEntity(final Class<T> type, final DatabaseSessionGateway gateway) {
+    public RepositoryEntity(final Class<T> type, final DatabaseGateway gateway) {
         this.gateway = gateway;
         this.type = type;
     }

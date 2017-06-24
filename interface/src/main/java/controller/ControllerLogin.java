@@ -1,5 +1,6 @@
 package controller;
 
+import dto.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -13,7 +14,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import service.LoginService;
 import service.RegisterService;
-import transfarable.User;
 import view.ViewType;
 
 import java.rmi.RemoteException;

@@ -1,7 +1,7 @@
 package center;
 
 import controller.ControllerInterface;
-import transfarable.RemoteNotification;
+import dto.RemoteNotification;
 
 /**
  * @author Alexandru Stoica

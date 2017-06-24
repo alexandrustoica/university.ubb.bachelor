@@ -2,6 +2,10 @@ package controller;
 
 import center.LocalNotificationCenter;
 import center.SubscriberController;
+import dto.Project;
+import dto.RemoteNotification;
+import dto.Task;
+import dto.User;
 import functional.SupplierThrow;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -20,10 +24,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import service.RegisterService;
 import service.ServiceProjectTask;
-import transfarable.Project;
-import transfarable.RemoteNotification;
-import transfarable.Task;
-import transfarable.User;
 import view.Icon;
 import view.ViewType;
 

@@ -1,9 +1,10 @@
 package main;
 
-import database.ConfigurationType;
+import database.DatabaseType;
 import database.DatabaseLoader;
-import database.DatabaseSessionGateway;
+import database.DatabaseGateway;
 import domain.*;
+import dto.User;
 import manager.*;
 import model.Model;
 import model.ModelManyToMany;
@@ -15,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.remoting.rmi.RmiServiceExporter;
 import service.*;
-import transfarable.User;
 
 import java.io.IOException;
 
@@ -32,8 +32,8 @@ public class ServerSpringConfiguration {
 
     @Bean
     @Scope("singleton")
-    public DatabaseSessionGateway databaseGateway() {
-        return new DatabaseLoader(ConfigurationType.DEFAULT);
+    public DatabaseGateway databaseGateway() {
+        return new DatabaseLoader(DatabaseType.DEFAULT);
     }
 
     @Bean

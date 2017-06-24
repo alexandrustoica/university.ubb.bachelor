@@ -1,7 +1,7 @@
 package service;
 
+import dto.User;
 import org.jetbrains.annotations.NotNull;
-import transfarable.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

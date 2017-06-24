@@ -7,6 +7,6 @@ import org.hibernate.Session;
  * @version 1.0
  */
 
-public interface DatabaseSessionGateway {
+public interface DatabaseGateway {
     Session openSession();
 }

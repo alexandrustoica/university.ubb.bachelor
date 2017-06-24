@@ -6,8 +6,8 @@ import domain.TaskEntity;
 import model.ModelManyToMany;
 import service.RemoteNotificationCenterService;
 import service.ServiceProjectTask;
-import transfarable.Project;
-import transfarable.Task;
+import dto.Project;
+import dto.Task;
 import translator.ProjectTranslator;
 import translator.TaskTranslator;
 

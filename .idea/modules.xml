@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/interface.iml" filepath="$PROJECT_DIR$/.idea/modules/interface.iml" group="interface" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/interface/interface_main.iml" filepath="$PROJECT_DIR$/.idea/modules/interface/interface_main.iml" group="interface" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/interface/interface_test.iml" filepath="$PROJECT_DIR$/.idea/modules/interface/interface_test.iml" group="interface" />
+      <module fileurl="file://$PROJECT_DIR$/web/src/main/main.iml" filepath="$PROJECT_DIR$/web/src/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/model.iml" filepath="$PROJECT_DIR$/.idea/modules/model.iml" group="model" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/model_main.iml" filepath="$PROJECT_DIR$/.idea/modules/model/model_main.iml" group="model" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/model_test.iml" filepath="$PROJECT_DIR$/.idea/modules/model/model_test.iml" group="model" />
@@ -21,6 +22,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/service.iml" filepath="$PROJECT_DIR$/.idea/modules/service.iml" group="service" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service_main.iml" group="service" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service_test.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service_test.iml" group="service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/web.iml" filepath="$PROJECT_DIR$/.idea/modules/web.iml" group="web" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/web/web_main.iml" filepath="$PROJECT_DIR$/.idea/modules/web/web_main.iml" group="web" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/web/web_test.iml" filepath="$PROJECT_DIR$/.idea/modules/web/web_test.iml" group="web" />
     </modules>
   </component>
 </project>

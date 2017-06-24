@@ -2,8 +2,8 @@ package translator;
 
 
 import domain.UserEntity;
+import dto.User;
 import org.jetbrains.annotations.NotNull;
-import transfarable.User;
 
 /**
  * @author Alexandru Stoica

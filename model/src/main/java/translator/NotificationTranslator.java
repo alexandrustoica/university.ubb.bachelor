@@ -2,7 +2,7 @@ package translator;
 
 import domain.NotificationEntity;
 import org.jetbrains.annotations.NotNull;
-import transfarable.Notification;
+import dto.Notification;
 
 /**
  * @author Alexandru Stoica

@@ -1,6 +1,6 @@
 package service;
 
-import transfarable.RemoteNotification;
+import dto.RemoteNotification;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

@@ -2,7 +2,7 @@
   <configuration default="false" name="Server" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
       <pattern>
-        <option name="PATTERN" value="main.*" />
+        <option name="PATTERN" value="controller.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

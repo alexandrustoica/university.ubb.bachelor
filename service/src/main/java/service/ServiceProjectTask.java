@@ -3,8 +3,8 @@ package service;
 import domain.ProjectEntity;
 import domain.ProjectTaskEntity;
 import domain.TaskEntity;
-import transfarable.Project;
-import transfarable.Task;
+import dto.Project;
+import dto.Task;
 
 /**
  * @author Alexandru Stoica

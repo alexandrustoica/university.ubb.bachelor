@@ -1,7 +1,7 @@
 package model;
 
 import database.DatabaseLoader;
-import database.DatabaseSessionGateway;
+import database.DatabaseGateway;
 import domain.UserEntity;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static database.ConfigurationType.TEST;
+import static database.DatabaseType.TEST;
 import static junit.framework.TestCase.assertEquals;
 
 
@@ -25,7 +25,7 @@ public class ModelTest {
 
     @Before
     public void setUp() throws Exception {
-        DatabaseSessionGateway loader = new DatabaseLoader(TEST);
+        DatabaseGateway loader = new DatabaseLoader(TEST);
         model = new ModelRelational<>(UserEntity.class, loader);
     }
 

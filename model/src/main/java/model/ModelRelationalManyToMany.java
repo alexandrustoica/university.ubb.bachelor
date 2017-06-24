@@ -1,6 +1,6 @@
 package model;
 
-import database.DatabaseSessionGateway;
+import database.DatabaseGateway;
 import domain.Idable;
 import javafx.util.Pair;
 import org.apache.log4j.Logger;
@@ -30,7 +30,7 @@ public class ModelRelationalManyToMany<T extends Idable<Id>, U extends Idable<Id
     public ModelRelationalManyToMany(final Class<T> typeT,
                                      final Class<U> typeU,
                                      final Class<Relation> typeRelation,
-                                     final DatabaseSessionGateway loader) {
+                                     final DatabaseGateway loader) {
         modelT = new ModelRelational<>(typeT, loader);
         modelU = new ModelRelational<>(typeU, loader);
         type = typeRelation;

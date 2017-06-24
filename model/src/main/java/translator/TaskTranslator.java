@@ -2,7 +2,7 @@ package translator;
 
 import domain.TaskEntity;
 import org.jetbrains.annotations.NotNull;
-import transfarable.Task;
+import dto.Task;
 
 /**
  * @author Alexandru Stoica

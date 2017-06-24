@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import service.RemoteNotificationCenterService;
 import service.SubscriberService;
-import transfarable.RemoteNotification;
+import dto.RemoteNotification;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;

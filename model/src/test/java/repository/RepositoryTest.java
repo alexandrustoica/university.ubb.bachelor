@@ -1,7 +1,7 @@
 package repository;
 
 import database.DatabaseLoader;
-import database.DatabaseSessionGateway;
+import database.DatabaseGateway;
 import domain.UserEntity;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static database.ConfigurationType.TEST;
+import static database.DatabaseType.TEST;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -23,11 +23,11 @@ import static org.junit.Assert.assertTrue;
 public class RepositoryTest {
 
     private Repository<UserEntity, Integer> repositoryUser;
-    private DatabaseSessionGateway loader;
+    private DatabaseGateway loader;
 
     @Before
     public void setUp() throws Exception {
-        DatabaseSessionGateway loader = new DatabaseLoader(TEST);
+        DatabaseGateway loader = new DatabaseLoader(TEST);
         repositoryUser = new RepositoryEntity<>(UserEntity.class, loader);
     }
 

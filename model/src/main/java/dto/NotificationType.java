@@ -1,4 +1,4 @@
-package transfarable;
+package dto;
 
 import java.io.Serializable;
 

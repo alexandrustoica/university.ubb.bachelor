@@ -3,7 +3,7 @@ package manager;
 import org.apache.log4j.Logger;
 import service.RemoteNotificationCenterService;
 import service.SubscriberService;
-import transfarable.RemoteNotification;
+import dto.RemoteNotification;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;

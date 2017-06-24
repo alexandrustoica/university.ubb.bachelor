@@ -1,6 +1,6 @@
 package model;
 
-import database.DatabaseSessionGateway;
+import database.DatabaseGateway;
 import domain.Idable;
 import repository.RepositoryEntity;
 import repository.Repository;
@@ -18,7 +18,7 @@ public class ModelRelational<T extends Idable<Id>,  Id extends Serializable> imp
 
     private final Repository<T, Id> repository;
 
-    public ModelRelational(final Class<T> type, final DatabaseSessionGateway gateway) {
+    public ModelRelational(final Class<T> type, final DatabaseGateway gateway) {
         repository = new RepositoryEntity<>(type, gateway);
     }
 

@@ -1,10 +1,10 @@
 package manager;
 
 import domain.UserEntity;
+import dto.User;
 import model.Model;
 import org.jetbrains.annotations.NotNull;
 import service.SignUpService;
-import transfarable.User;
 import translator.GenericTranslator;
 import translator.UserTranslator;
 

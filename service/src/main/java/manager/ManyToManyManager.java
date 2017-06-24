@@ -6,8 +6,8 @@ import javafx.util.Pair;
 import model.ModelManyToMany;
 import service.RemoteNotificationCenterService;
 import service.ServiceManyToMany;
-import transfarable.NotificationType;
-import transfarable.RemoteNotification;
+import dto.NotificationType;
+import dto.RemoteNotification;
 import translator.GenericTranslator;
 
 import java.io.Serializable;

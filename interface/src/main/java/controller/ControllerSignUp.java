@@ -1,5 +1,6 @@
 package controller;
 
+import dto.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +15,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import service.RegisterService;
 import service.SignUpService;
-import transfarable.User;
 import view.ViewType;
 
 import java.util.Optional;

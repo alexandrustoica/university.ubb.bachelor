@@ -2,21 +2,21 @@ package dto;
 
 import domain.Idable;
 
+import java.io.Serializable;
+
 /**
  * @author Alexandru Stoica
  * @version 1.0
  */
 
-public class User implements Idable<Integer> {
+public class User implements Serializable, Idable<Integer> {
 
     private Integer id;
     private String username;
     private String password;
 
-    private final static Integer DEFAULT_ID = 0;
-
-    public User(String username, String password) {
-        this(DEFAULT_ID, username, password);
+    public User() {
+        this(0, "", "");
     }
 
     public User(Integer id, String username, String password) {
@@ -42,5 +42,4 @@ public class User implements Idable<Integer> {
     public String getPassword() {
         return password;
     }
-
 }
