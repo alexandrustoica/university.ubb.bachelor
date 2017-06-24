@@ -8,7 +8,11 @@ const createTable = () => {
 
 const loadCell = (row, value, type) => {
     let cell = row.insertCell(row.length);
-    cell.innerHTML = value;
+    if (typeof value === "function") {
+        value(cell);
+    } else {
+        cell.innerHTML = value;
+    }
     cell.className = type;
     return cell;
 };

@@ -105,17 +105,23 @@ function Board(id, url, text) {
     this.text = text;
 }
 
+const convert = (object) => {
+    return new Board(object.id, (cell) => {
+        cell.appendChild(document.createElement("img")).src = object.url;
+    }, object.text);
+};
+
 function TableView() {
     this.selected = document.createElement("td");
     this.selectedId = () => this.selected.parentNode
         .getElementsByClassName("id")[0].innerHTML;
 
-    this.table = (data) => buildTable(data, (cell) => this.updateSelected(cell));
+    this.table = (data) => buildTable(data.map(convert), (cell) => this.updateSelected(cell));
+
     this.view = (data) => document.getElementById("body")
         .replaceChild(this.table(data), document.getElementById("table"));
 
     this.updateSelected = (newValue) => {
-        // TODO: Improve
         this.selected.style.background = "white";
         this.selected = newValue;
         this.selected.style.background = "red";

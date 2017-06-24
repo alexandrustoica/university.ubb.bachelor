@@ -41,3 +41,5 @@ const buildBiForm = (list, func, alternative) => {
     form.appendChild(buildButton("Update", alternative, form, list));
     return form;
 };
+
+
