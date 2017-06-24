@@ -99,6 +99,12 @@ function User(id, username, password) {
     this.password = password;
 }
 
+function Board(id, url, text) {
+    this.id = id;
+    this.url = url;
+    this.text = text;
+}
+
 window.onload = function () {
     let model = new GenericModel("user", handler);
     let user = new User(0, "test", "password");
@@ -126,4 +132,9 @@ window.onload = function () {
 
     // get the data with id == 2 from the right side of the relationship
     many.receive(1, (element) => console.log(element));
+
+    let board = new GenericModel("board", handler);
+
+    board.insert(new Board(1, "test", "test"), (element) => console.log(element));
+    board.all((data) => console.log(data));
 };
