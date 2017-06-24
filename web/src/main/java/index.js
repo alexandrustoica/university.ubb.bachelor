@@ -106,35 +106,8 @@ function Board(id, url, text) {
 }
 
 window.onload = function () {
-    let model = new GenericModel("user", handler);
-    let user = new User(0, "test", "password");
-    let test = new User(0, "update", "update");
-
-    // get an element by id where id == 5
-    model.get(5, (user) => console.log(user.username));
-
-    // insert an element and then delete it from model.
-    model.insert(user, (user) => model.remove(user, (deleted) => console.log(deleted)));
-
-    // get all data from model
-    model.all((list) => console.log(list));
-
-    // get the element with id == 5 and update it
-    model.get(5, (user) => model.update(user, test, (item) => console.log(item)));
-
-    let many = new ManyToManyModel("project-task", handler);
-
-    // get all the data from the right side of the relationship
-    many.every((data) => console.log(data));
-
-    // get all the data from the left side of the relationship
-    many.all((data) => console.log(data));
-
-    // get the data with id == 2 from the right side of the relationship
-    many.receive(1, (element) => console.log(element));
-
     let board = new GenericModel("board", handler);
-
-    board.insert(new Board(1, "test", "test"), (element) => console.log(element));
-    board.all((data) => console.log(data));
+    let model = new GenericModel("user", handler);
+    board.all((data) => replaceDataInTable(data));
+    //model.all((data) => replaceDataInTable(data));
 };
