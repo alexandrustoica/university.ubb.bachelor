@@ -3,18 +3,12 @@ package main;
 import database.DatabaseType;
 import database.DatabaseLoader;
 import database.DatabaseGateway;
-import domain.ProjectEntity;
-import domain.ProjectTaskEntity;
-import domain.TaskEntity;
-import domain.UserEntity;
+import domain.*;
 import model.Model;
 import model.ModelManyToMany;
 import model.ModelRelational;
 import model.ModelRelationalManyToMany;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 /**
  * @author Alexandru Stoica
@@ -33,9 +27,16 @@ public class RestConfiguration {
     }
 
     @Bean
+    @Primary
     public Model<UserEntity, Integer> userModel() {
         return new ModelRelational<>(UserEntity.class, databaseGateway());
     }
+
+    @Bean
+    public Model<BoardEntity, Integer> boardModel() {
+        return new ModelRelational<>(BoardEntity.class, databaseGateway());
+    }
+
     @Bean
     public ModelManyToMany<ProjectEntity, TaskEntity, ProjectTaskEntity, Integer> projectTaskModel() {
         return new ModelRelationalManyToMany<>(ProjectEntity.class, TaskEntity.class, ProjectTaskEntity.class, databaseGateway());

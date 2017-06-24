@@ -1,14 +1,16 @@
 package special;
 
 import controller.GenericController;
-import domain.UserEntity;
-import dto.User;
+import domain.BoardEntity;
+import dto.Board;
 import model.Model;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import translator.UserTranslator;
+import translator.BoardTranslator;
+
+
 
 /**
  * @author Alexandru Stoica
@@ -17,11 +19,11 @@ import translator.UserTranslator;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/user/")
-public class UserController extends GenericController<User, UserEntity, Integer> {
+@RequestMapping("/board/")
+public class BoardController extends GenericController<Board, BoardEntity, Integer> {
 
-    public UserController(final @Qualifier("userModel")  Model<UserEntity, Integer> model) {
+    public BoardController(final @Qualifier("boardModel") Model<BoardEntity, Integer> model) {
         super(model);
-        this.translator = new UserTranslator();
+        this.translator = new BoardTranslator();
     }
 }
