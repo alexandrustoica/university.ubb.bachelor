@@ -1,5 +1,6 @@
 package main;
 
+import org.apache.log4j.BasicConfigurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class RestServer {
 
     public static void main(String[] args) {
+        BasicConfigurator.configure();
         SpringApplication.run(RestServer.class, args);
     }
 }

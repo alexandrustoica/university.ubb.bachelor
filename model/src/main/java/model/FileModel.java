@@ -98,25 +98,24 @@ public class FileModel {
     }
 
     public Optional<File> deleteFile(final String name) {
+        Optional<File> file = getFileBasedOn(name);
         try {
-            Optional<File> file = getFileBasedOn(name);
             Path result = Paths.get(file.orElseThrow(RuntimeException::new).toURI());
             java.nio.file.Files.deleteIfExists(result);
-            return file;
         } catch (IOException exception) {
             logger.error(exception);
-            return Optional.empty();
         }
+        return file;
     }
 
     public Optional<File> deleteDirectory(final String name) {
+        Optional<File> directory = getDirectoryBasedOn(name);
         try {
-            FileUtils.deleteDirectory(new File(root.getAbsolutePath()+ "/" + name));
-            return getFileBasedOn(name);
+            FileUtils.deleteDirectory(directory.orElseThrow(RuntimeException::new));
         } catch (IOException exception) {
             logger.error(exception);
-            return Optional.empty();
         }
+        return directory;
     }
 
     public File writeToFile(final File file, final List<String> lines) {

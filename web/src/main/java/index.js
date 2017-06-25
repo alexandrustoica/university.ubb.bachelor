@@ -141,4 +141,6 @@ window.onload = function () {
         (item) => addAndView(item, board),
         (item) => board.get(tableView.selectedId(), (selected) => updateAndView(selected, item, board)));
     document.getElementById("body").appendChild(container);
+
+    TestFileManger();
 };

@@ -86,7 +86,7 @@ public class FileController {
         return new ResponseEntity<>(convertFile(file), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/write", method = RequestMethod.GET)
+    @RequestMapping(value = "/write", method = RequestMethod.POST)
     public ResponseEntity<FileContext> writeFile(@RequestBody FileContext context) {
         File file = model.writeToFile(model.getFileBasedOn(context.getName())
                 .orElseThrow(RuntimeException::new), context.getLines());
