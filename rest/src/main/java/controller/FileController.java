@@ -1,14 +1,18 @@
 package controller;
 
+import com.google.common.io.Files;
 import context.DirectoryContext;
 import context.FileContext;
+import context.UrlContext;
 import model.FileModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.FileSystemNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +34,7 @@ public class FileController {
         return new FileContext(file.getName(),
                 file.getAbsolutePath(), model.getLinesFromFile(file));
     }
+
     private DirectoryContext convertDirectory(final File directory) {
         return new DirectoryContext(directory.getName(), directory.getAbsolutePath(),
                 model.getFilesFrom(directory).stream().map(this::convertFile).collect(Collectors.toList()));
@@ -93,4 +98,25 @@ public class FileController {
         return new ResponseEntity<>(convertFile(file), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public ResponseEntity<FileContext> upload(@RequestBody UrlContext context) throws IOException {
+        URL dataUrl = new URL(context.getUrl());
+        URLConnection connection = dataUrl.openConnection();
+        InputStream in = new BufferedInputStream(connection.getInputStream());
+        byte[] data = new byte[connection.getContentLength()];
+        Integer offset = 0;
+        while (offset < connection.getContentLength()) {
+            Integer bytesRead = in.read(data, offset, data.length - offset);
+            if (bytesRead == -1)
+                break;
+            offset += bytesRead;
+        }
+        in.close();
+        if (!offset.equals(connection.getContentLength())) {
+            throw new IOException("Only read " + offset + " bytes; Expected " + connection.getContentLength() + " bytes");
+        }
+        File file = model.createFile(context.getName()).orElseThrow(RuntimeException::new);
+        Files.write(data, file);
+        return new ResponseEntity<>(convertFile(file), HttpStatus.OK);
+    }
 }

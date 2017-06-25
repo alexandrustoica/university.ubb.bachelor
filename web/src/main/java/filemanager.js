@@ -17,7 +17,8 @@ function FileManager(handler) {
         create: "create/",
         delete: "delete/",
         directory: "directory/",
-        extension: "extension/"
+        extension: "extension/",
+        upload: "upload",
     };
 
     this.get = (fileName, func) => get(this.url, null, func, this.handler, this.actions.get + fileName);
@@ -44,6 +45,9 @@ function FileManager(handler) {
     this.write = (file, func) => post(this.url, file, func, this.handler, this.actions.write);
 
     this.removeExtension = (name) => name.substr(0, name.lastIndexOf('.'));
+
+    this.upload = (url, name, func) => post(this.url, {"name": name , "url": url}, func,
+        this.handler, this.actions.upload);
 }
 
 function TestFileManger() {

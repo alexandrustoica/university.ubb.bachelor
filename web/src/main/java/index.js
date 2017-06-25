@@ -12,7 +12,7 @@ const action = {
     every: "every",
 };
 
-function send(url, data, success, fail, key, type,) {
+function send(url, data, success, fail, key, type) {
     $.ajax({
         type: type,
         url: url + key,
@@ -20,12 +20,13 @@ function send(url, data, success, fail, key, type,) {
         success: success,
         error: fail,
         timeout: 600000,
-        contentType: "application/json",
+        contentType:  "application/json",
         dataType: 'json',
     })
 }
 
 const handler = (error) => console.error(error);
+
 const printer = (object) => console.log(object);
 
 const get = (url, data, success, fail, key) =>
@@ -141,6 +142,5 @@ window.onload = function () {
         (item) => addAndView(item, board),
         (item) => board.get(tableView.selectedId(), (selected) => updateAndView(selected, item, board)));
     document.getElementById("body").appendChild(container);
-
-    TestFileManger();
+    TestUpload();
 };

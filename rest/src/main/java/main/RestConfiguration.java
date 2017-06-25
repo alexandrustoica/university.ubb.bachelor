@@ -1,8 +1,8 @@
 package main;
 
-import database.DatabaseType;
-import database.DatabaseLoader;
 import database.DatabaseGateway;
+import database.DatabaseLoader;
+import database.DatabaseType;
 import domain.*;
 import model.*;
 import org.springframework.context.annotation.*;
@@ -46,4 +46,5 @@ public class RestConfiguration {
     public ModelManyToMany<ProjectEntity, TaskEntity, ProjectTaskEntity, Integer> projectTaskModel() {
         return new ModelRelationalManyToMany<>(ProjectEntity.class, TaskEntity.class, ProjectTaskEntity.class, databaseGateway());
     }
+
 }
