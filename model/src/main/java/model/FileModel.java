@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,10 @@ public class FileModel {
         return result;
     }
 
+    public File getRoot() {
+        return root;
+    }
+
     public List<File> getFilesWithExtension(final List<File> files, final String extension) {
         return files.stream().filter(file -> file.getName().matches("(.*)" + extension)).collect(Collectors.toList());
     }
@@ -94,8 +99,10 @@ public class FileModel {
 
     public Optional<File> deleteFile(final String name) {
         try {
-            java.nio.file.Files.deleteIfExists(Paths.get(root.getAbsolutePath() +  "/" + name));
-            return getFileBasedOn(name);
+            Optional<File> file = getFileBasedOn(name);
+            Path result = Paths.get(file.orElseThrow(RuntimeException::new).toURI());
+            java.nio.file.Files.deleteIfExists(result);
+            return file;
         } catch (IOException exception) {
             logger.error(exception);
             return Optional.empty();

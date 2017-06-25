@@ -54,6 +54,45 @@ public class FileController {
         return new ResponseEntity<>(convertDirectory(directory), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/extension/{extension}", method = RequestMethod.GET)
+    public ResponseEntity<List<FileContext>> getFilesWithExtension(@PathVariable("extension") String extension) {
+        List<File> files = model.getFilesFrom(model.getRoot());
+        List<File> result = model.getFilesWithExtension(files, extension);
+        return new ResponseEntity<>(result.stream().map(this::convertFile).collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/create/file/{name}/{extension}", method = RequestMethod.GET)
+    public ResponseEntity<FileContext> createFile(@PathVariable("name") String name,
+                                                  @PathVariable("extension") String extension) {
+        File file = model.createFile(name + "." + extension).orElseThrow(RuntimeException::new);
+        return new ResponseEntity<>(convertFile(file), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/create/directory/{name}", method = RequestMethod.GET)
+    public ResponseEntity<DirectoryContext> createDirectory(@PathVariable("name") String name) {
+        File directory = model.createDirectory(name).orElseThrow(RuntimeException::new);
+        return new ResponseEntity<>(convertDirectory(directory), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete/directory/{name}", method = RequestMethod.GET)
+    public ResponseEntity<DirectoryContext> deleteDirectory(@PathVariable("name") String name) {
+        File directory = model.deleteDirectory(name).orElseThrow(RuntimeException::new);
+        return new ResponseEntity<>(convertDirectory(directory), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete/file/{name}", method = RequestMethod.GET)
+    public ResponseEntity<FileContext> deleteFile(@PathVariable("name") String name) {
+        File file = model.deleteFile(name).orElseThrow(RuntimeException::new);
+        return new ResponseEntity<>(convertFile(file), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/write", method = RequestMethod.GET)
+    public ResponseEntity<FileContext> deleteFile(@RequestBody FileContext context) {
+        File file = model.writeToFile(model.getFileBasedOn(context.getName())
+                .orElseThrow(RuntimeException::new), context.getLines());
+        return new ResponseEntity<>(convertFile(file), HttpStatus.OK);
+    }
+
 
 
 
