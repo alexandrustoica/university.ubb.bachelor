@@ -87,13 +87,10 @@ public class FileController {
     }
 
     @RequestMapping(value = "/write", method = RequestMethod.GET)
-    public ResponseEntity<FileContext> deleteFile(@RequestBody FileContext context) {
+    public ResponseEntity<FileContext> writeFile(@RequestBody FileContext context) {
         File file = model.writeToFile(model.getFileBasedOn(context.getName())
                 .orElseThrow(RuntimeException::new), context.getLines());
         return new ResponseEntity<>(convertFile(file), HttpStatus.OK);
     }
-
-
-
 
 }
