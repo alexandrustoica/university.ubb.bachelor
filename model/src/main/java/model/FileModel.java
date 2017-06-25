@@ -20,23 +20,30 @@ import java.util.stream.Collectors;
 
 public class FileModel {
 
-    private static final String PATH = new File("src/main/resources").getAbsolutePath();
-
     private static Logger logger;
-    private final File rootDirectory;
+    private final File root;
 
-    public FileModel() {
-        rootDirectory = new File(PATH);
+    public FileModel(final File root) {
+        this.root = root;
         logger = Logger.getLogger(FileModel.class);
     }
 
-    @SuppressWarnings("WeakerAccess")
-    public File getFileBasedOn(String name) {
-        return new File(rootDirectory.getAbsolutePath() + "/" + name);
+    public Optional<File> getFileBasedOn(final String name) {
+        return getFilesFrom(root).stream()
+                .filter(file -> file.getName().matches(name + "(.*)") && !file.isDirectory())
+                .findFirst();
     }
 
-    public File getDirectoryBasedOn(String name) {
-        return getFileBasedOn(name);
+    public Optional<File> getDirectoryBasedOn(String name) {
+        return getFilesFrom(root).stream()
+                .filter(file -> file.getName().equals(name) && file.isDirectory())
+                .findFirst();
+    }
+
+    public List<File> getFilesBasedOn(final String name) {
+        return getFilesFrom(root).stream()
+                .filter(file -> file.getName().contains(name) && !file.isDirectory())
+                .collect(Collectors.toList());
     }
 
     public List<File> getFilesFrom(final File directory) {
@@ -63,7 +70,7 @@ public class FileModel {
     public Optional<File> moveFile(File file, File directory) {
         try {
             Files.move(file, directory);
-            return Optional.of(getFileBasedOn(file.getName()));
+            return getFileBasedOn(file.getName());
         } catch (IOException exception) {
             logger.error(exception);
             return Optional.empty();
@@ -72,8 +79,8 @@ public class FileModel {
 
     public Optional<File> createFile(final String name) {
         try {
-            Boolean result = new File(rootDirectory.getAbsolutePath() +"/" + name).createNewFile();
-            return (result.equals(Boolean.TRUE)) ? Optional.of(getFileBasedOn(name)) : Optional.empty();
+            Boolean result = new File(root.getAbsolutePath() +"/" + name).createNewFile();
+            return (result.equals(Boolean.TRUE)) ? getFileBasedOn(name) : Optional.empty();
         } catch (IOException exception) {
             logger.error(exception);
             return Optional.empty();
@@ -81,14 +88,14 @@ public class FileModel {
     }
 
     public Optional<File> createDirectory(final String name) {
-        Boolean result = new File(rootDirectory.getAbsolutePath() + "/" + name).mkdir();
-        return (result.equals(Boolean.TRUE)) ? Optional.of(getDirectoryBasedOn(name)) : Optional.empty();
+        Boolean result = new File(root.getAbsolutePath() + "/" + name).mkdir();
+        return (result.equals(Boolean.TRUE)) ? getDirectoryBasedOn(name) : Optional.empty();
     }
 
     public Optional<File> deleteFile(final String name) {
         try {
-            java.nio.file.Files.deleteIfExists(Paths.get(rootDirectory.getAbsolutePath() +  "/" + name));
-            return Optional.of(getFileBasedOn(name));
+            java.nio.file.Files.deleteIfExists(Paths.get(root.getAbsolutePath() +  "/" + name));
+            return getFileBasedOn(name);
         } catch (IOException exception) {
             logger.error(exception);
             return Optional.empty();
@@ -97,8 +104,8 @@ public class FileModel {
 
     public Optional<File> deleteDirectory(final String name) {
         try {
-            FileUtils.deleteDirectory(new File(rootDirectory.getAbsolutePath()+ "/" + name));
-            return Optional.of(getFileBasedOn(name));
+            FileUtils.deleteDirectory(new File(root.getAbsolutePath()+ "/" + name));
+            return getFileBasedOn(name);
         } catch (IOException exception) {
             logger.error(exception);
             return Optional.empty();

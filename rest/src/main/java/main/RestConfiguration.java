@@ -4,11 +4,10 @@ import database.DatabaseType;
 import database.DatabaseLoader;
 import database.DatabaseGateway;
 import domain.*;
-import model.Model;
-import model.ModelManyToMany;
-import model.ModelRelational;
-import model.ModelRelationalManyToMany;
+import model.*;
 import org.springframework.context.annotation.*;
+
+import java.io.File;
 
 /**
  * @author Alexandru Stoica
@@ -35,6 +34,12 @@ public class RestConfiguration {
     @Bean
     public Model<BoardEntity, Integer> boardModel() {
         return new ModelRelational<>(BoardEntity.class, databaseGateway());
+    }
+
+
+    @Bean
+    public FileModel fileModel() {
+        return new FileModel(new File("./rest/src/main/resources"));
     }
 
     @Bean

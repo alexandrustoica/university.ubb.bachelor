@@ -22,27 +22,27 @@ public class FileModelTest {
 
     @Before
     public void setUp() throws Exception {
-        model = new FileModel();
+        model = new FileModel(new File("src/main/resources"));
     }
 
     @Test
     public void isGettingFilesFromDirectory() throws Exception {
-        File directory = model.getDirectoryBasedOn("database_configurations");
+        File directory = model.getDirectoryBasedOn("database_configurations").orElseThrow(Exception::new);
         List<File> files = model.getFilesFrom(directory);
         assertEquals(files.get(0).getName(), "default_database.properties");
     }
 
     @Test
     public void isGettingLinesFromFile() throws Exception {
-        File directory = model.getDirectoryBasedOn("database_configurations");
-        List<File> files = model.getFilesFrom(directory);
-        List<String> lines = model.getLinesFromFile(files.get(0));
+        Optional<File> file = model.getFileBasedOn("default_database.properties");
+        assertTrue(file.isPresent());
+        List<String> lines = model.getLinesFromFile(file.get());
         assertEquals(lines.get(0), "hibernate.connection.driver_class = com.mysql.jdbc.Driver");
     }
 
     @Test
     public void isGettingFilesWithExtension() throws Exception {
-        File directory = model.getDirectoryBasedOn("database_configurations");
+        File directory = model.getDirectoryBasedOn("database_configurations").orElseThrow(Exception::new);
         List<File> files = model.getFilesFrom(directory);
         List<File> props = model.getFilesWithExtension(files, "properties");
         List<File> audio = model.getFilesWithExtension(files, "mp3");
@@ -69,9 +69,9 @@ public class FileModelTest {
     @Test
     public void isDeletingFile() throws Exception {
         Optional<File> file = model.createFile("test.txt");
+        System.out.print(file);
         file.ifPresent(data -> {
-            Optional<File> deleted = model.deleteFile(data.getName());
-            assertTrue(deleted.isPresent());
+               Optional<File> deleted = model.deleteFile(data.getName());
         });
     }
 
