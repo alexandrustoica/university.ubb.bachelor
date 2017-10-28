@@ -1,155 +1,76 @@
 package manager;
 
-import javafx.util.Pair;
-import task.MultiplicationTask;
-import task.SumTask;
+import domain.Matrix;
+import org.apache.commons.collections4.ListUtils;
+import org.apache.log4j.Logger;
 import task.Task;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Alexandru Stoica
  * @version 1.0
  */
 
-public class MatrixCalculator {
+public class MatrixCalculator<T> {
 
-    private Integer threads;
-    private DistributionManager<Integer> distributionManager;
+    private final Integer concurrency;
+    private final DistributionManager<T> distribution = new DistributionManager<>();
+    private final BiFunction<T, T, T> action;
+    private final BiFunction<List<T>, Integer, List<List<T>>> distribute = distribution::distribute;
+    private final Logger logger;
+    private final PerformerManager performer;
+    private final BiFunction<Matrix<T>, Matrix<T>, Boolean> checker =
+            (left, right) -> left.getLines().equals(right.getLines()) &&
+                    left.getColumns().equals(right.getColumns());
 
-    /**
-     * Checks if we can sum the two matrices.
-     */
-    private BiFunction<Matrix, Matrix, Boolean> sumChecker =
-            (left, right) -> left.lines().equals(right.lines()) && left.columns().equals(right.columns());
-
-    /**
-     * Checks if we can multiply the two matrices.
-     */
-    private BiFunction<Matrix, Matrix, Boolean> multiplierChecker =
-            (left, right) -> left.columns().equals(right.lines());
-
-    /**
-     * Converts a list of lists into a matrix.
-     */
-    private Function<List<List<Integer>>, Matrix> convertToMatrix =
-            (list) -> new Matrix().fromList(list);
-
-    /**
-     * Splits a list into @parts lists of relatively equal size.
-     */
-    private BiFunction<List<Integer>, Integer, List<List<Integer>>> splitList =
-            (list, parts) -> distributionManager.partition(list, parts);
-
-    /**
-     * Creates a thread based on a runnable task. Runs the task and returns the result.
-     */
-    private Function<Task<List<Integer>>, List<Integer>> solveTaskAndReturnResult =
-            (task) -> {
-                new Thread(task).run();
-                return task.result();
-            };
-
-    public MatrixCalculator(Integer threads) {
-        this.threads = threads;
-        this.distributionManager = new DistributionManager<>();
+    public MatrixCalculator(final BiFunction<T, T, T> action, final Integer concurrency) {
+        this.logger = Logger.getLogger(MatrixCalculator.class);
+        this.performer = new PerformerManager((error) -> logger.error(error.getMessage()));
+        this.action = action;
+        this.concurrency = concurrency;
     }
 
-
-    /**
-     * Returns an optional matrix as result because
-     * based on the input the operation might not be possible.
-     */
-    public Optional<Matrix> sum(Matrix left, Matrix right) {
-        return sumChecker.apply(left, right) ? Optional.of(sumOf(left, right)) : Optional.empty();
+    public MatrixCalculator() {
+        this((left, right) ->  left, 1);
     }
 
-    /**
-     * @return - the result matrix
-     */
-    private Matrix sumOf(Matrix left, Matrix right) {
-        List<Integer> result = parallelSumOf(
-                distributionManager.distribute(left.toList(), threads),
-                distributionManager.distribute(right.toList(), threads));
-        return splitList.andThen(convertToMatrix).apply(result, left.columns());
+    public MatrixCalculator<T> basedOn(final BiFunction<T, T, T> action) {
+        return new MatrixCalculator<>(action, concurrency);
     }
 
-
-    /**
-     * @return - the result matrix as a list
-     */
-    private List<Integer> parallelSumOf(List<List<Integer>> left, List<List<Integer>> right) {
-        return Stream.iterate(0, index -> index + 1).limit(threads)
-                .map(index -> new SumTask(left.get(index), right.get(index)))
-                .map(task -> solveTaskAndReturnResult.apply(task))
-                .flatMap(List::stream).collect(Collectors.toList());
+    public MatrixCalculator<T> withConcurrency(final Integer concurrency) {
+        return new MatrixCalculator<>(action, concurrency);
     }
 
-    /**
-     * @return - an optional of matrix because the
-     * operation might not be possible.
-     */
-    public Optional<Matrix> multiply(Matrix left, Matrix right) {
-        return multiplierChecker.apply(left, right) ? Optional.of(multiplicationOf(left, right)) :
-                Optional.empty();
+    public Optional<Matrix<T>> performOn(final Matrix<T> left, final Matrix<T> right) {
+        return checker.apply(left, right) ? Optional.of(perform(left, right)) : Optional.empty();
     }
 
-    /**
-     * Converts two matrices into a list of groups with the following format
-     * [(line[indexLine], column[0]) ... (line[indexLine], column[n])]
-     * where n = right.columns().size()
-     *
-     * @param indexLine - the line we need to focus on in order to create the groups
-     * @return - the list of groups
-     */
-    @SuppressWarnings("unchecked")
-    private List convertToGroup(Matrix left, Matrix right, Integer indexLine) {
-        return Stream.iterate(0, column -> column + 1).limit(right.columns())
-                .map(column -> new Pair(left.getLine(indexLine), right.getColumn(column)))
-                .collect(Collectors.toList());
+    private Matrix<T> perform(Matrix<T> left, Matrix<T> right) {
+        return new Matrix<>(left.getLines(), left.getColumns(), left.getGenerator(),
+                getResultOfAction(distribute.apply(left.asList(), concurrency),
+                        distribute.apply(right.asList(), concurrency)), left.getStringImporter());
     }
 
-    /**
-     * Generates all the groups with the following format
-     * [[(line[0], column[0]) ... (line[0], column[n])]
-     * ... ... ... ... ... ... ... ... ... ... ... ...
-     * [(line[m], column[0]) ... (line[m], column[n])]]
-     * where n = right.columns().size() and m = left.lines().size();
-     *
-     * @return - all the groups as a list
-     */
-    private List generateMultiplicationGroups(Matrix left, Matrix right) {
-        return Stream.iterate(0, line -> line + 1).limit(left.lines())
-                .map(line -> convertToGroup(left, right, line))
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
+    private List<T> getResultOfAction(List<List<T>> left, List<List<T>> right) {
+        return getResultOfAction(left, right, 0, Collections.emptyList());
     }
 
-    /**
-     * Applies the multiplication task for each group in parallel on @threads threads.
-     *
-     * @return - the result matrix as a list
-     */
-    private List<Integer> parallelMultiplicationOf(List<List<Pair<List<Integer>, List<Integer>>>> groups) {
-        return Stream.iterate(0, index -> index + 1).limit(threads)
-                .map(index -> new MultiplicationTask(groups.get(index)))
-                .map(task -> solveTaskAndReturnResult.apply(task))
-                .flatMap(List::stream).collect(Collectors.toList());
+    private List<T> getResultOfAction(List<List<T>> left, List<List<T>> right, Integer index, List<T> accumulator) {
+        return (index.equals(concurrency)) ? accumulator :
+                getResultOfAction(left, right, index + 1,
+                        ListUtils.union(accumulator, getResultFromTask(left.get(index), right.get(index), new ArrayList<>())));
     }
 
-    /**
-     * @return - the result matrix as a matrix.
-     */
-    @SuppressWarnings("unchecked")
-    private Matrix multiplicationOf(Matrix left, Matrix right) {
-        return new Matrix().fromList(distributionManager.partition(
-                parallelMultiplicationOf(distributionManager.distribute
-                        (generateMultiplicationGroups(left, right), threads)), right.columns()));
+    private List<T> getResultFromTask(List<T> left, List<T> right, List<T> result) {
+        Thread thread = new Thread(new Task<>(left, right, result, action));
+        thread.start();
+        performer.consume(thread::join);
+        return result;
     }
-
 }

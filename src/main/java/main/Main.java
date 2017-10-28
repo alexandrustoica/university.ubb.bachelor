@@ -1,10 +1,15 @@
 package main;
 
+import domain.Complex;
+import domain.Matrix;
+import domain.MatrixBuilder;
 import manager.FileManager;
-import manager.Matrix;
 import manager.MatrixCalculator;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.Random;
+import java.util.function.Function;
 
 /**
  * @author Alexandru Stoica
@@ -15,43 +20,39 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Long startTime = System.currentTimeMillis();
 
-        // Step#1: Generate Matrices
-        Matrix left = new Matrix().generate(100, 100, 100);
-        Matrix right = new Matrix().generate(100, 100, 100);
+        Function<String, Complex<Integer>> importer = (string) -> {
+            String[] data = string.replace("[", "")
+                    .replace("]", "").split("\\s");
+            return new Complex<>(Integer.parseInt(data[0]), Integer.parseInt(data[1]));
+        };
 
-        // Step#2: Save Matrices to Files
-        new FileManager("left").write(left.toString());
-        new FileManager("right").write(right.toString());
+        Matrix<Complex<Integer>> left = new MatrixBuilder<Complex<Integer>>()
+                .withLines(10).withColumns(10).withStringImporter(importer)
+                .withGenerator(() -> new Complex<>(new Random().nextInt(100), new Random().nextInt(100)))
+                .build().generate();
 
-        // Step#3: Read Matrices from Files
-        Matrix lhs = new Matrix().fromString(new FileManager("left").read());
-        Matrix rhs = new Matrix().fromString(new FileManager("right").read());
+        Matrix<Complex<Integer>> right = new MatrixBuilder<Complex<Integer>>()
+                .withLines(10).withColumns(10).withStringImporter(importer)
+                .withGenerator(() -> new Complex<>(new Random().nextInt(100), new Random().nextInt(100)))
+                .build().generate();
 
-        // Step#4: Calculate Sum and Multiply
-        MatrixCalculator calculator = new MatrixCalculator(4);
-        // System.out.println("LHS" + System.lineSeparator() + lhs);
-        // System.out.println("LHS" + System.lineSeparator() + rhs);
+        new FileManager("left").write(left.exportToString());
+        Matrix<Complex<Integer>> leftFromFile = left.fromString(new FileManager("left").read());
 
-        // Sum of LHS and RHS
-        Long startSumTime = System.currentTimeMillis();
-        Matrix sum = calculator.sum(lhs, rhs).orElse(new Matrix());
-        Long endSumTime = System.currentTimeMillis();
-        // System.out.println("+" + System.lineSeparator() + sum);
+        new FileManager("right").write(right.exportToString());
+        Matrix<Complex<Integer>> rightFromFile = right.fromString(new FileManager("right").read());
 
-        // Multiplication of LHS with RHS
-        Long startMultiplicationTime = System.currentTimeMillis();
-        Matrix multiplication = calculator.multiply(lhs, rhs).orElse(new Matrix());
-        Long endMultiplicationTime = System.currentTimeMillis();
-        // System.out.println("*" + System.lineSeparator() + multiplication);
+        System.out.println(leftFromFile);
+        System.out.println(rightFromFile);
 
-        // Statistics
-        System.out.println("Total Time: " + (endMultiplicationTime - startTime) + "ms");
-        System.out.println("Sum Time: " + (endSumTime - startSumTime) + "ms");
-        System.out.println("Multiplication Time: " + (endMultiplicationTime - startMultiplicationTime) + "ms");
-
-
+        Long startActionTime = System.currentTimeMillis();
+        Optional<Matrix<Complex<Integer>>> result = new MatrixCalculator<Complex<Integer>>().withConcurrency(4)
+                .basedOn((lhs, rhs) -> new Complex<>(lhs.getReal() + rhs.getReal(), lhs.getImaginary() + rhs.getImaginary()))
+                .performOn(leftFromFile, rightFromFile);
+        Long endActionTime = System.currentTimeMillis();
+        result.ifPresent(System.out::println);
+        System.out.println("Action Time: " + (endActionTime - startActionTime) + "ms");
     }
 
 }

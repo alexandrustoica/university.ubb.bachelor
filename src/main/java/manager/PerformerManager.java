@@ -1,5 +1,6 @@
 package manager;
 
+import functional.NullConsumer;
 import functional.NullPerformer;
 import functional.UnaryConsumer;
 import functional.UnaryPerformer;
@@ -77,6 +78,15 @@ public class PerformerManager {
     consume(UnaryConsumer<T, E> consumer, T parameter) {
         try {
             consumer.accept(parameter);
+        } catch (Exception exception) {
+            handler.accept(exception);
+        }
+    }
+
+    public <E extends Exception> void
+    consume(NullConsumer<E> consumer) {
+        try {
+            consumer.accept();
         } catch (Exception exception) {
             handler.accept(exception);
         }

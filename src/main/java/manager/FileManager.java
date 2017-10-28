@@ -20,7 +20,7 @@ public class FileManager implements Reader<String>, Writer<String> {
     private static Logger logger;
 
     /**
-     * Helps the FileManager to perform operations and log their errors.
+     * Helps the FileManager to performOn operations and log their errors.
      */
     private PerformerManager performer;
 
