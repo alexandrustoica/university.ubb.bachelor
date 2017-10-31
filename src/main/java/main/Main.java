@@ -1,14 +1,15 @@
 package main;
 
 import domain.Complex;
+import domain.Generator;
 import domain.Matrix;
 import domain.MatrixBuilder;
-import manager.FileManager;
 import manager.MatrixCalculator;
 
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -19,40 +20,77 @@ import java.util.function.Function;
 
 public class Main {
 
+    public static <T> void runBasedOn(
+            final Integer lines,
+            final Integer columns,
+            final Integer threads,
+            final BiFunction<T, T, T> action,
+            final Function<String, T> importer,
+            final Generator<T> generator) {
+
+        Matrix<T> left = new MatrixBuilder<T>()
+                .withLines(lines).withColumns(columns).withStringImporter(importer)
+                .withGenerator(generator)
+                .build().generate();
+
+        Matrix<T> right = new MatrixBuilder<T>()
+                .withLines(1000).withColumns(1000).withStringImporter(importer)
+                .withGenerator(generator)
+                .build().generate();
+
+//        new FileManager("left").write(left.exportToString());
+//        Matrix<T> leftFromFile = left.fromString(new FileManager("left").read());
+//
+//        new FileManager("right").write(right.exportToString());
+//        Matrix<T> rightFromFile = right.fromString(new FileManager("right").read());
+
+        Long startActionTime = System.currentTimeMillis();
+        Optional<Matrix<T>> result = new MatrixCalculator<T>().withConcurrency(threads)
+                .basedOn(action)
+                .performOn(left, right);
+
+        Long endActionTime = System.currentTimeMillis();
+        // result.ifPresent(System.out::println);
+        System.out.println("Action Time: " + (endActionTime - startActionTime) + "ms " + "threads : " + threads);
+    }
+
     public static void main(String[] args) throws IOException {
 
-        Function<String, Complex<Integer>> importer = (string) -> {
+        Function<String, Complex<Integer>> complexImporter = (string) -> {
             String[] data = string.replace("[", "")
                     .replace("]", "").split("\\s");
             return new Complex<>(Integer.parseInt(data[0]), Integer.parseInt(data[1]));
         };
 
-        Matrix<Complex<Integer>> left = new MatrixBuilder<Complex<Integer>>()
-                .withLines(10).withColumns(10).withStringImporter(importer)
-                .withGenerator(() -> new Complex<>(new Random().nextInt(100), new Random().nextInt(100)))
-                .build().generate();
+        Generator<Complex<Integer>> complexGenerator =
+                () -> new Complex<>(new Random().nextInt(100), new Random().nextInt(100));
 
-        Matrix<Complex<Integer>> right = new MatrixBuilder<Complex<Integer>>()
-                .withLines(10).withColumns(10).withStringImporter(importer)
-                .withGenerator(() -> new Complex<>(new Random().nextInt(100), new Random().nextInt(100)))
-                .build().generate();
+        Function<String, Double> doubleImporter = Double::parseDouble;
+        Generator<Double> doubleGenerator = () -> new Random().nextDouble();
 
-        new FileManager("left").write(left.exportToString());
-        Matrix<Complex<Integer>> leftFromFile = left.fromString(new FileManager("left").read());
 
-        new FileManager("right").write(right.exportToString());
-        Matrix<Complex<Integer>> rightFromFile = right.fromString(new FileManager("right").read());
+        BiFunction<Complex<Integer>, Complex<Integer>, Complex<Integer>> complexMultiplication =
+                (left, right) -> new Complex<>(left.getReal() * right.getReal() + left.getImaginary() * right.getImaginary(),
+                        left.getReal() * right.getImaginary() + left.getImaginary() * right.getReal());
+        BiFunction<Double, Double, Double> doubleMultiplication = (left, right) -> left * right;
+        BiFunction<Double, Double, Double> doubleSpecial = (left, right) -> 1 / (1 / left + 1 / right);
 
-        System.out.println(leftFromFile);
-        System.out.println(rightFromFile);
+        runBasedOn(1000, 1000, 2, complexMultiplication, complexImporter, complexGenerator);
+        runBasedOn(1000, 1000, 4, complexMultiplication, complexImporter, complexGenerator);
+        runBasedOn(1000, 1000, 6, complexMultiplication, complexImporter, complexGenerator);
+        runBasedOn(1000, 1000, 8, complexMultiplication, complexImporter, complexGenerator);
 
-        Long startActionTime = System.currentTimeMillis();
-        Optional<Matrix<Complex<Integer>>> result = new MatrixCalculator<Complex<Integer>>().withConcurrency(4)
-                .basedOn((lhs, rhs) -> new Complex<>(lhs.getReal() + rhs.getReal(), lhs.getImaginary() + rhs.getImaginary()))
-                .performOn(leftFromFile, rightFromFile);
-        Long endActionTime = System.currentTimeMillis();
-        result.ifPresent(System.out::println);
-        System.out.println("Action Time: " + (endActionTime - startActionTime) + "ms");
+        runBasedOn(1000, 1000, 2, doubleMultiplication, doubleImporter, doubleGenerator);
+        runBasedOn(1000, 1000, 4, doubleMultiplication, doubleImporter, doubleGenerator);
+        runBasedOn(1000, 1000, 6, doubleMultiplication, doubleImporter, doubleGenerator);
+        runBasedOn(1000, 1000, 8, doubleMultiplication, doubleImporter, doubleGenerator);
+
+        runBasedOn(1000, 1000, 2, doubleSpecial, doubleImporter, doubleGenerator);
+        runBasedOn(1000, 1000, 4, doubleSpecial, doubleImporter, doubleGenerator);
+        runBasedOn(1000, 1000, 6, doubleSpecial, doubleImporter, doubleGenerator);
+        runBasedOn(1000, 1000, 8, doubleSpecial, doubleImporter, doubleGenerator);
+
+
     }
 
 }
