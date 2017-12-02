@@ -68,7 +68,6 @@ public class StoreTest {
     }
 
     @Test
-    //TODO: Solve this test!
     public void isSellingProduct_WithMultipleConsumers() throws Exception {
         // declarations:
         Store store = new Store();
@@ -76,13 +75,18 @@ public class StoreTest {
         List<Product> products = IntStream.range(1, 100).boxed().parallel()
                 .map(Unchecked.function(it -> store.deposit(new Product("default", 10.0, "kg"), 1).get()))
                 .collect(Collectors.toList());
-        assertThat(store.products(), hasSize(99));
         // when:
-        List<Invoice> invoices = IntStream.range(1, 100).boxed().parallel()
-                .map(Unchecked.function(number -> store.sell(number, 1).get()))
+        List<Future<Invoice>> futureInvoices = IntStream.range(1, 100).boxed().parallel()
+                .map(Unchecked.function(number -> store.sell(number, 1)))
+                .collect(Collectors.toList());
+        // I'm not waiting for the result.
+        List<Invoice> invoices = futureInvoices.stream()
+                .map(Unchecked.function(Future::get))
                 .collect(Collectors.toList());
         // then:
-        assertAll(() -> assertThat(invoices, hasSize(99)),
+        assertAll(
+                () -> assertThat(store.total(), equalTo(990.0)),
+                () -> assertThat(invoices, hasSize(99)),
                 () -> assertThat(store.products(), hasSize(0)));
     }
 

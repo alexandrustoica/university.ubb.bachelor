@@ -3,22 +3,28 @@ package store.domain;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.EqualsAndHashCode;
 
+import java.util.concurrent.atomic.AtomicLong;
+
+import static java.lang.Double.doubleToLongBits;
+import static java.lang.Double.longBitsToDouble;
+
 @Immutable
 @EqualsAndHashCode()
 public class TotalSold {
 
-    private Double value;
+    private final AtomicLong value;
 
     public TotalSold(final Double value) {
-        this.value = value;
+        this.value = new AtomicLong(doubleToLongBits(value));
     }
 
-    @SuppressWarnings("unused")
     public Double value() {
-        return value;
+        return longBitsToDouble(value.get());
     }
 
-    public TotalSold add(final Double value) {
-        return new TotalSold(this.value + value);
+    @SuppressWarnings("all")
+    public TotalSold increment(final Double value) {
+        this.value.getAndUpdate(it -> doubleToLongBits(longBitsToDouble(it) + value));
+        return this;
     }
 }

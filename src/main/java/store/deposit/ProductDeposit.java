@@ -27,10 +27,10 @@ public class ProductDeposit implements Deposit<Product> {
     }
 
     @Override
-    public void remove(Product element, Integer quantity) {
+    public synchronized void remove(Product element, Integer quantity) {
         Stock stock = findStockForProduct(element);
         stocks.replaceAll(item -> !item.equals(stock) ?
-                stock : stock.reduceQuantity(quantity));
+                item : stock.reduceQuantity(quantity));
         stocks.removeIf(it -> it.quantity().equals(0));
     }
 
@@ -63,6 +63,6 @@ public class ProductDeposit implements Deposit<Product> {
     private Stock findStockForProduct(final Product product) {
         return stocks.stream()
                 .filter(stock -> stock.product().equals(product))
-                .findFirst().orElseThrow(ProductNotFoundException::new);
+                .findAny().orElseThrow(ProductNotFoundException::new);
     }
 }

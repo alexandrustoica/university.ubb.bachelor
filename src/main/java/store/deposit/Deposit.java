@@ -1,5 +1,6 @@
 package store.deposit;
 
+
 import java.util.List;
 
 public interface Deposit<T> {
