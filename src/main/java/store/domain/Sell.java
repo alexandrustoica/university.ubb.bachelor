@@ -1,11 +1,14 @@
 package store.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
+@ToString(exclude = {"date"})
 @EqualsAndHashCode(exclude = {"date"})
-public class Sell {
+public class Sell implements Serializable {
 
     private final Calendar date;
     private Product product;

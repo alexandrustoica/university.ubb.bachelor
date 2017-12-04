@@ -4,10 +4,12 @@ import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Immutable
 @ToString()
 @EqualsAndHashCode(of={"product", "quantity"})
-public class Stock {
+public class Stock implements Serializable {
 
     private Product product;
     private Integer quantity;

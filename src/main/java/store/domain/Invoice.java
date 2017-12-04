@@ -2,10 +2,14 @@ package store.domain;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+import java.io.Serializable;
+
+@ToString
 @Immutable
-@EqualsAndHashCode()
-public class Invoice {
+@EqualsAndHashCode
+public class Invoice implements Serializable {
     private String name;
     private Sell sell;
     private Double total;

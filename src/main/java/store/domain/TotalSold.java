@@ -3,6 +3,7 @@ package store.domain;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static java.lang.Double.doubleToLongBits;
@@ -10,7 +11,7 @@ import static java.lang.Double.longBitsToDouble;
 
 @Immutable
 @EqualsAndHashCode()
-public class TotalSold {
+public class TotalSold implements Serializable {
 
     private final AtomicLong value;
 

@@ -5,12 +5,14 @@ import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 
 @SuppressWarnings("ALL")
 @Immutable
 @EqualsAndHashCode(of={"id"})
 @ToString
-public class Product {
+public class Product implements Serializable {
 
     private final Integer id;
     private final String name;

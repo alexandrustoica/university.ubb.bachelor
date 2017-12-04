@@ -2,6 +2,7 @@ package store.domain;
 
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
+import org.springframework.stereotype.Component;
 import store.deposit.Deposit;
 import store.deposit.ProductDeposit;
 import store.employee.Cashier;
@@ -16,6 +17,7 @@ import java.util.function.Function;
 
 
 @Immutable
+@Component
 public class Store {
 
     private final ExecutorService executorService =
