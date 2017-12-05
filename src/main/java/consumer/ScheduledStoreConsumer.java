@@ -4,7 +4,8 @@ import org.apache.log4j.Logger;
 import org.jooq.lambda.Unchecked;
 import store.domain.Invoice;
 import store.domain.Product;
-import store.domain.Store;
+import store.domain.Stock;
+import store.store.Store;
 
 import java.util.List;
 import java.util.Random;
@@ -16,10 +17,7 @@ import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-/**
- * @author Alexandru Stoica
- * @version 1.0
- */
+import static org.jooq.lambda.Unchecked.supplier;
 
 public class ScheduledStoreConsumer {
 
@@ -32,7 +30,7 @@ public class ScheduledStoreConsumer {
 
     public static void main(String[] args) {
         Store store = new Store();
-        List<Product> products = IntStream.range(0, 1000)
+        List<Stock> products = IntStream.range(0, 1000)
                 .boxed().parallel()
                 .map(Unchecked.function(it -> store.deposit(new Product("Name", 10.0, "kg"), it).get()))
                 .collect(Collectors.toList());

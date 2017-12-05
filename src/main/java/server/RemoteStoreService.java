@@ -2,7 +2,8 @@ package server;
 
 import store.domain.Invoice;
 import store.domain.Product;
-import store.domain.Store;
+import store.domain.Stock;
+import store.store.Store;
 
 import static org.jooq.lambda.Unchecked.supplier;
 
@@ -16,7 +17,7 @@ public class RemoteStoreService implements StoreService {
     }
 
     @Override
-    public Product deposit(Product product, Integer quantity) {
+    public Stock deposit(Product product, Integer quantity) {
         return supplier(() -> store.deposit(product, quantity).get()).get();
     }
 

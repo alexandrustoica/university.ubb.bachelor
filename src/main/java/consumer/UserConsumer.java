@@ -2,7 +2,7 @@ package consumer;
 
 import server.RemoteStoreService;
 import server.StoreService;
-import store.domain.Store;
+import store.store.Store;
 
 /**
  * @author Alexandru Stoica

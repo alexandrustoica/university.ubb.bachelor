@@ -1,10 +1,13 @@
 package server;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.remoting.rmi.RmiServiceExporter;
-import store.domain.Store;
+import store.store.Store;
 
 /**
  * @author Alexandru Stoica
@@ -12,13 +15,20 @@ import store.domain.Store;
  */
 
 @Configuration
-@ComponentScan("store.domain")
+@EnableAutoConfiguration
+@ComponentScan(basePackages = {"store"})
+@EnableJpaRepositories(basePackages = {"store.repository"})
 public class ServerConfiguration {
 
-    private final Store store = new Store();
+    private final Store store;
+
+    @Autowired
+    public ServerConfiguration(final Store store) {
+        this.store = store;
+    }
 
     @Bean
-    public StoreService store() {
+    public StoreService storeService() {
         return new ValidatedStore(new RemoteStoreService(store));
     }
 

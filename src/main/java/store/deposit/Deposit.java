@@ -1,12 +1,16 @@
 package store.deposit;
 
-
 import java.util.List;
+import java.util.Optional;
 
-public interface Deposit<T> {
-    T deposit(final T element, final Integer quantity);
-    void remove(final T element, final Integer quantity);
-    Boolean isAvailable(final T element, final Integer quantity);
-    T findById(final Integer id);
-    List<T> all();
+/**
+ * @author Alexandru Stoica
+ * @version 1.0
+ */
+
+public interface Deposit<T, Id> {
+    T deposit(T element);
+    Optional<T> remove(T element);
+    Optional<T> findById(Id id);
+    List<T> elements();
 }

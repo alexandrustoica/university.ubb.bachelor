@@ -26,6 +26,7 @@ public class RemoteConsumer {
 
     public static void main(String[] args) {
         StoreService service = SpringApplication.run(RemoteConsumer.class, args).getBean(StoreService.class);
+        new AutomaticConsumer(service).run();
         new ConsoleConsumer(service).run();
     }
 }

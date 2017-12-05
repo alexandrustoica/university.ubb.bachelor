@@ -5,18 +5,29 @@ import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import javax.persistence.*;
+import javax.persistence.Id;
 import java.io.Serializable;
 
-
-@SuppressWarnings("ALL")
-@Immutable
-@EqualsAndHashCode(of={"id"})
+@Entity
 @ToString
+@Immutable
+@Table(name = "Product")
+@EqualsAndHashCode(of={"id"})
 public class Product implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private final Integer id;
+
+    @Column(name = "name")
     private final String name;
+
+    @Column(name = "price")
     private final Double price;
+
+    @Column(name = "unit")
     private final String unit;
 
     private Product(final Integer id,

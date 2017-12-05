@@ -1,12 +1,12 @@
 package store;
 
-import org.hamcrest.core.IsEqual;
 import org.jooq.lambda.Unchecked;
 import org.junit.Test;
 import store.domain.Invoice;
 import store.domain.Product;
-import store.domain.Store;
-import store.exception.OverflowSupplyException;
+import store.domain.Stock;
+import store.exception.UnavailableStockException;
+import store.store.Store;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -16,9 +16,12 @@ import java.util.stream.IntStream;
 
 import static org.hamcrest.CoreMatchers.both;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
-import static org.junit.Assert.*;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.number.OrderingComparison.greaterThan;
+import static org.hamcrest.number.OrderingComparison.lessThanOrEqualTo;
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -29,9 +32,9 @@ public class StoreTest {
         // declarations:
         Product product = new Product("Test", 0.0, "kg");
         // when:
-        Product actual = new Store().deposit(product, 1).get();
+        Stock actual = new Store().deposit(product, 1).get();
         // then:
-        assertThat(actual, IsEqual.equalTo(product.id(1)));
+        assertThat(actual.product(), equalTo(product.id(1)));
     }
 
     @Test
@@ -39,7 +42,7 @@ public class StoreTest {
         // declarations:
         Store store = new Store();
         // when:
-        List<Product> products = IntStream.range(0, 100).boxed().parallel()
+        List<Stock> stocks = IntStream.range(0, 100).boxed().parallel()
                 .map(Unchecked.function(it -> store.deposit(new Product(), it).get()))
                 .collect(Collectors.toList());
         // then:
@@ -57,7 +60,7 @@ public class StoreTest {
         Product expected = new Product("Test", 10.0, "kg");
         Store store = new Store();
         // preconditions:
-        store.deposit(expected, QUANTITY);
+        store.deposit(expected, QUANTITY).get();
         // when:
         Invoice actual = store.sell(PRODUCT_ID, QUANTITY).get();
         // then:
@@ -72,7 +75,7 @@ public class StoreTest {
         // declarations:
         Store store = new Store();
         // preconditions:
-        List<Product> products = IntStream.range(1, 100).boxed().parallel()
+        IntStream.range(1, 100).boxed().parallel()
                 .map(Unchecked.function(it -> store.deposit(new Product("default", 10.0, "kg"), 1).get()))
                 .collect(Collectors.toList());
         // when:
@@ -99,11 +102,11 @@ public class StoreTest {
         Product product = new Product();
         Store store = new Store();
         // preconditions:
-        store.deposit(product, QUANTITY);
+        store.deposit(product, QUANTITY).get();
         // when:
         Future<Invoice> invoice = store.sell(PRODUCT_ID, WANTED_QUANTITY);
         // then:
         Throwable exception = assertThrows(ExecutionException.class, invoice::get);
-        assertThat(exception.getCause(), is(new OverflowSupplyException()));
+        assertThat(exception.getCause(), is(new UnavailableStockException()));
     }
 }

@@ -2,7 +2,8 @@ package server;
 
 import store.domain.Invoice;
 import store.domain.Product;
-import store.domain.Store;
+import store.domain.Stock;
+import store.store.Store;
 
 /**
  * @author Alexandru Stoica
@@ -18,7 +19,7 @@ public class StoreServiceDecorator implements StoreService {
     }
 
     @Override
-    public Product deposit(Product product, Integer quantity) {
+    public Stock deposit(Product product, Integer quantity) {
         return service.deposit(product, quantity);
     }
 
@@ -31,4 +32,5 @@ public class StoreServiceDecorator implements StoreService {
     public Store store() {
         return service.store();
     }
+
 }
