@@ -35,7 +35,7 @@ public final class DatabaseDeposit extends DepositDecorator<Stock, Integer> {
         Optional<Stock> stock = super.remove(element);
         stock.ifPresent(stockRepository::save);
         if(!stock.isPresent())
-            stockRepository.delete(element);
+            stockRepository.delete(stockRepository.findStockByProduct(element.product()));
         return super.remove(element);
     }
 }

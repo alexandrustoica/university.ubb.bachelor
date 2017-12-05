@@ -30,4 +30,9 @@ public class RemoteStoreService implements StoreService {
     public Store store() {
         return store;
     }
+
+    @Override
+    public Double total() {
+        return store.total();
+    }
 }

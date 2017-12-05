@@ -51,8 +51,8 @@ public class ConsoleConsumer implements Runnable {
 
     private void buyProduct() {
         Integer id = getProductId();
-        Integer quantity2 = getQuantity();
-        new Thread(() -> System.out.println(store.sell(id, quantity2))).run();
+        Integer quantity = getQuantity();
+        new Thread(() -> System.out.println(store.sell(id, quantity))).run();
     }
 
     private String read(final String message) throws IOException {

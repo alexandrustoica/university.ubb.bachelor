@@ -14,4 +14,5 @@ public interface StoreService {
     Stock deposit(final Product product, final Integer quantity);
     Invoice sell(final Integer idProduct, final Integer quantity);
     Store store();
+    Double total();
 }

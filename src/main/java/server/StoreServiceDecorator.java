@@ -33,4 +33,9 @@ public class StoreServiceDecorator implements StoreService {
         return service.store();
     }
 
+    @Override
+    public Double total() {
+        return service.total();
+    }
+
 }
