@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/alexandru/CLionProjects/greyscale/include/png.cpp
+png++/png.hpp
+-
+
+/home/alexandru/CLionProjects/greyscale/main.cpp
+iostream
+-
+
