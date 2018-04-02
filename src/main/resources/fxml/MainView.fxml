@@ -55,7 +55,7 @@
                            <children>
                               <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="40.0" style="-fx-background-color: #292827;">
                                  <right>
-                                    <CheckBox fx:id="greyscaleButton1" mnemonicParsing="false" onAction="#onSeeChangesButtonClick" stylesheets="@checkbox.css" BorderPane.alignment="CENTER">
+                                    <CheckBox mnemonicParsing="false" stylesheets="@checkbox.css" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
                                           <Insets right="10.0" />
                                        </BorderPane.margin>
@@ -93,7 +93,7 @@
                               </BorderPane>
                               <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="40.0" style="-fx-background-color: #292827;">
                                  <left>
-                                    <Label text="Hue" textFill="WHITE" BorderPane.alignment="CENTER">
+                                    <Label text="Binarization" textFill="WHITE" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
                                           <Insets left="20.0" />
                                        </BorderPane.margin>
@@ -103,7 +103,7 @@
                                     <InnerShadow blurType="ONE_PASS_BOX" choke="1.0" color="#fafafa08" height="1.0" offsetY="-1.0" radius="0.0" width="0.0" />
                                  </effect>
                                  <right>
-                                    <Slider fx:id="visibilitySlider" maxWidth="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                    <Slider fx:id="binarySlider" max="255.0" maxWidth="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
                                           <Insets left="10.0" right="10.0" />
                                        </BorderPane.margin>
@@ -114,29 +114,77 @@
                                     </Slider>
                                  </right>
                               </BorderPane>
+                              <BorderPane onMouseClicked="#onImageSubtractionClick" prefHeight="40.0" style="-fx-background-color: #292827;">
+                                 <left>
+                                    <Label text="Subtraction" textFill="WHITE" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets left="20.0" />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                                 <right>
+                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                       <image>
+                                          <Image url="@../icons/substraction.png" />
+                                       </image>
+                                       <BorderPane.margin>
+                                          <Insets right="20.0" />
+                                       </BorderPane.margin>
+                                    </ImageView>
+                                 </right>
+                                 <effect>
+                                    <InnerShadow color="#ffffff0c" height="0.0" offsetY="-1.0" radius="0.0" width="0.0" />
+                                 </effect>
+                              </BorderPane>
                            </children>
                         </VBox>
                      </center>
                      <bottom>
-                        <BorderPane onMouseClicked="#onChooseImageClick" prefHeight="40.0" style="-fx-background-color: #292827;" BorderPane.alignment="CENTER">
-                           <left>
-                              <Label text="Choose Image" textFill="WHITE" BorderPane.alignment="CENTER">
-                                 <BorderPane.margin>
-                                    <Insets left="20.0" />
-                                 </BorderPane.margin>
-                              </Label>
-                           </left>
-                           <right>
-                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/plus.png" />
-                                 </image>
-                                 <BorderPane.margin>
-                                    <Insets right="20.0" />
-                                 </BorderPane.margin>
-                              </ImageView>
-                           </right>
-                        </BorderPane>
+                        <VBox BorderPane.alignment="CENTER">
+                           <children>
+                              <BorderPane onMouseClicked="#onChooseImageClick" prefHeight="40.0" style="-fx-background-color: #292827;">
+                                 <left>
+                                    <Label text="Choose Image" textFill="WHITE" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets left="20.0" />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                                 <right>
+                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                       <image>
+                                          <Image url="@../icons/plus.png" />
+                                       </image>
+                                       <BorderPane.margin>
+                                          <Insets right="20.0" />
+                                       </BorderPane.margin>
+                                    </ImageView>
+                                 </right>
+                                 <effect>
+                                    <InnerShadow color="#ffffff0c" height="0.0" offsetY="-1.0" radius="0.0" width="0.0" />
+                                 </effect>
+                              </BorderPane>
+                              <BorderPane layoutX="10.0" layoutY="10.0" onMouseClicked="#onExportImageClick" prefHeight="40.0" style="-fx-background-color: #292827;">
+                                 <left>
+                                    <Label text="Export Image" textFill="WHITE" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets left="20.0" />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                                 <right>
+                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                       <image>
+                                          <Image url="@../icons/export.png" />
+                                       </image>
+                                       <BorderPane.margin>
+                                          <Insets right="20.0" />
+                                       </BorderPane.margin>
+                                    </ImageView>
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </VBox>
                      </bottom>
                   </BorderPane>
                </children></VBox>

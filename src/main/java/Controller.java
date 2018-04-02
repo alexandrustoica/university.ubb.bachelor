@@ -1,5 +1,6 @@
 import commands.*;
-import image.Image;
+import effect.*;
+import image.Figure;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
@@ -7,13 +8,13 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import pixel.Pixel;
 
 import java.io.File;
 import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.function.Function;
 
 import static java.util.Arrays.asList;
+
 
 public class Controller {
 
@@ -33,64 +34,91 @@ public class Controller {
     private CheckBox greyscaleButton;
 
     @FXML
-    private Slider visibilitySlider;
+    private Slider binarySlider;
 
     private Stage primaryStage;
 
-    private File resultFile;
+    private EffectConfiguration configuration;
 
     public void setStage(final Stage stage) {
         this.primaryStage = stage;
     }
 
     public void initialize() {
-        leftImageScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        leftImageScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        rightImageScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        rightImageScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        originalImage.fitHeightProperty().bind(leftImageScrollPane.heightProperty());
-        resultImage.fitHeightProperty().bind(rightImageScrollPane.heightProperty());
-        resultFile = new File("outputt.png");
-        visibilitySlider.valueProperty().addListener((
-                (observable, oldValue, newValue) -> System.out.println(newValue)));
-    }
-
-    public void onSeeChangesButtonClick() {
-        final Image original = new Image(originalImage.getImage());
-        final Image result = new Image(resultImage.getImage());
-        Command<Stream<Pixel>> command = new VisibilityCommand(
-                original.streamOfPixels(), result.streamOfPixels());
-        Runnable task = () -> {
-            Image difference = result.apply(command.execute());
-            new SaveCommand(difference, resultFile).execute();
-            new LoadImageCommand(resultImage, resultFile).execute();
-        };
-        new Thread(task).start();
+        setUpInterfaceConstraints();
+        configuration = new EffectConfiguration();
+        binarySlider.valueProperty().addListener((observable, oldValue, newValue) ->
+                onBinarySliderValueChange(newValue));
     }
 
     @FXML
     public void onGreyscaleButtonClick() {
-        final Image image = new Image(originalImage.getImage());
-        Command<Stream<Pixel>> command =
-                new ToGreyscaleCommand(image.streamOfPixels());
-        Runnable task = () -> {
-            Image result = greyscaleButton.isSelected() ?
-                    image.apply(command.execute()) : image.apply(command.undo());
-            new SaveCommand(result, resultFile).execute();
-            new LoadImageCommand(resultImage, resultFile).execute();
-        };
-        new Thread(task).start();
+        configuration = greyscaleButton.isSelected() ?
+                configuration.add(new GreyscaleEffect()) :
+                configuration.remove(EffectType.GREYSCALE);
+        render();
+    }
+
+    private void onBinarySliderValueChange(final Number newValue) {
+        configuration = newValue.intValue() > 0 ?
+                configuration.remove(EffectType.BINARY)
+                        .add(new BinaryEffect(newValue.intValue())) :
+                configuration.remove(EffectType.BINARY);
+        render();
     }
 
     @FXML
     public void onChooseImageClick() {
+        Optional<File> file = getFileFromUser(fileChooser ->
+                fileChooser.showOpenDialog(primaryStage));
+        file.ifPresent(it -> new LoadImageCommand(originalImage, it).execute());
+        file.ifPresent(it -> new LoadImageCommand(resultImage, it).execute());
+    }
+
+    @FXML
+    public void onImageSubtractionClick() {
+        Optional<File> file = getFileFromUser(fileChooser ->
+                fileChooser.showOpenDialog(primaryStage));
+        file.ifPresent(this::onSubtractFileUploaded);
+    }
+
+    private void onSubtractFileUploaded(final File file) {
+        configuration = configuration
+                .remove(EffectType.SUBTRACT)
+                .add(new SubtractEffect(new Figure(file)));
+        render();
+    }
+
+    @FXML
+    public void onExportImageClick() {
+        Optional<File> file = getFileFromUser(fileChooser ->
+                fileChooser.showSaveDialog(primaryStage));
+        file.ifPresent(it -> new SaveCommand(resultImage.getImage(), it).execute());
+    }
+
+    private Optional<File> getFileFromUser(
+            final Function<FileChooser, File> fromFileChooser) {
         final FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Select an image ...",
                         asList("*.png", "*.jpg", "*.jpeg")));
-        Optional<File> file = Optional.ofNullable(
-                fileChooser.showOpenDialog(primaryStage));
-        file.ifPresent(it -> new LoadImageCommand(originalImage, it).execute());
-        file.ifPresent(it -> new LoadImageCommand(resultImage, it).execute());
+        return Optional.ofNullable(fromFileChooser.apply(fileChooser));
+    }
+
+    private void render() {
+        new Thread(() -> resultImage.setImage(
+                new Figure(originalImage.getImage()).apply(configuration
+                        .toTransformer()).toImage())).start();
+    }
+
+    private void setUpInterfaceConstraints() {
+        leftImageScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        leftImageScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        rightImageScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        rightImageScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        originalImage.fitHeightProperty()
+                .bind(leftImageScrollPane.heightProperty());
+        resultImage.fitHeightProperty()
+                .bind(rightImageScrollPane.heightProperty());
     }
 }

@@ -1,11 +1,12 @@
 package commands;
 
-import image.Image;
+import image.Figure;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 
-public class LoadImageCommand implements Command<Image> {
+public class LoadImageCommand implements Command<Figure> {
 
     private final ImageView view;
     private final File file;
@@ -16,13 +17,8 @@ public class LoadImageCommand implements Command<Image> {
     }
 
     @Override
-    public Image execute() {
-        view.setImage(new javafx.scene.image.Image(file.toURI().toString()));
-        return new Image(file.getAbsoluteFile());
-    }
-
-    @Override
-    public Image undo() {
-        return null;
+    public Figure execute() {
+        view.setImage(new Image(file.toURI().toString()));
+        return new Figure(file.getAbsoluteFile());
     }
 }

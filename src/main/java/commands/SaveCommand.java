@@ -1,7 +1,12 @@
 package commands;
 
-import image.Image;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
 import java.io.File;
+
+import static org.jooq.lambda.Unchecked.runnable;
 
 public class SaveCommand implements Command<Void> {
 
@@ -15,12 +20,8 @@ public class SaveCommand implements Command<Void> {
 
     @Override
     public Void execute() {
-        image.saveTo(file, "png");
-        return null;
-    }
-
-    @Override
-    public Void undo() {
+        runnable(() -> ImageIO.write(SwingFXUtils.fromFXImage(image, null),
+                "png", file)).run();
         return null;
     }
 }
