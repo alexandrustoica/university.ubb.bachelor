@@ -1,0 +1,22 @@
+group 'mpp.network'
+version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.1'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':mpp.domain')
+    compile project(':mpp.model')
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
