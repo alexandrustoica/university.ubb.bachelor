@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_event.manager" default="compile.module.event.manager">
+  <dirname property="module.event.manager.basedir" file="${ant.file.module_event.manager}"/>
+  
+  <property name="module.jdk.home.event.manager" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.event.manager" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.event.manager" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.event.manager" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="event.manager.output.dir" value="${module.event.manager.basedir}/../../out/production/event.manager"/>
+  <property name="event.manager.testoutput.dir" value="${module.event.manager.basedir}/../../out/test/event.manager"/>
+  
+  <path id="event.manager.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="event.manager.module.production.classpath">
+    <path refid="${module.jdk.classpath.event.manager}"/>
+  </path>
+  
+  <path id="event.manager.runtime.production.module.classpath">
+    <pathelement location="${event.manager.output.dir}"/>
+  </path>
+  
+  <path id="event.manager.module.classpath">
+    <path refid="${module.jdk.classpath.event.manager}"/>
+    <pathelement location="${event.manager.output.dir}"/>
+  </path>
+  
+  <path id="event.manager.runtime.module.classpath">
+    <pathelement location="${event.manager.testoutput.dir}"/>
+    <pathelement location="${event.manager.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.event.manager">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.event.manager">
+    <patternset refid="excluded.from.module.event.manager"/>
+  </patternset>
+  
+  
+  <target name="compile.module.event.manager" depends="compile.module.event.manager.production,compile.module.event.manager.tests" description="Compile module event.manager"/>
+  
+  <target name="compile.module.event.manager.production" depends="register.custom.compilers" description="Compile module event.manager; production classes"/>
+  
+  <target name="compile.module.event.manager.tests" depends="register.custom.compilers,compile.module.event.manager.production" description="compile module event.manager; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.event.manager" description="cleanup module">
+    <delete dir="${event.manager.output.dir}"/>
+    <delete dir="${event.manager.testoutput.dir}"/>
+  </target>
+</project>
