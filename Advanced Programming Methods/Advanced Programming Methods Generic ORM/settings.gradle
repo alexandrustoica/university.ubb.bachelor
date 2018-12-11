@@ -1,0 +1,9 @@
+rootProject.name = 'generic-model'
+include 'model'
+include 'service'
+include 'server'
+include 'application'
+include 'interface'
+include 'rest'
+include 'web'
+
