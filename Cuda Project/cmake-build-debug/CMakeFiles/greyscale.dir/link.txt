@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/greyscale.dir/include/png.cpp.o  -o greyscale 
